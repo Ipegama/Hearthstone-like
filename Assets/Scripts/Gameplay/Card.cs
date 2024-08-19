@@ -1,4 +1,5 @@
 using Data;
+using DG.Tweening;
 using Interface;
 using System;
 using System.Collections;
@@ -34,9 +35,11 @@ namespace Gameplay
             UpdatePosition();
         }
 
-        private void UpdatePosition()
+        public void UpdatePosition()
         {
-            transform.localPosition = _cardHandler.GetPosition();
+            var targetPosition = _cardHandler.GetPosition(this);
+            transform.DOKill();
+            transform.DOLocalMove(targetPosition,0.4f);
         }
     }
     public enum CardStatus

@@ -8,13 +8,24 @@ namespace Gameplay
     public class Player : MonoBehaviour
     {
         public StartingDeckData startingDeckData;
-        public Hand hand;
-        public Deck deck;
+        [SerializeField] private Hand _hand;
+        [SerializeField] private Deck _deck;
 
+        private int _mana;
+        private int _maximumMana;
         public void Initialize()
         {
-            deck.Initialize(this,startingDeckData);
-            hand.Initialize(this);
+            _deck.Initialize(this,startingDeckData);
+            _hand.Initialize(this);
+
+            _maximumMana = 1;
+            _mana = _maximumMana;
+        }
+
+        public void DrawCard()
+        {
+            var card = _deck.DrawCard();
+            _hand.AddCard(card);
         }
     }
 }

@@ -537,8 +537,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingDeckData: {fileID: 11400000, guid: 00546c4307b2ccf4b9bdf038cc5b7a4c, type: 2}
-  hand: {fileID: 1117568968}
-  deck: {fileID: 529974083}
+  _hand: {fileID: 1117568968}
+  _deck: {fileID: 529974083}
 --- !u!4 &1032327883
 Transform:
   m_ObjectHideFlags: 0
@@ -585,6 +585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac754cc26c524a49b3b9d1189893d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardSize: 1
+  cardInterval: 0.1
   _cards: []
 --- !u!4 &1117568969
 Transform:
@@ -631,8 +633,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingDeckData: {fileID: 11400000, guid: 00546c4307b2ccf4b9bdf038cc5b7a4c, type: 2}
-  hand: {fileID: 1952887446}
-  deck: {fileID: 1943392352}
+  _hand: {fileID: 1952887446}
+  _deck: {fileID: 1943392352}
 --- !u!4 &1902799570
 Transform:
   m_ObjectHideFlags: 0
@@ -663,7 +665,7 @@ GameObject:
   m_Layer: 0
   m_Name: Deck
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -688,7 +690,7 @@ Transform:
   m_GameObject: {fileID: 1943392351}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -723,6 +725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac754cc26c524a49b3b9d1189893d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardSize: 1
+  cardInterval: 0.1
   _cards: []
 --- !u!4 &1952887447
 Transform:

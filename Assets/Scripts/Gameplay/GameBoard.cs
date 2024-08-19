@@ -7,9 +7,9 @@ namespace Gameplay
 {
     public class GameBoard : MonoBehaviour
     {
-        internal void Initialize()
+        public void Initialize()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

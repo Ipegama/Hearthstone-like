@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece38e677a413c74c92e57ab4e00c7ee, type: 3}
   m_Name: Test Card
   m_EditorClassIdentifier: 
-  cardName: 
+  cardName: Raptor
   cardSprite: {fileID: 0}
+  manaCost: 0
+  cardType: 0
+  attack: 0
+  maxHealth: 0

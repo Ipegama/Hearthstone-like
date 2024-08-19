@@ -34,7 +34,7 @@ namespace Gameplay
             _cards.Shuffle();
         }
 
-        public Vector3 GetPosition()
+        public Vector3 GetPosition(Card card)
         {
             return Vector3.zero;
         }
@@ -44,5 +44,11 @@ namespace Gameplay
             return transform;
         }
 
+        public Card DrawCard()
+        {
+            Card card = _cards[0];
+            _cards.RemoveAt(0);
+            return card;
+        }
     }
 }
