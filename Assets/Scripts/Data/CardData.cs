@@ -11,7 +11,6 @@ namespace Data
         public string cardName;
         public Sprite cardSprite;
 
-        [Range(0,6)]
         public int manaCost;
 
         public CardType cardType;
