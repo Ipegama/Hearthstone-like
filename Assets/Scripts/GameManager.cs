@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         InitializePlayers();
         InitializeBoard();
     }
+
     private void InitializePlayers()
     {
         foreach (var player in players)

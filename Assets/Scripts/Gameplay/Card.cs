@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Gameplay
 {
-    public class Card : MonoBehaviour
+    public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         public TMP_Text cardNameText;
         public TMP_Text cardManaText;
@@ -25,6 +26,8 @@ namespace Gameplay
         private Player _owner;
         private CardStatus _status;
         private ICardHandler _cardHandler;
+
+        
         public void SetData(CardData data)
         {
             _cardData = data;
@@ -61,8 +64,38 @@ namespace Gameplay
         {
             var targetPosition = _cardHandler.GetPosition(this);
             transform.DOKill();
-            transform.DOLocalMove(targetPosition,0.4f);
+            transform.DOLocalMove(targetPosition, 0.4f);
         }
+
+        public void Highlight()
+        {
+            if (_status != CardStatus.InHand) return;
+
+            transform.DOScale(Vector3.one * 4f, 0.4f);
+            transform.DOLocalMoveZ(4f, 0.4f);
+        }
+
+        public void Unhighlight()
+        {
+            if (_status != CardStatus.InHand) return;
+
+            transform.DOScale(Vector3.one * 1f, 0.4f);
+            transform.DOLocalMoveZ(0f, 0.4f);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+
+            _owner.Highlight(this);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+
+            _owner.Unhighlight(this);
+        }
+
+       
     }
     public enum CardStatus
     {
