@@ -10,8 +10,10 @@ namespace Gameplay
         public StartingDeckData startingDeckData;
         [SerializeField] private Hand _hand;
         [SerializeField] private Deck _deck;
+        [SerializeField] private Board _board;
 
         private Card _highlightedCard;
+        private Card _selectedCard;
 
         public event Action<int, int> ManaChanged;
 
@@ -40,15 +42,44 @@ namespace Gameplay
         {
             _deck.Initialize(this,startingDeckData);
             _hand.Initialize(this);
+            _board.Initialize(this);
 
             _maximumMana = 1;
             _mana = _maximumMana;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                DrawCard();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Select(null);
+            }
         }
 
         public void DrawCard()
         {
             var card = _deck.DrawCard();
             _hand.AddCard(card);
+        }
+
+        public void PlayCard(Card card)
+        {
+            _hand.RemoveCard(card);
+            _board.AddCard(card);
+        }
+
+        public void PlaySelectedCard()
+        {
+            if (_selectedCard != null)
+            {
+                PlayCard(_selectedCard);
+                Unhighlight(null);
+                Select(null);
+            }
         }
 
         public void Highlight(Card card)
@@ -67,6 +98,21 @@ namespace Gameplay
         public void Unhighlight(Card card)
         {
             Highlight(null);
+        }
+
+        public void Select(Card card)
+        {
+            if (_selectedCard)
+            {
+                _selectedCard.Unselect();
+            }
+
+            _selectedCard = card;
+
+            if (_selectedCard)
+            {
+                _selectedCard.Select();
+            }
         }
     }
 }

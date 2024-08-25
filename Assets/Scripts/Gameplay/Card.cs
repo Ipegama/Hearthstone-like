@@ -11,12 +11,14 @@ using UnityEngine.EventSystems;
 
 namespace Gameplay
 {
-    public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public TMP_Text cardNameText;
         public TMP_Text cardManaText;
         public TMP_Text cardAttackText;
         public TMP_Text cardHealthText;
+
+        public Image cardBackground;
 
         public Image cardImage;
         public GameObject cardFront;
@@ -27,7 +29,13 @@ namespace Gameplay
         private CardStatus _status;
         private ICardHandler _cardHandler;
 
-        
+        private Canvas _canvas;
+        private Color _defaultBackgroundColor;
+        private void Awake()
+        {
+            _canvas = GetComponent<Canvas>();
+            _defaultBackgroundColor = cardBackground.color;
+        }
         public void SetData(CardData data)
         {
             _cardData = data;
@@ -53,7 +61,7 @@ namespace Gameplay
            _status = status;
 
             cardBack.SetActive(_status == CardStatus.InDeck);
-            cardFront.SetActive(_status == CardStatus.InHand);
+            cardFront.SetActive(_status == CardStatus.InHand || _status == CardStatus.InGame);
 
             transform.SetParent(_cardHandler.GetTransform());
 
@@ -72,7 +80,8 @@ namespace Gameplay
             if (_status != CardStatus.InHand) return;
 
             transform.DOScale(Vector3.one * 4f, 0.4f);
-            transform.DOLocalMoveZ(4f, 0.4f);
+            transform.DOLocalMoveZ(2.5f, 0.4f);
+            _canvas.sortingOrder = 1;
         }
 
         public void Unhighlight()
@@ -81,6 +90,7 @@ namespace Gameplay
 
             transform.DOScale(Vector3.one * 1f, 0.4f);
             transform.DOLocalMoveZ(0f, 0.4f);
+            _canvas.sortingOrder = 0;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -95,7 +105,23 @@ namespace Gameplay
             _owner.Unhighlight(this);
         }
 
-       
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (_status == CardStatus.InHand)
+            {
+                _owner.Select(this);
+            }
+        }
+
+        public void Unselect()
+        {
+            cardBackground.color = _defaultBackgroundColor;
+        }
+
+        public void Select()
+        {
+            cardBackground.color = Color.yellow;
+        }
     }
     public enum CardStatus
     {
