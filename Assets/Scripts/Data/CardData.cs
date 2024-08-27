@@ -16,7 +16,7 @@ namespace Data
         public CardType cardType;
         public int attack;
         public int maxHealth;
-        
+
 
         private Card _cardPrefab;
         public Card cardPrefab

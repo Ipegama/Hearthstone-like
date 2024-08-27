@@ -25,7 +25,7 @@ namespace Gameplay
         {
             var card = cardData.Create();
             card.SetOwner(_owner);
-            card.SetStatus(CardStatus.InDeck,this);
+            //card.SetStatus(CardStatus.InDeck,this);
             _cards.Add(card);
         }
 
@@ -46,9 +46,13 @@ namespace Gameplay
 
         public Card DrawCard()
         {
-            Card card = _cards[0];
-            _cards.RemoveAt(0);
-            return card;
+            if (_cards.Count > 0)
+            {
+                Card card = _cards[0];
+                _cards.RemoveAt(0);
+                return card;
+            }
+            return null;
         }
     }
 }

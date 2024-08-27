@@ -22,7 +22,7 @@ namespace Gameplay
         public void AddCard(Card card)
         {
             _cards.Add(card);
-            card.SetStatus(CardStatus.InHand, this);
+            //card.SetStatus(CardStatus.InHand, this);
             UpdateHandPosition();
 
         }
@@ -47,7 +47,7 @@ namespace Gameplay
 
             foreach (var c in _cards)
             {
-                c.UpdatePosition();
+             //   c.UpdatePosition();
             }
         }
         public void RemoveCard(Card card)

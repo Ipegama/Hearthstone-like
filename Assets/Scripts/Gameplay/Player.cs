@@ -63,6 +63,8 @@ namespace Gameplay
         public void DrawCard()
         {
             var card = _deck.DrawCard();
+
+            if (card == null) return;
             _hand.AddCard(card);
         }
 
@@ -76,8 +78,8 @@ namespace Gameplay
         {
             if (_selectedCard != null)
             {
+                Unhighlight();
                 PlayCard(_selectedCard);
-                Unhighlight(null);
                 Select(null);
             }
         }
@@ -95,7 +97,7 @@ namespace Gameplay
             }
         }
 
-        public void Unhighlight(Card card)
+        public void Unhighlight()
         {
             Highlight(null);
         }

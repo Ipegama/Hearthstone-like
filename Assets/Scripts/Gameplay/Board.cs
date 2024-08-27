@@ -40,7 +40,7 @@ namespace Gameplay
         public void AddCard(Card card)
         {
             _cards.Add(card);
-            card.SetStatus(CardStatus.InGame, this);
+          //  card.SetStatus(CardStatus.InGame, this);
             UpdateBoardPosition();
         }
         private void UpdateBoardPosition()
@@ -48,7 +48,7 @@ namespace Gameplay
 
             foreach (var c in _cards)
             {
-                c.UpdatePosition();
+              //  c.UpdatePosition();
             }
         }
 
