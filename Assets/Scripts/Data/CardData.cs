@@ -16,8 +16,7 @@ namespace Data
         public CardType cardType;
         public int attack;
         public int maxHealth;
-
-
+        internal IEnumerable<object> playActions;
         private Card _cardPrefab;
         public Card cardPrefab
         {
@@ -30,6 +29,9 @@ namespace Data
                 return _cardPrefab;
             }
         }
+
+        public bool HasTarget { get; internal set; }
+
         public Card Create()
         {
             var card = Instantiate(cardPrefab);

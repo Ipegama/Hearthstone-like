@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -111,6 +112,11 @@ namespace Gameplay
         public void OnPointerExit(PointerEventData eventData)
         {
             throw new System.NotImplementedException();
+        }
+
+        internal void SetHealth(int health, int maxHealth)
+        {
+            throw new NotImplementedException();
         }
     }
 }

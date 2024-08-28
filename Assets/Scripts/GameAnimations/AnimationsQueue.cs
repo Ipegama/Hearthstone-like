@@ -1,6 +1,7 @@
 using Gameplay;
 using System.Collections;
 using System.Collections.Generic;
+using TriggerSystem;
 using UnityEngine;
 
 namespace GameAnimations
@@ -24,23 +25,33 @@ namespace GameAnimations
         {
             Events.Zones.CardAdded += OnZoneCardAdded;
             Events.Zones.CardRemoved += OnZoneCardRemoved;
-            //
-            //
+            Events.Actions.Projectile += OnProjectile;
+            Events.Creatures.Damaged += OnCreatureDamaged;
         }
-        private void OnCreatureDamaged(Card card, int damageAmount, int health, int maxHealth) { }
-       // private void OnProjectile(ProjectileActionData data, ActionContext context) { }
-        private void OnZoneCardRemoved(Zone zone, List<Card> cards, Card card) { }
+        private void OnCreatureDamaged(Card card, int damageAmount, int health, int maxHealth) 
+        {
+            Enqueue(new DamageAnimation(card,damageAmount, health, maxHealth)); 
+        }
+        private void OnProjectile(ProjectileActionData data, ActionContext context) 
+        {
+            Enqueue(new ProjectileAnimation(data,context));
+        }
+        private void OnZoneCardRemoved(Zone zone, List<Card> cards, Card card) 
+        {
+            Enqueue(new ZoneChangedAnimation(zone,cards,card,0f));
+        }
         private void OnZoneCardAdded(Zone zone, List<Card> cards,Card card)
         {
-           // Enqueue(new Zone)
+            Enqueue(new ZoneChangedAnimation(zone, cards, card, 0.4f));
         }
+
         private void Enqueue(GameAnimation animation)
         {
             _queue.Enqueue(animation);
-
+            ExecuteQueue();
         }
 
-        private void ExecureQueue()
+        private void ExecuteQueue()
         {
             if(_coroutine == null) 
             {

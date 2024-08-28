@@ -26,15 +26,15 @@ namespace GameAnimations
             var targetPosition = _card.transform.position;
             targetPosition.y += 0.1f;
 
-            // var damageCanvas = Object.Instantiate(prefab, targetPosition, prefab.transform.rotation);
-            //_card,UI.SetHealth(_health,_maxHealth);
-            //yield return damageCanvas.AnimateCoroutine(_damageAmount);
-            yield return null;
+            var damageCanvas = Object.Instantiate(prefab, targetPosition, prefab.transform.rotation);
+
+            _card.UI.SetHealth(_health,_maxHealth);
+            yield return damageCanvas.AnimateCoroutine(_damageAmount);
         }
 
         public override void ExecuteWithoutAnimation()
         {
-           //_card.UI.SetHealth(_health,_maxHealth);
+           _card.UI.SetHealth(_health,_maxHealth);
         }
 
     }

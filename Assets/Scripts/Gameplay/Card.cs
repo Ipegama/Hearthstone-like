@@ -10,8 +10,11 @@ namespace Gameplay
         private CardData _cardData;
         public CardData CardData => _cardData;
 
+        [HideInInspector]
         public CardUI UI;
+        [HideInInspector]
         public Player owner;
+        [HideInInspector]
         public Zone container;
 
         private int _health;
@@ -36,18 +39,23 @@ namespace Gameplay
 
         private void ExecuteOnPlayActions(Card target)
         {
-          /*  if (!_cardData.HasTarget) return;
+            if (!_cardData.HasTarget) return;
 
             if (target == null)
             {
                 throw new Exception("Target needed");
             }
 
-            foreach (var action in _cardData.playActions)
-            {
-                source = this;
-                target = target;
-            }*/
+            /* foreach (var action in _cardData.playActions)
+             {
+                 action.Execute(new ActionContext
+                 {
+                     source = this;
+                 target = target;
+             });
+             }
+
+             }*/
         }
 
         public void SetOwner(Player owner)
