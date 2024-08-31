@@ -118,5 +118,10 @@ namespace Gameplay
         {
             throw new NotImplementedException();
         }
+
+        internal void SetCardBack(object showBack)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

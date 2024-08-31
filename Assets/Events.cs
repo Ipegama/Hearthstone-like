@@ -18,6 +18,7 @@ public static class Events
     {
         public static Action<Card> Played;
         public static Action<Card> Drawn;
+        public static Action<object> Created;
     }
     public static class Creatures 
     {

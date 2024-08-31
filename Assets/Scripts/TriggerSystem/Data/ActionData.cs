@@ -1,12 +1,18 @@
 ﻿using System;
+using UnityEngine;
 
 namespace TriggerSystem
 {
-    public class ActionData
+    public class ActionData : ScriptableObject
     {
-        internal void Execute(ActionContext context)
+        public virtual void Execute(ActionContext context)
         {
-            throw new NotImplementedException();
+
+        }
+
+        public virtual string GetDescription()
+        {
+            return $"-Empty-";
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Gameplay
             }
             container = zone;
 
-           // UI.SetCardBack(zone.containerData.showBack);
+            UI.SetCardBack(zone.containerData.showBack);
         }
 
         public void Play(Card target)

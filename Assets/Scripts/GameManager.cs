@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay;
+using TriggerSystem;
+using Gameplay.Interfaces;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,5 +37,13 @@ public class GameManager : MonoBehaviour
         board.Initialize();
     }
 
-   
+    public List<ITargetable> GetAllEntities(ActionContext thisCard, TargetFilter filter)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Player GetEnemyOf(Player owner)
+    {
+        return owner;
+    }
 }

@@ -1,5 +1,7 @@
 using Data;
+using Gameplay.Interfaces;
 using System;
+using TriggerSystem;
 using UnityEngine;
 
 namespace Gameplay
@@ -84,6 +86,10 @@ namespace Gameplay
             }
         }
 
+        public ITargetable GetRandomLivingCreature()
+        {
+            return null;
+        }
         public void Highlight(Card card)
         {
             if (_highlightedCard)
@@ -115,6 +121,11 @@ namespace Gameplay
             {
                 _selectedCard.Select();
             }
+        }
+
+        internal void ChangeMana(int currentMana, int maximumMana)
+        {
+            throw new NotImplementedException();
         }
     }
 }

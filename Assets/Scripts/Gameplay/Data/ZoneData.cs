@@ -1,6 +1,9 @@
-﻿namespace Gameplay
+﻿using UnityEngine;
+
+namespace Gameplay
 {
-    public class ZoneData
+    public class ZoneData : ScriptableObject
     {
+        public bool showBack;
     }
 }
