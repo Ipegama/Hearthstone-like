@@ -1,116 +1,69 @@
 using System;
 using Data;
+using Gameplay.Interfaces;
 using TriggerSystem;
 using UnityEngine;
 
 namespace Gameplay
 {
-    public class Card : MonoBehaviour
+    public class Card : MonoBehaviour, IHighlightable, ITargetable
     {
-        private CardData _cardData;
-        public CardData CardData => _cardData;
+        public CardData CardData { get; protected set; }
+        public CardType CardType { get; protected set; }
 
-        [HideInInspector]
-        public CardUI UI;
-        [HideInInspector]
-        public Player owner;
-        [HideInInspector]
-        public Zone container;
+        [HideInInspector] public CardUI UI;
+        [HideInInspector] public Player owner;
+        [HideInInspector] public Zone zone;
 
-        private int _health;
-        private int _maxHealth;
-        private int _attack;
-
-        public event Action<bool> HighlightChanged;
-        public event Action<bool> SelectChanged;
+        private bool _isDead;
 
         private void Awake()
         {
             UI = GetComponent<CardUI>();
-        }
-        public void SetData(CardData data)
-        {
-            _cardData = data;
-
-            _maxHealth = _cardData.maxHealth;
-            _health = _maxHealth;
-            _attack = _cardData.attack;
+            UI.SetCard(this);
         }
 
-        private void ExecuteOnPlayActions(Card target)
+        private void OnDestroy()
         {
-            if (!_cardData.HasTarget) return;
-
-            if (target == null)
+            _isDead = true;
+            OnCardDestroyed();
+        }
+        public virtual void SetData(CardData data)
+        {
+            CardData = data;
+        }
+        private void ExecuteOnPlayAction(ITargetable target)
+        {
+            if(target == null)
             {
-                throw new Exception("Target needed");
-            }
-
-            /* foreach (var action in _cardData.playActions)
-             {
-                 action.Execute(new ActionContext
-                 {
-                     source = this;
-                 target = target;
-             });
-             }
-
-             }*/
-        }
-
-        public void SetOwner(Player owner)
-        {
-            this.owner = owner;
-            transform.SetParent(this.owner.transform, true);
-        }
-
-        public void SetZone(Zone zone)
-        {
-            if (container != null)
-            {
-                container.RemoveCard(this);
-            }
-            container = zone;
-
-            UI.SetCardBack(zone.containerData.showBack);
-        }
-
-        public void Play(Card target)
-        {
-            Events.Cards.Played?.Invoke(this);
-            Unhighlight();
-            ExecuteOnPlayActions(target);
-        }
-
-        public void Damage(int amount)
-        {
-            _health -= amount;
-            Events.Creatures.Damaged?.Invoke(this, amount, _health, _maxHealth);
-
-            if (_health <= 0)
-            {
-                Events.Creatures.Death?.Invoke(this);
+                /*if (CardData.targetFilter.HasTarget())
+                {
+                    throw new Exception("Target needed")
+                }*/
+                foreach(var action in CardData.playActions)
+                {
+                   /* action.Execute(new ActionContext
+                    {
+                        TargetEntity = target,
+                        thisCard = this,
+                        TriggerEntity = this
+                    });
+                   */
+                }
             }
         }
 
-        public void Unhighlight()
+        /////
+        ///
+        
+        public bool IsInHand()
         {
-            HighlightChanged?.Invoke(false);
+            throw new NotImplementedException();
         }
 
-        public void Highlight()
+        private void OnCardDestroyed()
         {
-            HighlightChanged?.Invoke(true);
-        }
-
-        public void Unselect()
-        {
-            SelectChanged?.Invoke(false);
-        }
-
-        public void Select()
-        {
-            SelectChanged?.Invoke(true);
+            throw new NotImplementedException();
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay;
+using System;
 
 namespace Data
 {
@@ -17,6 +18,7 @@ namespace Data
         public int attack;
         public int maxHealth;
         internal IEnumerable<object> playActions;
+        internal object targetFilter;
         private Card _cardPrefab;
         public Card cardPrefab
         {
@@ -37,6 +39,11 @@ namespace Data
             var card = Instantiate(cardPrefab);
             card.SetData(this);
             return card;
+        }
+
+        internal string GetDescription()
+        {
+            throw new NotImplementedException();
         }
     }
 }

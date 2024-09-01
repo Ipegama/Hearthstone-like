@@ -1,14 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
+using TriggerSystem.Data;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Gameplay
 {
-    public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class CardUI : MonoBehaviour
     {
         public TMP_Text cardNameText;
         public Image cardSpriteImage;
@@ -20,6 +18,13 @@ namespace Gameplay
         public TMP_Text attackText;
 
         public GameObject combatStats;
+        public GameObject triggerObject;
+        public GameObject textsObject;
+        public GameObject manaObject;
+
+        public Transform animatedObject;
+
+        public TMP_Text description;
 
         private Canvas _canvas;
         private Color _defaultBackgroundColor;
@@ -28,58 +33,64 @@ namespace Gameplay
 
         private Card _card;
 
+        private Tween _scaleTween;
+        private bool _selected;
+
         private void Awake()
         {
             _canvas = GetComponent<Canvas>();
-            _card = GetComponent<Card>();
 
             _defaultBackgroundColor = cardBackground.color;
-            _defaultScale = transform.localScale.x;
+            _defaultScale = animatedObject.localScale.x;
         }
 
         private void Start()
         {
-            //UpdateUI();
+            UpdateUI();
         }
 
-       /* private void OnEnable()
+        public void SetCard(Card card)
         {
-            _card.HighlightChanged += OnHighlightChanged;
-            _card.SelectedChanged += OnSelectChanged;
+            _card = card;
         }
 
-        private void OnDisable()
+        public void UpdateZoneUI(Zone zone)
         {
-            _card.HighlightChanged -= OnHighlightChanged;
-            _card.SelectedChanged -= OnSelectChanged;
-        }*/
-
-
-        public void SetCardBack(bool value)
+            ResetDefaultScale();
+            SetCardBack(zone.IsDeck());
+            SetBoardStatus(zone.IsBoard());
+        }
+        private void SetCardBack(bool value)
         {
             cardBack.SetActive(value);
-            //cardNameText.enabled != value;
+            cardNameText.enabled = !value;
         }
-
-       /* private void UpdateUI()
+        private void SetBoardStatus(bool value)
+        {
+            textsObject.SetActive(!value);
+            manaObject.SetActive(!value);
+        }
+        private void UpdateUI()
         {
             cardNameText.text = _card.CardData.cardName;
+            description.text = _card.CardData.GetDescription();
             cardSpriteImage.sprite = _card.CardData.cardSprite;
             manaCostText.text = $"{_card.CardData.manaCost}";
 
-            if(_card.CardData.cardType == CardType.Spell)
+            if(_card.CardData is CreatureData creatureData)
             {
-                combatStats.SetActive(false);
+                combatStats.SetActive(true);
+                healthText.text = $"{creatureData.maxHealth}";
+                attackText.text = $"{creatureData.attack}";
+                triggerObject.SetActive(creatureData.triggers.Length > 0);
             }
             else
             {
-                combatStats.SetActive(true);
-                healthText.text = $"{_card.CardData.maxHealth}";
-                attackText.text = $"{_card.CardData.attack}";
+                combatStats.SetActive(false);
             }
         }
 
-        public void SetHealth(int health, int maxHealth)
+        public void SetHealth(int health,int maxHealth)
         {
             var color = Color.white;
             healthText.text = $"{health}";
@@ -93,35 +104,88 @@ namespace Gameplay
 
         public void SetAttack(int attack)
         {
-            var color = Color.white;
-            attackText.text = $"{attack}";
-
-            if(attack != _card.CardData.attack)
+            if(_card.CardData is CreatureData creatureData)
             {
-                color = Color.green;
+                var color = Color.white;
+                attackText.text = $"{attack}";
+                if(attack!= creatureData.attack)
+                {
+                    color = Color.green;
+                }
+                attackText.color = color;
+
+                attackText.transform.DOComplete();
+                attackText.transform.DOPunchScale(Vector3.one * 2f,0.2f,5);
             }
-            healthText.color = color;
         }
 
-       */
-        public void OnPointerEnter(PointerEventData eventData)
+        public void Highlight(bool value)
         {
-            throw new System.NotImplementedException();
+            if (_card.IsInHand())
+            {
+                if(value)
+                {
+                    _scaleTween?.Kill();
+                    _scaleTween = animatedObject.DOScale(_defaultScale * 2f, 0.4f);
+                    animatedObject.DOLocalMoveY(120f,0.4f);
+                    _canvas.sortingOrder = 1;
+                }
+                else
+                {
+                    _scaleTween?.Kill();
+                    _scaleTween = animatedObject.DOScale(_defaultScale, 0.4f);
+                    animatedObject.DOLocalMoveY(0f, 0.4f);
+                    _canvas.sortingOrder = 0;
+                }
+            }
+            else
+            {
+                ResetDefaultScale();
+            }
+
+            if (!_selected)
+            {
+                if (value)
+                {
+                    cardBackground.color = Color.blue;
+
+                }
+                else
+                {
+                    cardBackground.color = _defaultBackgroundColor;
+                }
+            }
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public void Select(bool value)
         {
-            throw new System.NotImplementedException();
+            _selected = value;
+            if (value)
+            {
+                cardBackground.color = Color.yellow;
+            }
+            else
+            {
+                cardBackground.color = _defaultBackgroundColor; 
+            }
         }
 
-        internal void SetHealth(int health, int maxHealth)
+        private void ResetDefaultScale()
         {
-            throw new NotImplementedException();
+            _scaleTween?.Kill();
+            animatedObject.localScale = Vector3.one * _defaultScale;
+            _canvas.sortingOrder = 0;
         }
 
-        internal void SetCardBack(object showBack)
+        public void Trigger(float delay, float force)
         {
-            throw new NotImplementedException();
+            var easeIn = Ease.OutExpo;
+            var easeOut = Ease.InExpo;
+
+            triggerObject.transform.DOComplete();
+            triggerObject.transform.DOScale(force, delay / 2f).SetEase(easeIn)
+                .OnComplete(()=>triggerObject.transform.DOScale(1f,delay/2f).SetEase(easeOut));
         }
+
     }
 }

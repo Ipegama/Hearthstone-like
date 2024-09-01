@@ -127,5 +127,15 @@ namespace Gameplay
         {
             throw new NotImplementedException();
         }
+
+        internal void Damage(int amount, bool triggerEvent)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Heal(int amount, bool triggerEvent)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
