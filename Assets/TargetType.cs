@@ -1,10 +1,13 @@
-﻿public enum TargetType
+﻿namespace TriggerSystem
 {
-    MatchingEntity,
-    TargetEntity,
-    TriggeringEntity,
-    RandomEnemy,
-    This,
-    TriggeringOwner,
-    DamagingEntity
+    public enum TargetType
+    {
+        MatchingEntity,
+        TargetEntity,
+        TriggeringEntity,
+        RandomEnemy,
+        This,
+        TriggeringOwner,
+        DamagingEntity
+    }
 }

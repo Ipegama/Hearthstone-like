@@ -57,14 +57,14 @@ namespace TriggerSystem
                 case TargetType.MatchingEntity:
                     return GameManager.Instance.GetAllEntities(thisCard, filter);
                 default:
-                    return new List<ITargetable> {/* Get(type)*/ };
+                    return new List<ITargetable> { Get(type) };
             }
         }
 
         public Dictionary<string, int> GetAllIntKeys()
         {
             var dict = new Dictionary<string, int>();
-           // dict.Add("EventAmount",EventAmount);
+            dict.Add("EventAmount",EventAmount);
             return dict;
         }
     }

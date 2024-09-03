@@ -1,6 +1,9 @@
-﻿public enum TargetPlayerType 
+﻿namespace TriggerSystem
 {
-    TriggeringPlayer,
-    Owner
+    public enum TargetPlayerType
+    {
+        TriggeringPlayer,
+        Owner
+    }
 }
 

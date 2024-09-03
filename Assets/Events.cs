@@ -25,4 +25,9 @@ public static class Events
         public static Action<Card, int, int, int> Damaged;
         public static Action<Card> Death;
     }
+    public static class Turns 
+    {
+        public static Action TurnStarted;
+    }
+
 }

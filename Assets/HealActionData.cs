@@ -24,11 +24,11 @@ namespace TriggerSystem.Data
             {
                 if(target != null)
                 {
-                   /* if (projectileAction)
+                    if (projectileAction)
                     {
                         Events.Actions.Projectile?.Invoke(projectileAction, context.thisCard, target.GetTransform());
                     }
-                    target.Heal(intAmount, true);*/
+                    target.Heal(intAmount, true);
                 }
             }
         }

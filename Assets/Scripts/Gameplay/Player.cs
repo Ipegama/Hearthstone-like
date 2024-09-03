@@ -1,141 +1,257 @@
 using Data;
+using DG.Tweening;
+using GameAnimations;
 using Gameplay.Interfaces;
 using System;
+using System.Collections.Generic;
 using TriggerSystem;
+using UI;
 using UnityEngine;
 
 namespace Gameplay
 {
     [Serializable]
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, ITargetable
     {
         public StartingDeckData startingDeckData;
-        [SerializeField] private Hand _hand;
-        [SerializeField] private Deck _deck;
-        [SerializeField] private Board _board;
 
-        private Card _highlightedCard;
-        private Card _selectedCard;
+        [SerializeField] private Zone deck;
+        [SerializeField] private Zone hand;
+        [SerializeField] public Zone graveyard;
+        [SerializeField] public Zone board;
+        public PlayerStatsUI playerStats;
 
         public event Action<int, int> ManaChanged;
 
         private int _mana;
-        public int Mana
-        {
-            get => Mana;
-            set
-            {
-                Mana = value;
-                ManaChanged?.Invoke(_mana,_maximumMana);
-            }
-        }
         private int _maximumMana;
-        public int MaximumMana
+
+        private int _health;
+        private int _maxHealth;
+
+        public void Initialize(int startingMana, int health)
         {
-            get=> _maximumMana;
-            set
-            {
-                _maximumMana = value;
-                ManaChanged?.Invoke(_mana, _maximumMana);
-            }
+            deck.Initialize(this);
+            hand.Initialize(this);
+            graveyard.Initialize(this);
+            board.Initialize(this);
+
+            _maximumMana = startingMana;
+            SetMana(_maximumMana);
+
+            _maxHealth = health;
+            _health = _maxHealth;
+
+            InitializeDeck();
+
+            Events.Turns.TurnStarted += OnTurnStarted;
         }
 
-        public void Initialize()
+        private void OnTurnStart(Player player)
         {
-            _deck.Initialize(this,startingDeckData);
-            _hand.Initialize(this);
-            _board.Initialize(this);
-
-            _maximumMana = 1;
-            _mana = _maximumMana;
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if(player == this)
             {
+                board.TurnStarted();
+                SetMana(_maximumMana);
                 DrawCard();
             }
-            if (Input.GetKeyDown(KeyCode.Escape))
+        }
+
+        private void SetMana(int mana)
+        {
+            _mana = mana;
+            Events.Players.ManaChanged?.Invoke(this, mana, _mana, _maximumMana);
+        }
+
+        private void InitializeDeck()
+        {
+            foreach(var cardData in startingDeckData.GetCards())
             {
-                Select(null);
+                var card = cardData.Create(this);
+                deck.AddCard(card);
+            }
+            deck.Shuffle();
+        }
+
+        private void OnEnable()
+        {
+            Events.Resolve += OnResolve;
+        }
+
+        private void OnResolve()
+        {
+            foreach(Creature creature in board.GetCreatures())
+            {
+                if (creature.IsDead())
+                {
+                    OnCratureDeath(creature);
+                }
+            }
+        }
+        private void OnCreatureDeath(Creature creature)
+        {
+            if(creature.owner == this)
+            {
+                creature.OnCreatureDeath();
+                graveyard.AddCard(creature);
             }
         }
 
         public void DrawCard()
         {
-            var card = _deck.DrawCard();
+            var card = deck.GetFirstCard();
+            if(card != null)
+            {
+                hand.AddCard(card);
+                Events.Cards.Drawn?.Invoke(card);
+            }
+        }
 
+        public void PlayCard(Card card, ITargetable target = null)
+        {
             if (card == null) return;
-            _hand.AddCard(card);
+
+            var cost = card.CardData.manaCost;
+            if (_mana < cost) return;
+            _mana -= cost;
+            Events.Players.ManaChanged?.Invoke(this, cost, _mana, _maximumMana);
+
+            AnimationsQueue.Instance.StartQueue();
+
+            card.Play(target);
+
+            Events.Resolve?.Invoke();
+            AnimationsQueue.Instance.EndQueue();
         }
 
-        public void PlayCard(Card card)
+        public void StartAttack(Creature card, ITargetable target)
         {
-            _hand.RemoveCard(card);
-            _board.AddCard(card);
+            AnimationsQueue.Instance.StartQueue();
+
+            card.Attack(target);
+
+            Events.Resolve?.Invoke();
+            AnimationsQueue.Instance.EndQueue();
         }
 
-        public void PlaySelectedCard()
+        public Card GetRandomLivingCreature()
         {
-            if (_selectedCard != null)
+            var livingCreature = new List<Creature>();
+            foreach(var card in board.GetCreatures())
             {
-                Unhighlight();
-                PlayCard(_selectedCard);
-                Select(null);
+                if (!card.IsDead())
+                {
+                    livingCreature.Add(card);
+                }
+                return livingCreature.Random();
             }
         }
 
-        public ITargetable GetRandomLivingCreature()
+        public void DoAction(Card card,ITargetable target)
         {
-            return null;
-        }
-        public void Highlight(Card card)
-        {
-            if (_highlightedCard)
+            if(card.IsInHand())
             {
-                _highlightedCard.Unhighlight();
+                PlayCard(card, target);
             }
-            _highlightedCard = card;
-            if (_highlightedCard)
+            else if (card.IsOnBoard())
             {
-                _highlightedCard.Highlight();
-            }
-        }
+                if(card is Creature creature)
+                {
 
-        public void Unhighlight()
-        {
-            Highlight(null);
-        }
-
-        public void Select(Card card)
-        {
-            if (_selectedCard)
-            {
-                _selectedCard.Unselect();
-            }
-
-            _selectedCard = card;
-
-            if (_selectedCard)
-            {
-                _selectedCard.Select();
+                    StartAttack(creature, target);
+                }
             }
         }
-
-        internal void ChangeMana(int currentMana, int maximumMana)
+        public void DoAction(Card card, Zone zone)
         {
-            throw new NotImplementedException();
+            if(card.IsInHand()&&zone.zoneType == ZoneType.Board)
+            {
+                PlayCard(card);
+            }
         }
-
-        internal void Damage(int amount, bool triggerEvent)
+        public bool CanBeTargeted() => false;
+        public bool IsCreature()=> false;
+        public bool IsSpell()=> false;
+        public bool IsPlayer()=>false;
+        public Player Owner() => this;
+        public Transform GetTransform() => playerStats.transform;
+        public void AddBuff(Buff buff) { }
+        public void Damage(int amount,bool triggerEvent, ITargetable source)
         {
-            throw new NotImplementedException();
+            _health-=amount;
+            Events.Creatures.Damaged?.Invoke(this, amount, _health, _maxHealth);
+
+            if (triggerEvent)
+            {
+                TriggerDamagedEvent(source);
+            }
         }
-
-        internal void Heal(int amount, bool triggerEvent)
+        public void Heal(int amount,bool triggerEvent)
         {
-            throw new NotImplementedException();
+            if (_health + amount > _maxHealth)
+            {
+                amount= _maxHealth-_health;
+            }
+            _health+=amount;
+            Events.Creatures.Healed?.Invoke(this,amount, _health, _maxHealth);
+
+            if (triggerEvent)
+            {
+                TriggerHealEvent();
+            }
+        }
+        private void TriggerHealEvent()
+        {
+            EventManager.Instance.CreatureHealed.Raise(
+                new ActionContext
+                {
+                    TriggerEntity = this,
+                });
+        }
+        private void TriggerDamagedEvent(ITargetable source)
+        {
+            EventManager.Instance.CreatureDamaged.Raise(
+                new ActionContext
+                {
+                    TriggerEntity = this,
+                    DamagingEntity = source
+                });
+        }
+        public void SetHealth(int health,int maxHealth)=> playerStats.SetHealth(health, maxHealth);
+        public int GetAttack() => 0;
+        public Player GetPlayer() => this;
+        public void AnimateDamage(Vector3 scale, float duration)
+        {
+            var tf = GetTransform();
+            tf.DOComplete();
+            tf.DOPunchScale(scale,duration);
+        }
+        public bool IsDead() => _health <= 0;
+
+        public List<ITargetable> GetAllTargets(Card card,TargetFilter filter)
+        {
+            var result = new List<ITargetable>();
+            if (filter.Match(card, this) && !IsDead()) result.Add(this);
+
+            foreach(var creature in board.GetCreatures())
+            {
+                if (filter.Match(card, creature) && !creature.IsDead()) result.Add(creature);
+            }
+            return result;
+        }
+        public void ChangeMana(int currentMana, int maximumMana)
+        {
+            if (currentMana > 0)
+            {
+                _mana += currentMana;
+                Events.Players.ManaChanged?.Invoke(this,currentMana,_mana,_maximumMana);
+            }
+
+            if(maximumMana > 0)
+            {
+                _maximumMana += maximumMana;
+                Events.Players.MaxManaChanged?.Invoke(this,currentMana, _mana,_maximumMana);
+            }
         }
     }
 }
