@@ -1,4 +1,5 @@
 using Gameplay;
+using Gameplay.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using TriggerSystem;
@@ -10,70 +11,99 @@ namespace GameAnimations
     {
         public static AnimationsQueue Instance;
 
-        public static bool AnimationsEnabled = true;
-
-        private Queue<GameAnimation> _queue = new Queue<GameAnimation>();
+        private Queue<GameAnimationQueue> _queue = new Queue<GameAnimationQueue>();
+        private GameAnimationQueue _lastQueue;
 
         public DamageCanvas damageCanvasPrefab;
         private Coroutine _coroutine;
 
-        private void Awake()
+        public void StartQueue()
         {
-            Instance = this;
-        }
-        private void OnEnable()
-        {
-            Events.Zones.CardAdded += OnZoneCardAdded;
-            Events.Zones.CardRemoved += OnZoneCardRemoved;
-            Events.Actions.Projectile += OnProjectile;
-            Events.Creatures.Damaged += OnCreatureDamaged;
-        }
-        private void OnCreatureDamaged(Card card, int damageAmount, int health, int maxHealth) 
-        {
-            Enqueue(new DamageAnimation(card,damageAmount, health, maxHealth)); 
-        }
-        private void OnProjectile(ProjectileActionData data, ActionContext context) 
-        {
-            Enqueue(new ProjectileAnimation(data,context));
-        }
-        private void OnZoneCardRemoved(Zone zone, List<Card> cards, Card card) 
-        {
-            Enqueue(new ZoneChangedAnimation(zone,cards,card,0f));
-        }
-        private void OnZoneCardAdded(Zone zone, List<Card> cards,Card card)
-        {
-            Enqueue(new ZoneChangedAnimation(zone, cards, card, 0.4f));
+            _lastQueue = new GameAnimationQueue();
         }
 
-        private void Enqueue(GameAnimation animation)
+        public void EndQueue()
         {
-            _queue.Enqueue(animation);
-            ExecuteQueue();
-        }
+            if(_lastQueue == null) return;
+            
+            _queue.Enqueue(_lastQueue);
 
-        private void ExecuteQueue()
-        {
-            if(_coroutine == null) 
+            if(_coroutine == null)
             {
                 _coroutine = StartCoroutine(ExecuteQueueCoroutine());
             }
+            _lastQueue = null;
         }
 
-        private IEnumerator ExecuteQueueCoroutine()
+        private void Awake()
         {
-            while(_queue.Count > 0)
-            {
-                var currentAnimation = _queue.Dequeue();
-                if (AnimationsEnabled)
-                {
-                    yield return currentAnimation.Execute();
-                }
-                else
-                {
-                    currentAnimation.ExecuteWithoutAnimation();
-                }
+            Instance = this;
 
-                _coroutine = null;
+            Events.Zones.CardAdded += OnZoneCardAdded;
+            Events.Zones.CardRemoved += OnZoneCardRemoved;
+
+            Events.Actions.Projectile += OnProjectile;
+
+            Events.Creatures.Damaged += OnCreatureDamaged;
+            Events.Creatures.AttackChanged += OnAttackChanged;
+            Events.Creatures.Attack += OnAttack;
+
+            Events.Cards.Triggered += OnCardTriggered;
+            Events.Cards.Created += OnCardCreated;
+
+            Events.Resolve += OnResolve;
+        }      
+
+        private void OnCardCreated(Card card)
+        {
+            Enqueue(new CardCreatedAnimation(card));
+        }
+        private void OnResolve()
+        {
+            Enqueue(new DelayAnimation(1f));
+        }
+        private void OnAttack(Card source, ITargetable target)
+        {
+            Enqueue(new AttackAnimation(source,target));
+        }
+        private void OnCardTriggered(Card card)
+        {
+            Enqueue(new CardTriggeredAnimation(card));
+        }
+        private void OnAttackChanged(Card card, int amount, int attack)
+        {
+            Enqueue(new AttackChangedAnimation(card,amount,attack));
+        }
+        private void OnCreatureDamaged(ITargetable target,int damageAmount,int health, int maxHealth)
+        {
+            Enqueue(new DamageAnimation(target,damageAmount,health,maxHealth));
+        }
+        private void OnCreatureHealed()
+        {
+        /////
+        }
+        private void OnProjectile(ProjectileActionData data, Card source, Transform target)
+        {
+            Enqueue(new ProjectileAnimation(data,source,target));
+        }
+        private void OnZoneCardRemoved(Zone zone,  List<Card> cards, Card card)
+        {
+            Enqueue(new ZoneChangedAnimation(zone,cards,card,0f));
+        }
+        private void OnZoneCardAdded(Zone zone, List<Card> cards, Card card)
+        {
+            Enqueue(new ZoneChangedAnimation(zone,cards,card,0.4f));
+        }
+        private void Enqueue(GameAnimation anim)
+        {
+            if(_lastQueue != null)
+            {
+                _lastQueue.Enqueue(anim);
+            }
+            else
+            {
+                anim.ExecuteWithoutAnimation();
+                ////
             }
         }
     }

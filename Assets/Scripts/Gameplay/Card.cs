@@ -28,7 +28,7 @@ namespace Gameplay
             _isDead = true;
             OnCardDestroyed();
         }
-        public virtual void SetData(CardData data)=> CardData = data;;
+        public virtual void SetData(CardData data)=> CardData = data;
  
         private void ExecuteOnPlayAction(ITargetable target)
         {
@@ -119,6 +119,7 @@ namespace Gameplay
             return filter.Match(selectedCard, this);
         }
         public void Highlight(bool value)=> UI.Highlight(value);
+        public bool IsCreature()=> CardType== CardType.Creature;
         public bool IsSpell()=> CardType == CardType.Spell;
         public bool IsPlayer() => false;
         public Player GetOwner() => owner;

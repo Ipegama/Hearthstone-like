@@ -58,14 +58,26 @@ public class GameManager : MonoBehaviour
     private void TurnStarted()
     {
         AnimationsQueue.Instance.StartQueue();
+
         Events.Players.TurnStarted?.Invoke(GetCurrentPlayerTurn());
+
         Events.Resolve?.Invoke();
         AnimationsQueue.Instance.EndQueue();
     }
 
     private void TurnEnded()
     {
-        throw new NotImplementedException();
+        AnimationsQueue.Instance.StartQueue();
+
+        var player = GetCurrentPlayerTurn();
+        EventManager.Instance.TurnEnded.Raise(new ActionContext
+        {
+            TriggerEntity = player
+        });
+        Events.Players.TurnEnded?.Invoke(player);
+
+        Events.Resolve?.Invoke(player);
+        AnimationsQueue.Instance.EndQueue();
     }
 
     public List<ITargetable> GetAllEntities(ActionContext thisCard, TargetFilter filter)

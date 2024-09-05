@@ -31,7 +31,7 @@ namespace Gameplay
         public Card GetCard() => null;
         public Transform GetTransform() => transform;
         public void AddBuff(Buff buff) { }
-        public void Damage(int amount, bool triggerEvent, ITargetable source) => player.Damage(amount, triggerEvent);
+        public void Damage(int amount, bool triggerEvent, ITargetable source) => player.Damage(amount, triggerEvent,source);
         public void Heal(int amount, bool triggerEvent) => player.Heal(amount,triggerEvent);
         public void SetHealth(int health, int maxHealth) { }
         public int GetAttack() => 0;
@@ -41,15 +41,5 @@ namespace Gameplay
         public bool IsCreature() => false;
         public bool IsSpell() => false;
         public bool IsPlayer() => true;
-
-        public void AnimateDamage(Vector3 scale, float duration)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Kill()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

@@ -1,33 +1,44 @@
 using Gameplay;
+using Gameplay.Interfaces;
 using System;
 using System.Collections.Generic;
 using TriggerSystem;
+using UnityEditor;
+using UnityEngine;
 
 public static class Events
 {
-    public static class Actions 
+    public static Action Resolve;
+
+    public static class Actions
     {
-        public static Action<ProjectileActionData, ActionContext> Projectile;
+        public static Action<ProjectileActionData, Card, Transform> Projectile;
     }
-    public static class Zones 
+    public static class Zones
     {
         public static Action<Zone, List<Card>, Card> CardAdded;
         public static Action<Zone, List<Card>, Card> CardRemoved;
     }
-    public static class Cards 
+    public static class Cards
     {
         public static Action<Card> Played;
         public static Action<Card> Drawn;
-        public static Action<object> Created;
+        public static Action<Card> Triggered;
+        public static Action<Card> Created;
     }
-    public static class Creatures 
+    public static class Creatures
     {
-        public static Action<Card, int, int, int> Damaged;
-        public static Action<Card> Death;
+        public static Action<ITargetable, int, int, int> Damaged;
+        public static Action<ITargetable, int, int, int> Healed;
+        public static Action<Card, int, int, int> MaxHealthChanged;
+        public static Action<Card, int, int> AttackChanged;
+        public static Action<Card, ITargetable> Attack;
     }
-    public static class Turns 
+    public static class Players
     {
-        public static Action TurnStarted;
+        public static Action<Player, int, int, int> MaxManaChanged;
+        public static Action<Player, int, int, int> ManaChanged;
+        public static Action<Player> TurnStarted;
+        public static Action<Player> TurnEnded;
     }
-
 }
