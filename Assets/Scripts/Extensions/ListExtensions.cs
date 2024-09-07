@@ -1,11 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Extensions
 {
     public static class ListExtensions
     {
         private static readonly Random rng = new Random();
+
+        public static T Random<T>(this IList<T> list)
+        {
+            if(list.Count > 0)
+            {
+                return list[UnityEngine.Random.Range(0,list.Count)];
+            }
+            return default;
+        }
         public static void Shuffle<T>(this IList<T> list)
         {
             int n = list.Count;
@@ -17,6 +27,11 @@ namespace Extensions
                 list[k] = list[n];
                 list[n] = value;
             }
+        }
+
+        public static List<T> GetCopy<T>(this IList<T> list)
+        {
+            return new List<T>(list.ToArray());
         }
     }
 }

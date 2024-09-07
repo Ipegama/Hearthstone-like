@@ -3,6 +3,7 @@ using Gameplay.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using TriggerSystem;
+using TriggerSystem.Data;
 using UnityEngine;
 
 namespace GameAnimations
@@ -95,7 +96,7 @@ namespace GameAnimations
         {
             Enqueue(new HealAnimation(target, healedAmount, health, maxHealth));
         }
-        private void OnProjectile(ProjectileActionData data, Card source, Transform target)
+        private void OnProjectile(ProjectileActionData data, Card source, Card target)
         {
             Enqueue(new ProjectileAnimation(data,source,target));
         }
@@ -111,12 +112,45 @@ namespace GameAnimations
         {
             if(_lastQueue != null)
             {
-                _lastQueue.Enqueue(anim);
+                _lastQueue.Queue.Enqueue(anim);
             }
             else
             {
                 anim.ExecuteWithoutAnimation();
-                ////
+            }
+        }
+        private IEnumerator ExecuteQueueCoroutine()
+        {
+            while(_queue.Count > 0)
+            {
+                var currentQueue = _queue.Dequeue();
+                yield return currentQueue.Execute();
+            }
+            _coroutine = null;
+        }
+    }
+
+    public class GameAnimationQueue 
+    {
+        public Queue<GameAnimation> Queue;
+
+        public GameAnimationQueue()
+        {
+            Queue = new Queue<GameAnimation>();
+        }
+
+        public IEnumerator Execute()
+        {
+            while(Queue.Count > 0)
+            {
+                var currentAnimation = Queue.Dequeue();
+
+                bool shouldStop = false;
+                shouldStop = currentAnimation is DelayAnimation && Queue.Count == 0;
+                if (!shouldStop)
+                {
+                    yield return currentAnimation.Execute();
+                }
             }
         }
     }

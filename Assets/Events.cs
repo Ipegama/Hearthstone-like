@@ -3,6 +3,7 @@ using Gameplay.Interfaces;
 using System;
 using System.Collections.Generic;
 using TriggerSystem;
+using TriggerSystem.Data;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public static class Events
 
     public static class Actions
     {
-        public static Action<ProjectileActionData, Card, Transform> Projectile;
+        public static Action<ProjectileActionData,Card,Card> Projectile;
     }
     public static class Zones
     {
