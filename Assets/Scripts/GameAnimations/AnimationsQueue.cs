@@ -15,6 +15,7 @@ namespace GameAnimations
         private GameAnimationQueue _lastQueue;
 
         public DamageCanvas damageCanvasPrefab;
+        public DamageCanvas healCanvasPrefab;
         private Coroutine _coroutine;
 
         public void StartQueue()
@@ -45,6 +46,7 @@ namespace GameAnimations
             Events.Actions.Projectile += OnProjectile;
 
             Events.Creatures.Damaged += OnCreatureDamaged;
+            Events.Creatures.Healed += OnCreatureHealed;
             Events.Creatures.AttackChanged += OnAttackChanged;
             Events.Creatures.Attack += OnAttack;
 
@@ -52,8 +54,19 @@ namespace GameAnimations
             Events.Cards.Created += OnCardCreated;
 
             Events.Resolve += OnResolve;
+
+            Events.Players.ManaChanged += OnManaChanged;
+            Events.Players.MaxManaChanged += OnMaxManaChanged;
         }      
 
+        private void OnMaxManaChanged(Player player,int amount,int current, int maximum)
+        {
+            Enqueue(new ManaChangedAnimation(player,amount,current,maximum));
+        }
+        private void OnManaChanged(Player player, int amount, int current, int maximum)
+        {
+            Enqueue(new ManaChangedAnimation(player, amount, current, maximum));
+        }
         private void OnCardCreated(Card card)
         {
             Enqueue(new CardCreatedAnimation(card));
@@ -78,9 +91,9 @@ namespace GameAnimations
         {
             Enqueue(new DamageAnimation(target,damageAmount,health,maxHealth));
         }
-        private void OnCreatureHealed()
+        private void OnCreatureHealed(ITargetable target, int healedAmount, int health, int maxHealth)
         {
-        /////
+            Enqueue(new HealAnimation(target, healedAmount, health, maxHealth));
         }
         private void OnProjectile(ProjectileActionData data, Card source, Transform target)
         {

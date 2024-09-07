@@ -1,32 +1,41 @@
 ﻿using Gameplay;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameAnimations
 {
-    internal class ZoneChangedAnimation : GameAnimation
+    public class ZoneChangedAnimation : GameAnimation
     {
-        private Zone zone;
-        private List<Card> cards;
-        private Card card;
-        private float v;
+        private Zone _zone;
+        private List<Card> _cards;
+        private Card _card;
 
-        public ZoneChangedAnimation(Zone zone, List<Card> cards, Card card, float v)
+        private float _duration;
+
+        public ZoneChangedAnimation(Zone zone, List<Card> cards, Card card, float duration)
         {
-            this.zone = zone;
-            this.cards = cards;
-            this.card = card;
-            this.v = v;
+            _zone = zone;
+            _cards = cards;
+            _card = card;
+            _duration = duration;
         }
 
         public override IEnumerator Execute()
         {
-            throw new System.NotImplementedException();
+            _zone.UpdateCardsPosition(_cards, true);
+            _card.UI.UpdateZoneUI(_zone);
+
+            if(_zone.zoneType != ZoneType.Graveyard && _duration > 0f)
+            {
+                yield return new WaitForSeconds(_duration);
+            }
         }
 
         public override void ExecuteWithoutAnimation()
         {
-            throw new System.NotImplementedException();
+            _zone.UpdateCardsPosition(_cards,false);
+            _card.UI.UpdateZoneUI(_zone);
         }
     }
 }

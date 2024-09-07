@@ -1,18 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TriggerSystem
+namespace TriggerSystem.Data
 {
-    public class ActionData : ScriptableObject
+    public abstract class ActionData : ScriptableObject
     {
-        public virtual void Execute(ActionContext context)
-        {
+        public abstract void Execute(ActionContext context);
 
-        }
-
-        public virtual string GetDescription()
-        {
-            return $"-Empty-";
-        }
+        public abstract string GetDescription();
     }
 }

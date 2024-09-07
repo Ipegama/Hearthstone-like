@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TriggerSystem.Data;
+using TriggerSystem;
 using Gameplay;
-using System;
 
 namespace Data
 {
@@ -14,41 +13,35 @@ namespace Data
 
         public int manaCost;
 
-        public CardType cardType;
-        public int attack;
-        public int maxHealth;
-        internal IEnumerable<object> playActions;
-        internal object targetFilter;
-        private Card _cardPrefab;
-        public Card cardPrefab
+        public TargetFilter targetFilter;
+
+        public ActionData[] playAction;
+
+        private CardUI _cardPrefab;
+        public CardUI CardPrefab
         {
             get
             {
-                if(_cardPrefab == null)
+                if (_cardPrefab == null)
                 {
-                    _cardPrefab = Resources.Load<Card>("CardPrefab");
+                    _cardPrefab = Resources.Load<CardUI>("CardPrefab");
                 }
                 return _cardPrefab;
             }
         }
 
-        public bool HasTarget { get; internal set; }
-
-        public Card Create()
+        public virtual Card Create(Player owner)
         {
-            var card = Instantiate(cardPrefab);
-            card.SetData(this);
-            return card;
+            return null;
         }
-
-        internal string GetDescription()
+        public virtual string GetDescription()
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
-}
 
-public enum CardType
-{
-    Creature,Spell
+    public enum CardType
+    {
+        Creature, Spell
+    }
 }

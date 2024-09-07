@@ -80,13 +80,35 @@ public class GameManager : MonoBehaviour
         AnimationsQueue.Instance.EndQueue();
     }
 
-    public List<ITargetable> GetAllEntities(ActionContext thisCard, TargetFilter filter)
+    private void Update()
     {
-        throw new NotImplementedException();
+        var player = GetCurrentControllerTurn();
+        if(player != null)
+        {
+            player.UpdateControls();
+        }
     }
-
-    public Player GetEnemyOf(Player owner)
+    private PlayerController GetCurrentControllerTurn()
     {
-        return owner;
+        return playerControllers[_currentTurn%2];
+    }
+    private Player GetCurrentPlayerTurn()
+    {
+        return players[_currentTurn%2];
+    }
+    public Player GetEnemyOf(Player player)
+    {
+        if(player == players[0])
+            return players[1];
+        return players[0];
+    }
+    public List<ITargetable> GetAllEntities(Card card, TargetFilter filter)
+    {
+        var result = new List<ITargetable>();
+        foreach(var player in players)
+        {
+            result.AddRange(player.GetAllTargets(card, filter));
+        }
+        return result;
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿using TriggerSystem;
 using UnityEngine;
 
 namespace Gameplay.Interfaces
@@ -12,6 +12,8 @@ namespace Gameplay.Interfaces
         Player GetOwner();
         Transform GetTransform();
         void AddBuff(Buff buff);
+
+
         void Damage(int amount, bool triggerEvent, ITargetable source);
         void Heal(int amount, bool triggerEvent);
         void SetHealth(int health, int maxHealth);

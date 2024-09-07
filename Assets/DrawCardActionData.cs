@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TriggerSystem.Data
+namespace TriggerSystem.Data.Actions
 {
     [CreateAssetMenu(fileName = "Draw card", menuName = "Actions/DrawCard")]
     public class DrawCardActionData : ActionData

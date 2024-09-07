@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
@@ -25,6 +26,7 @@ namespace Gameplay
             CardType = CardType.Creature;
 
             _creatureData = data as CreatureData;
+
             _maxHealth = _creatureData.maxHealth;
             _health = _maxHealth;
             _attack = _creatureData.attack;
@@ -38,10 +40,25 @@ namespace Gameplay
 
             _canAttack = false;
             Events.Creatures.Attack?.Invoke(this, target);
+
             target.Damage(_attack, false,this);
-            Damage(target.GetAttack, false,target);
-            target.TriggerDamagedEvent();
-            TriggerDamagedEvent(target);
+            Damage(target.GetAttack(), false,target);
+
+            EventManager.Instance.CreatureDamaged.Raise(
+                new ActionContext
+                {
+                    TriggerEntity = target,
+                    DamagingEntity = this,
+                    EventAmount = _attack,
+                });
+
+            EventManager.Instance.CreatureDamaged.Raise(
+                new ActionContext
+                {
+                    TriggerEntity = this,
+                    DamagingEntity = target,
+                    EventAmount = target.GetAttack(), 
+            });
         }
 
         public override void Damage(int amount, bool triggerEvent, ITargetable source)
@@ -51,7 +68,13 @@ namespace Gameplay
 
             if (triggerEvent)
             {
-                TriggerDamagedEvent(source);
+                EventManager.Instance.CreatureDamaged.Raise(
+                    new ActionContext
+                    {
+                        TriggerEntity = this,
+                        DamagingEntity = source,
+                        EventAmount = amount,
+                    });
             }
         }
 
@@ -67,17 +90,101 @@ namespace Gameplay
 
             if (triggerEvent)
             {
-                TriggerHealEvent();
+
+                EventManager.Instance.CreatureDamaged.Raise(
+                    new ActionContext
+                    {
+                        TriggerEntity = this,
+                    });
             }
         }
 
-        private void TriggerHealEvent()
+        public override void Kill()
         {
-            EventManager.Instance.CreatureHealed.Raise(
+            _isDead = true;
+        }
+        public override int GetAttack()
+        {
+            return _attack;
+        }
+
+        public void ChangedAttack(int amount)
+        {
+            _attack += amount;
+            Events.Creatures.AttackChanged?.Invoke(this,amount,_attack);
+        }
+
+        public void ChangedMaxHealth(int amount)
+        {
+            _maxHealth += amount;
+            _health += amount;
+            Events.Creatures.MaxHealthChanged?.Invoke(this,amount,_health,_maxHealth);
+        }
+
+        protected override void OnPlay()
+        {
+            RegisterTriggers();
+        }
+
+        protected override void OnCardDestroyed()
+        {
+            UnregisterTriggers();
+        }
+
+        public override void AddBuff(Buff buff)
+        {
+            _buffs.Add(buff);
+            buff.OnApply(this);
+        }
+
+        public void ClearBuffs()
+        {
+            foreach(var buff in _buffs)
+            {
+                buff.OnRemove(this);
+            }
+            _buffs.Clear();
+        }
+
+        public void OnCreatureDeath()
+        {
+            EventManager.Instance.CreatureDeath.Raise(
                 new ActionContext
                 {
                     TriggerEntity = this,
-                });                
+                    TargetEntity = null,
+                });
+            UnregisterTriggers();
+        }
+
+        private void RegisterTriggers()
+        {
+            foreach(var trigger in _creatureData.triggers)
+            {
+                _gameTriggers.Add(new GameTrigger(trigger,this));
+            }
+
+            foreach(var trigger in _gameTriggers)
+            {
+                trigger.gameEvent.AddTrigger(trigger);
+            }
+        }
+
+        private void UnregisterTriggers()
+        {
+            foreach(var trigger in _gameTriggers)
+            {
+                trigger.gameEvent.RemoveTrigger(trigger);
+            }
+        }
+        public override bool IsDead()
+        {
+            return base.IsDead() || _health <= 0;
+        }
+
+        public override void TurnStarted()
+        {
+            _canAttack = true;
         }
     }
 }

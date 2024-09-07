@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TriggerSystem.Data
 {
-    [CreateAssetMenu(fileName = "SpawnCreature",menuName = "Actions/SpawnCreature")]
+    [CreateAssetMenu(fileName = "SpawnCreature", menuName = "Actions/Spawn Creature")]
     public class SpawnCreatureActionData : ActionData
     {
         public CreatureData creatureData;
@@ -12,7 +12,7 @@ namespace TriggerSystem.Data
         public override void Execute(ActionContext context)
         {
             var creature = creatureData.Create(context.Get(targetPlayer));
-            //creature.owner.board.AddCard(creature);
+            creature.owner.board.AddCard(creature);
             Events.Cards.Created?.Invoke(creature);
         }
 

@@ -7,60 +7,42 @@ namespace Gameplay
 {
     public class Zone : MonoBehaviour 
     {
-        public float cardSize;
-        public float cardInterval;
-        public ZoneData containerData;
-
-        private List<Card> _cards = new List<Card>();
-        private Player _owner;
-
-        public void Initialize(Player owner)
+        //73
+        private Vector3 GetPosition(List<Card> cards, Card card)
         {
-            _owner = owner;
+            var count = cards.Count;
+            var index = cards.IndexOf(card);
+
+            var handSize = count * cardSize + (count - 1) * cardInterval;
+            var positionX = (cardSize - handSize) / 2f;
+
+            return new Vector3(positionX + (cardSize + cardInterval) * index,0f,0f);
         }
 
-        public void AddCard(Card card)
+        public List<Creature> GetCreatures()
         {
-            _cards.Add(card);
-            card.SetZone(this);
-            //Do ListExtensions dodac .GetCopy()
-            Events.Zones.CardAdded?.Invoke(this, new List<Card>(_cards), card);
-            //new List<Card>(_cards) -> _cards.GetCopy()
-        }
-
-        public void RemoveCard(Card card)
-        {
-            _cards.Remove(card);
-            Events.Zones.CardRemoved?.Invoke(this,new List<Card>(_cards), card);
-        }
-
-        public void Shuffle()
-        {
-            _cards.Shuffle();
-        }
-
-        public void UpdateCardsPosition(List<Card> cards, bool animate)
-        {
-            foreach(var card in cards)
+            var creatures = new List<Creature>();
+            foreach(var card in _cards)
             {
-                //UpdateCardPosition(card, this, GetPosition(cards, card), animate);
+                if(card is Creature creature)
+                {
+                    creatures.Add(creature);
+                }
             }
+            return creatures;
         }
 
-        private void UpdateCardPosition(Card card, Zone zone, Vector3 position, bool animate)
+        public Transform GetTransform() => transform;
+        public Card GetFirstCard() => _cards.Count > 0 ? _cards[0] : null;
+        public bool IsDeck()=> zoneType == ZoneType.Deck;
+        public bool IsBoard() => zoneType == ZoneType.Board;
+        public void TurnStarted()
         {
-            var tf = card.transform;
-            //tf.SetParent(zone.GetTranform(), true);
-            if (animate)
+            foreach(var card in _cards)
             {
-                tf.DOComplete();
-                tf.DOLocalMove(position,0.4f);
+                card.TurnStarted();
             }
-            else
-            {
-                tf.localPosition = position;
-            }
+            //
         }
-        //
     }
 }

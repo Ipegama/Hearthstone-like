@@ -25,9 +25,9 @@ public class DamageCanvas : MonoBehaviour
         transform.position += new Vector3(0f, 0.1f, 0f);
     }
 
-    private IEnumerator AnimateCoroutine(int amount)
+    private IEnumerator AnimateCoroutine(int amount,string prefix)
     {
-        damageText.text = $"-{amount}";
+        damageText.text = $"{prefix}{amount}";
 
         transform.localScale = Vector3.zero;
         transform.DOScale(1f,0.4f).SetEase(ease);
@@ -41,9 +41,9 @@ public class DamageCanvas : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void StartAnimateCoroutine(int damageAmount)
+    public void StartAnimateCoroutine(int damageAmount, string prefix)
     {
-        StartCoroutine(AnimateCoroutine(damageAmount));
+        StartCoroutine(AnimateCoroutine(damageAmount, prefix));
     }
 
     public void SetFakeParent(Transform transform)

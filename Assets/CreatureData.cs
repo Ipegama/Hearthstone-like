@@ -1,15 +1,39 @@
-﻿using Gameplay;
-using System;
+﻿using Data;
+using TriggerSystem.Data;
+using UnityEngine;
 
-namespace TriggerSystem.Data
+namespace Gameplay.Data
 {
-    public class CreatureData
+    [CreateAssetMenu]
+    public class CreatureData : CardData
     {
-        internal object cardName;
+        public int attack;
+        public int maxHealth;
 
-        internal object Create(Player player)
+        public GameTriggerData[] triggers;
+
+        public override Card Create(Player owner)
         {
-            throw new NotImplementedException();
+            var card = Instantiate(cardPrefab);
+            card.name = cardName;
+            card.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+
+            var creature = card.gameObject.AddComponent<Creature>();
+            creature.SetData(this);
+            creature.SetOwner(owner);
+            return creature;
+        }
+
+        public override string GetDescription()
+        {
+            var desc = "";
+
+            if (playActions.Length > 0)
+            {
+                desc += "<b>Battlecry:</b>" + playActions[0].GetDescription();
+            }
+
+            return desc;
         }
     }
 }

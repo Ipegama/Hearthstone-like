@@ -15,7 +15,7 @@ namespace Gameplay
         [HideInInspector] public Player owner;
         [HideInInspector] public Zone zone;
 
-        private bool _isDead;
+        protected bool _isDead;
 
         private void Awake()
         {
@@ -130,9 +130,8 @@ namespace Gameplay
         public virtual void Heal(int amount, bool triggerEvent) { }
         public void SetHealth(int health, int maxHealth)=> UI.SetHealth(health, maxHealth);
         public virtual int GetAttack() => 0;
-        public virtual void TriggerDamagedEvent(ITargetable source) { }
         public Player GetPlayer() => owner;
-        public void AnimateDamage(Vector3 scale, float duration)=> UI.AnimateDagame(scale, duration);
+        public void AnimateDamage(Vector3 scale, float duration)=> UI.AnimateDamage(scale, duration);
         public virtual void Kill() { }
         public bool CanBeTargeted()=> IsOnBoard() && !IsDead();
         public virtual void TurnStarted() { }

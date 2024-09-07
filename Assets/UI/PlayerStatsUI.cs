@@ -14,7 +14,7 @@ namespace UI
 
         public TMP_Text healthText;
 
-        public void UpdateManaTexxt(int mana, int maxMana)
+        public void UpdateManaText(int mana, int maxMana)
         {
             manaText.text = $"{mana}/{maxMana}";
         }

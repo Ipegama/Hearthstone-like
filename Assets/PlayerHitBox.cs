@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Gameplay
 {
-    public class PlayerHitBox : MonoBehaviour, IHighlightable, ITargetable
+    public class PlayerHitbox : MonoBehaviour, IHighlightable, ITargetable
     {
         public Player player;
         public Image playerBackground;
@@ -35,8 +35,9 @@ namespace Gameplay
         public void Heal(int amount, bool triggerEvent) => player.Heal(amount,triggerEvent);
         public void SetHealth(int health, int maxHealth) { }
         public int GetAttack() => 0;
-        public void TriggerDamageEvent(ITargetable source) { }
         public Player GetPlayer() => player;
+        public void AnimateDamage(Vector3 scale, float duration) { }
+        public void Kill() { }
         public bool CanBeTargeted() => true;
         public bool IsCreature() => false;
         public bool IsSpell() => false;

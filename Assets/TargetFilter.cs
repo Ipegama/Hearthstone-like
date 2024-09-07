@@ -1,34 +1,36 @@
 ﻿using Gameplay.Interfaces;
 using System;
 
-[Serializable]
-public class TargetFilter 
+namespace TriggerSystem
 {
-    public bool creature;
-    public bool player;
-    public bool spell;
-
-    public bool ally;
-    public bool enemy;
-
-    public bool Match(ITargetable source, ITargetable target)
+    [Serializable]
+    public class TargetFilter
     {
-        if(target == null) return false;
-        if(source == null) return false;
+        public bool creature;
+        public bool player;
+        public bool spell;
 
-        if(!creature && target.IsCreature()) return false;
-        if(!spell && target.IsSpell()) return false;
-        if(!player && target.IsPlayer()) return false;
+        public bool ally;
+        public bool enemy;
 
-        if(!ally && source != target && source.GetOwner() == target.GetOwner()) return false;
-        if(!enemy && source.GetOwner() != target.GetOwner()) return false;
+        public bool Match(ITargetable source, ITargetable target)
+        {
+            if (target == null) return false;
+            if (source == null) return false;
 
-        return true;
+            if (!creature && target.IsCreature()) return false;
+            if (!spell && target.IsSpell()) return false;
+            if (!player && target.IsPlayer()) return false;
+
+            if (!ally && source != target && source.GetOwner() == target.GetOwner()) return false;
+            if (!enemy && source.GetOwner() != target.GetOwner()) return false;
+
+            return true;
+        }
+
+        public bool HasTarget()
+        {
+            return creature || player || spell || ally || enemy;
+        }
     }
-
-    public bool HasTarget()
-    {
-        return creature||player||spell||ally||enemy;
-    }
-
 }

@@ -19,6 +19,7 @@ namespace Gameplay
         [SerializeField] private Zone hand;
         [SerializeField] public Zone graveyard;
         [SerializeField] public Zone board;
+
         public PlayerStatsUI playerStats;
 
         public event Action<int, int> ManaChanged;
@@ -157,14 +158,13 @@ namespace Gameplay
             {
                 if(card is Creature creature)
                 {
-
                     StartAttack(creature, target);
                 }
             }
         }
         public void DoAction(Card card, Zone zone)
         {
-            if(card.IsInHand()&&zone.zoneType == ZoneType.Board)
+            if(card.IsInHand() && zone.zoneType == ZoneType.Board)
             {
                 PlayCard(card);
             }
@@ -183,7 +183,13 @@ namespace Gameplay
 
             if (triggerEvent)
             {
-                TriggerDamagedEvent(source);
+                EventManager.Instance.CreatureDamaged.Raise(
+                new ActionContext
+                {
+                    TriggerEntity = this,
+                    DamagingEntity = source,
+                    EventAmount = amount,
+                });
             }
         }
         public void Heal(int amount,bool triggerEvent)
@@ -197,25 +203,12 @@ namespace Gameplay
 
             if (triggerEvent)
             {
-                TriggerHealEvent();
+                EventManager.Instance.CreatureHealed.Raise(
+              new ActionContext
+              {
+                  TriggerEntity = this,
+              });
             }
-        }
-        private void TriggerHealEvent()
-        {
-            EventManager.Instance.CreatureHealed.Raise(
-                new ActionContext
-                {
-                    TriggerEntity = this,
-                });
-        }
-        private void TriggerDamagedEvent(ITargetable source)
-        {
-            EventManager.Instance.CreatureDamaged.Raise(
-                new ActionContext
-                {
-                    TriggerEntity = this,
-                    DamagingEntity = source
-                });
         }
         public void SetHealth(int health,int maxHealth)=> playerStats.SetHealth(health, maxHealth);
         public int GetAttack() => 0;
@@ -226,6 +219,8 @@ namespace Gameplay
             tf.DOComplete();
             tf.DOPunchScale(scale,duration);
         }
+        public void Kill() => _isDead = true;
+
         public bool IsDead() => _health <= 0;
 
         public List<ITargetable> GetAllTargets(Card card,TargetFilter filter)

@@ -49,7 +49,6 @@ namespace TriggerSystem
             }
         }
 
-
         public List<ITargetable> GetAll(TargetType type, TargetFilter filter)
         {
             switch(type)
@@ -63,8 +62,10 @@ namespace TriggerSystem
 
         public Dictionary<string, int> GetAllIntKeys()
         {
-            var dict = new Dictionary<string, int>();
-            dict.Add("EventAmount",EventAmount);
+            var dict = new Dictionary<string, int>
+            {
+                { "EventAmount", EventAmount }
+            };
             return dict;
         }
     }

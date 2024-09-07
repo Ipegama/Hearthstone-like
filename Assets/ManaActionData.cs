@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TriggerSystem.Data
+namespace TriggerSystem.Data.Actions
 {
     [CreateAssetMenu(fileName = "Mana", menuName = "Actions/Mana")]
     public class ManaActionData : ActionData

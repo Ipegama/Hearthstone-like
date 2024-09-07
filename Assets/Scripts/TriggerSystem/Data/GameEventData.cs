@@ -7,24 +7,40 @@ namespace TriggerSystem.Data
     [CreateAssetMenu]
     public class GameEventData : ScriptableObject
     {
-        private readonly List<Action<ActionContext>> _listeners = new List<Action<ActionContext>>();
-
-        public void Raise(ActionContext context)
+        //
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //
+        public void AddTrigger(GameTrigger trigger)
         {
-            foreach (var listener in _listeners)
-            {
-                listener?.Invoke(context);
-            }
+            _triggers.Add(trigger);
         }
 
-        public void AddListener(Action<ActionContext> listener)
+        public void RemoveTrigger(GameTrigger trigger)
         {
-            _listeners.Add(listener);
+            _triggers.Remove(trigger);  
         }
 
-        public void RemoveListener(Action<ActionContext> listener)
+        public int GetTriggersCount()
         {
-            _listeners.Remove(listener);
+            return _triggers.Count;
+        }
+
+        public void ClearTriggers()
+        {
+            _triggers.Clear();
+        }
+
+        public string GetDescription(string cardName)
+        {
+            return string.Format(description,cardName);
         }
     }
 }
