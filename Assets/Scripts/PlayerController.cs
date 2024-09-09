@@ -1,7 +1,6 @@
-﻿using Gameplay;
+﻿using System.Collections;
+using Gameplay;
 using Gameplay.Interfaces;
-using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -30,7 +29,7 @@ public class PlayerController : MonoBehaviour
         var card = SelectionManager.GetObjectAtCursor<IHighlightable>();
         if(card != null)
         {
-            if(card.CanBeTargeted(controlledPlayer,_selectedCard))
+            if(card.CanBeTargeted(controlledPlayer._selectedCard))
             {
                 Highlight(card);
             }

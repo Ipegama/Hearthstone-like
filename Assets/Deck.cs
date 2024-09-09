@@ -1,5 +1,6 @@
 using Data;
 using Extensions;
+using Gameplay.Data;
 using Interface;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,7 @@ namespace Gameplay
         }
         private void CreateCard(CardData cardData)
         {
-            var card = cardData.Create();
-            card.SetOwner(_owner);
-            //card.SetStatus(CardStatus.InDeck,this);
-            _cards.Add(card);
+
         }
 
         private void Shuffle()

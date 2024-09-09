@@ -6,7 +6,7 @@ using Gameplay.Interfaces;
 namespace TriggerSystem
 {
     [Serializable]
-    public class ActionContext
+    public struct ActionContext
     {
         public Card thisCard;
         public ITargetable TargetEntity;

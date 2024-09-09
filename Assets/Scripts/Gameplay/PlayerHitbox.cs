@@ -1,5 +1,6 @@
 using Gameplay;
 using Gameplay.Interfaces;
+using TriggerSystem;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -35,7 +35,7 @@ namespace Gameplay
         {
             _cards.Add(card);
             card.SetZone(this);
-            Events.Zones.CardAdded?.Invoke(this, _card.GetCopy(),card);
+            Events.Zones.CardAdded?.Invoke(this, _cards.GetCopy(),card);
         }
 
         public void RemoveCard(Card card)
@@ -60,7 +60,7 @@ namespace Gameplay
         private void UpdateCardPosition(Card card, Zone zone, Vector3 position, bool animate)
         {
             var tf = card.transform;
-            tf.SetParent(zone.GetPosition(),true);
+            tf.SetParent(zone.GetTransform(),true);
             if (animate)
             {
                 tf.DOKill();

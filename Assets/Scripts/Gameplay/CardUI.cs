@@ -1,6 +1,6 @@
 using DG.Tweening;
+using Gameplay.Data;
 using TMPro;
-using TriggerSystem.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +34,7 @@ namespace Gameplay
         private Card _card;
 
         private Tween _scaleTween;
+        private Tween _punchScaleTween;
         private bool _selected;
 
         private void Awake()
@@ -138,6 +139,7 @@ namespace Gameplay
                     _canvas.sortingOrder = 0;
                 }
             }
+
             else
             {
                 ResetDefaultScale();
@@ -187,5 +189,11 @@ namespace Gameplay
                 .OnComplete(()=>triggerObject.transform.DOScale(1f,delay/2f).SetEase(easeOut));
         }
 
+        public void AnimateDamage(Vector3 scale, float duration)
+        {
+            ResetDefaultScale();
+            _punchScaleTween?.Kill();
+            _punchScaleTween = transform.DOPunchScale(scale, duration);
+        }
     }
 }

@@ -1,9 +1,8 @@
 using UnityEngine;
 using TriggerSystem.Data;
 using TriggerSystem;
-using Gameplay;
 
-namespace Data
+namespace Gameplay.Data
 {
     [CreateAssetMenu()]
     public class CardData : ScriptableObject
@@ -15,7 +14,7 @@ namespace Data
 
         public TargetFilter targetFilter;
 
-        public ActionData[] playAction;
+        public ActionData[] playActions;
 
         private CardUI _cardPrefab;
         public CardUI CardPrefab

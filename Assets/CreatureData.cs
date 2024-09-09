@@ -14,7 +14,7 @@ namespace Gameplay.Data
 
         public override Card Create(Player owner)
         {
-            var card = Instantiate(cardPrefab);
+            var card = Instantiate(CardPrefab);
             card.name = cardName;
             card.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
 

@@ -1,3 +1,4 @@
+using TriggerSystem.Data.Conditions;
 using UnityEngine;
 
 namespace TriggerSystem.Data

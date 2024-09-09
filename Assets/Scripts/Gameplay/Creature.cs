@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Data;
+using Gameplay.Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
 using TriggerSystem.Data;
@@ -41,8 +42,8 @@ namespace Gameplay
             _canAttack = false;
             Events.Creatures.Attack?.Invoke(this, target);
 
-            target.Damage(_attack, false,this);
-            Damage(target.GetAttack(), false,target);
+            target.Damage(_attack, false, this);
+            Damage(target.GetAttack(), false, target);
 
             EventManager.Instance.CreatureDamaged.Raise(
                 new ActionContext
@@ -57,8 +58,8 @@ namespace Gameplay
                 {
                     TriggerEntity = this,
                     DamagingEntity = target,
-                    EventAmount = target.GetAttack(), 
-            });
+                    EventAmount = target.GetAttack(),
+                });
         }
 
         public override void Damage(int amount, bool triggerEvent, ITargetable source)
@@ -80,13 +81,13 @@ namespace Gameplay
 
         public override void Heal(int amount, bool triggerEvent)
         {
-            if(_health + amount > _maxHealth)
+            if (_health + amount > _maxHealth)
             {
-                amount = _maxHealth-_health;
+                amount = _maxHealth - _health;
             }
             _health += amount;
 
-            Events.Creatures.Healed?.Invoke(this,amount,_health,_maxHealth);
+            Events.Creatures.Healed?.Invoke(this, amount, _health, _maxHealth);
 
             if (triggerEvent)
             {
@@ -111,14 +112,14 @@ namespace Gameplay
         public void ChangedAttack(int amount)
         {
             _attack += amount;
-            Events.Creatures.AttackChanged?.Invoke(this,amount,_attack);
+            Events.Creatures.AttackChanged?.Invoke(this, amount, _attack);
         }
 
         public void ChangedMaxHealth(int amount)
         {
             _maxHealth += amount;
             _health += amount;
-            Events.Creatures.MaxHealthChanged?.Invoke(this,amount,_health,_maxHealth);
+            Events.Creatures.MaxHealthChanged?.Invoke(this, amount, _health, _maxHealth);
         }
 
         protected override void OnPlay()
@@ -139,7 +140,7 @@ namespace Gameplay
 
         public void ClearBuffs()
         {
-            foreach(var buff in _buffs)
+            foreach (var buff in _buffs)
             {
                 buff.OnRemove(this);
             }
@@ -159,12 +160,12 @@ namespace Gameplay
 
         private void RegisterTriggers()
         {
-            foreach(var trigger in _creatureData.triggers)
+            foreach (var trigger in _creatureData.triggers)
             {
-                _gameTriggers.Add(new GameTrigger(trigger,this));
+                _gameTriggers.Add(new GameTrigger(trigger, this));
             }
 
-            foreach(var trigger in _gameTriggers)
+            foreach (var trigger in _gameTriggers)
             {
                 trigger.gameEvent.AddTrigger(trigger);
             }
@@ -172,7 +173,7 @@ namespace Gameplay
 
         private void UnregisterTriggers()
         {
-            foreach(var trigger in _gameTriggers)
+            foreach (var trigger in _gameTriggers)
             {
                 trigger.gameEvent.RemoveTrigger(trigger);
             }

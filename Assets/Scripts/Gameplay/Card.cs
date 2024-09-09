@@ -1,5 +1,5 @@
 using System;
-using Data;
+using Gameplay.Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
 using UnityEngine;
@@ -106,6 +106,12 @@ namespace Gameplay
                     player = true
                 };
             }
+            if (IsInHand())
+            {
+                return CardData.targetFilter;
+            }
+
+            return new TargetFilter();
         }
         public virtual bool IsDead()=> _isDead;
         public bool CanBeSelectedBy(Player player)=> owner == player && (IsInHand() || IsOnBoard());

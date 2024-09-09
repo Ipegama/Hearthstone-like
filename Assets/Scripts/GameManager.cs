@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay;
@@ -76,7 +74,7 @@ public class GameManager : MonoBehaviour
         });
         Events.Players.TurnEnded?.Invoke(player);
 
-        Events.Resolve?.Invoke(player);
+        Events.Resolve?.Invoke();
         AnimationsQueue.Instance.EndQueue();
     }
 

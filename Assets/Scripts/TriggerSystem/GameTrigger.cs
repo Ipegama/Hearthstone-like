@@ -16,6 +16,7 @@ namespace TriggerSystem
         public GameTrigger(GameTriggerData trigger, Card card)
         {
             _data = trigger;
+
             gameEvent = trigger.gameEvent;
             actions = new ActionData[trigger.actions.Length];
             for (int i = 0; i < trigger.actions.Length; i++)

@@ -1,5 +1,6 @@
 using Data;
 using DG.Tweening;
+using Extensions;
 using GameAnimations;
 using Gameplay.Interfaces;
 using System;
@@ -85,7 +86,7 @@ namespace Gameplay
             {
                 if (creature.IsDead())
                 {
-                    OnCratureDeath(creature);
+                    OnCreatureDeath(creature);
                 }
             }
         }
@@ -144,8 +145,8 @@ namespace Gameplay
                 {
                     livingCreature.Add(card);
                 }
-                return livingCreature.Random();
             }
+            return livingCreature.Random();
         }
 
         public void DoAction(Card card,ITargetable target)
@@ -173,7 +174,7 @@ namespace Gameplay
         public bool IsCreature()=> false;
         public bool IsSpell()=> false;
         public bool IsPlayer()=>false;
-        public Player Owner() => this;
+        public Player GetOwner() => this;
         public Transform GetTransform() => playerStats.transform;
         public void AddBuff(Buff buff) { }
         public void Damage(int amount,bool triggerEvent, ITargetable source)
@@ -211,6 +212,7 @@ namespace Gameplay
             }
         }
         public void SetHealth(int health,int maxHealth)=> playerStats.SetHealth(health, maxHealth);
+        
         public int GetAttack() => 0;
         public Player GetPlayer() => this;
         public void AnimateDamage(Vector3 scale, float duration)
@@ -219,7 +221,7 @@ namespace Gameplay
             tf.DOComplete();
             tf.DOPunchScale(scale,duration);
         }
-        public void Kill() => _isDead = true;
+        public void Kill() { }
 
         public bool IsDead() => _health <= 0;
 
