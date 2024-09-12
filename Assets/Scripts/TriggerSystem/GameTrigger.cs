@@ -41,11 +41,13 @@ namespace TriggerSystem
 
         public bool CheckConditions(ActionContext context)
         {
-            foreach(var condition in _data.conditions)
+            foreach (var condition in _data.conditions)
             {
-                if(!condition.Check(context)) return false;
+                if (!condition.Check(context))
+                {
+                    return false;
+                }
             }
-
             return true;
         }
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TriggerSystem.Data.Actions
+namespace TriggerSystem.Data
 {
     [CreateAssetMenu(fileName ="ApplyBuff",menuName = "Actions/Buff")]
     public class ApplyBuffData : ActionData

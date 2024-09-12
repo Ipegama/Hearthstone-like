@@ -13,7 +13,7 @@ public static class Events
 
     public static class Actions
     {
-        public static Action<ProjectileActionData,Card,Card> Projectile;
+        public static Action<ProjectileActionData,Card,Transform> Projectile;
     }
     public static class Zones
     {

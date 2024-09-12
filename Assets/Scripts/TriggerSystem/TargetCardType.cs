@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TargetCardType : MonoBehaviour
+namespace TriggerSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum TargetCardType
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        TargetCard,
+        TriggerCard,
+        RandomEnemy,
+        ThisCard
     }
 }

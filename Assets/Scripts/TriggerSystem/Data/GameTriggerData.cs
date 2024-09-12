@@ -9,7 +9,10 @@ namespace TriggerSystem.Data
         [Header("Events")]
         public GameEventData gameEvent;
 
-        public ConditionData[] condition;
+        [Header("Conditions")]
+        public ConditionData[] conditions;
+
+        [Header("Actions")]
         public ActionData[] actions;
 
         public string GetDescription()

@@ -96,7 +96,7 @@ namespace GameAnimations
         {
             Enqueue(new HealAnimation(target, healedAmount, health, maxHealth));
         }
-        private void OnProjectile(ProjectileActionData data, Card source, Card target)
+        private void OnProjectile(ProjectileActionData data, Card source, Transform target)
         {
             Enqueue(new ProjectileAnimation(data,source,target));
         }

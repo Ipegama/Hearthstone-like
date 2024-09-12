@@ -1,5 +1,5 @@
+using Gameplay.Interfaces;
 using UnityEngine;
-using Data;
 
 namespace Gameplay.Data
 {
@@ -8,7 +8,7 @@ namespace Gameplay.Data
     {
         public override Card Create(Player owner)
         {
-            var card = Instantiate(cardPrefab);
+            var card = Instantiate(CardPrefab);
             card.name = cardName;
             card.transform.localRotation = Quaternion.Euler(90f, 0, 0);
 
@@ -22,7 +22,7 @@ namespace Gameplay.Data
         {
             var desc = "";
 
-            if (playActions.Lenght > 0)
+            if (playActions.Length > 0)
             {
                 desc += playActions[0].GetDescription();
             }

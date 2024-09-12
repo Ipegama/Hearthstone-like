@@ -1,4 +1,5 @@
 using Gameplay;
+using Gameplay.Interfaces;
 using System;
 using UnityEngine;
 
@@ -7,8 +8,8 @@ namespace TriggerSystem.Data.Conditions
     [CreateAssetMenu]
     public class CardConditionData : ConditionData
     {
-        public TargetCardType cardType1;
-        public TargetCardType cardType2;
+        public TargetType cardType1;
+        public TargetType cardType2;
 
         public override bool Check(ActionContext context)
         {
@@ -18,7 +19,7 @@ namespace TriggerSystem.Data.Conditions
             return Evaluate(card1,card2);
         }
 
-        private bool Evaluate(Card card1, Card card2)
+        private bool Evaluate(ITargetable card1, ITargetable card2)
         {
             switch (op) 
             {

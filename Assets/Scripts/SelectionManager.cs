@@ -14,7 +14,7 @@ public static class SelectionManager
         }
     }
 
-    public static T GetObjectAtCursor<T>() where T : Component
+    public static T GetObjectAtCursor<T>() 
     {
         var ray = Camera.ScreenPointToRay(Input.mousePosition);
         var hits = Physics.RaycastAll(ray);
@@ -23,6 +23,6 @@ public static class SelectionManager
             T obj = hit.collider.GetComponent<T>();
             if(obj != null) return obj;
         }
-        return null;
+        return default;
     }
 }

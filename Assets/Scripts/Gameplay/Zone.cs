@@ -108,7 +108,6 @@ namespace Gameplay
             {
                 card.TurnStarted();
             }
-            //
         }
     }
 }

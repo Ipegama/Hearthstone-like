@@ -1,28 +1,42 @@
-﻿using System.Collections;
+﻿using Gameplay;
+using System.Collections;
 using TriggerSystem;
 using TriggerSystem.Data;
+using UnityEngine;
 
 namespace GameAnimations
 {
     internal class ProjectileAnimation : GameAnimation
     {
         private ProjectileActionData _data;
-        private ActionContext context;
+        private Card _source;
+        private Transform _target;
 
-        public ProjectileAnimation(ProjectileActionData data, ActionContext context)
+        private bool _projectileTriggered;
+
+        public ProjectileAnimation(ProjectileActionData data, Card source, Transform target)
         {
-            this._data = data;
-            this.context = context;
+            _data = data;
+            _source = source;
+            _target = target;
         }
 
         public override IEnumerator Execute()
         {
-            throw new System.NotImplementedException();
+            _projectileTriggered = false;
+            _data.Execute(_source, _target, OnProjectileTriggered);
+
+            yield return new WaitUntil(() => _projectileTriggered);
         }
 
         public override void ExecuteWithoutAnimation()
         {
-            throw new System.NotImplementedException();
+            
+        }
+
+        private void OnProjectileTriggered()
+        {
+            _projectileTriggered = true;
         }
     }
 }

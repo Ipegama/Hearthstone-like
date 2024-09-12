@@ -46,7 +46,7 @@ namespace Gameplay
 
             InitializeDeck();
 
-            Events.Turns.TurnStarted += OnTurnStarted;
+            Events.Players.TurnStarted += OnTurnStart;
         }
 
         private void OnTurnStart(Player player)

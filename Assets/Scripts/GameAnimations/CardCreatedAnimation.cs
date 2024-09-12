@@ -10,7 +10,7 @@ namespace GameAnimations
         public CardCreatedAnimation(Card card)
         {
             _card = card;
-            card.UI.Hide();
+            _card.gameObject.SetActive(false);
         }
 
         public override IEnumerator Execute()

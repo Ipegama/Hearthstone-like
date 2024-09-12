@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerController controlledPlayer;
+    public Player controlledPlayer;
     
     private Coroutine _coroutine;
     
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
         var card = SelectionManager.GetObjectAtCursor<IHighlightable>();
         if(card != null)
         {
-            if(card.CanBeTargeted(controlledPlayer._selectedCard))
+            if(card.CanBeTargeted(controlledPlayer,_selectedCard))
             {
                 Highlight(card);
             }

@@ -1,9 +1,9 @@
-﻿namespace Gameplay
+﻿namespace Gameplay.Interfaces
 {
-    internal interface IHighlightable
+    public interface IHighlightable
     {
-        bool CanBeTargeted(Player controllerPlayer, Card selectedCard);
         void Highlight(bool value);
-
+        Card GetCard();
+        bool CanBeTargeted(Player controllerPlayer, Card selectedCard);
     }
 }

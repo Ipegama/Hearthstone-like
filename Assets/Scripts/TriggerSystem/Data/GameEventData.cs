@@ -7,6 +7,8 @@ namespace TriggerSystem.Data
     [CreateAssetMenu]
     public class GameEventData : ScriptableObject
     {
+        public string description;
+
         private List<GameTrigger> _triggers = new List<GameTrigger>();
 
         public void Raise(ActionContext context)
