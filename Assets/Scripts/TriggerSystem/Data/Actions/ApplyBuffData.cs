@@ -1,3 +1,4 @@
+using Gameplay;
 using UnityEngine;
 
 namespace TriggerSystem.Data
@@ -10,11 +11,11 @@ namespace TriggerSystem.Data
 
         public override void Execute(ActionContext context)
         {
-            var target = context.Get(targetCardType);
-            if (target != null) 
+            var targetCard = context.Get(targetCardType);
+            if(targetCard is Creature creature)
             {
                 var buff = buffData.Create();
-                target.AddBuff(buff);
+                creature.AddBuff(buff);
             }
         }
 

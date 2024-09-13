@@ -11,15 +11,22 @@ namespace TriggerSystem
             _buffData = buffData;
         }
 
-        public void OnApply(Creature creature)
+        public void OnApply(Card card)
         {
-            creature.ChangedAttack(_buffData.attack);
-            creature.ChangedMaxHealth(_buffData.maxHealth);
+            if (card is Creature creature)
+            {
+                creature.ChangedAttack(_buffData.attack);
+                creature.ChangedMaxHealth(_buffData.maxHealth);
+            }
         }
 
-        public void OnRemove(Creature creature)
+        public void OnRemove(Card card)
         {
-            creature.ChangedAttack(-_buffData.attack);
+            if (card is Creature creature)
+            {
+                creature.ChangedAttack(-_buffData.attack);
+                creature.ChangedMaxHealth(-_buffData.maxHealth);
+            }
         }
     }
 }
