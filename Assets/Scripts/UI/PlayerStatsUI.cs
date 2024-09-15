@@ -8,8 +8,6 @@ namespace UI
     public class PlayerStatsUI : MonoBehaviour
     {
         public TMP_Text manaText;
-        public TMP_Text levelText;
-        public Image xpFillImage;
         public Transform manaParent;
 
         public TMP_Text healthText;
