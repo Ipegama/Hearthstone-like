@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using Data;
 using Gameplay.Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
-using TriggerSystem.Data;
 
 namespace Gameplay
 {

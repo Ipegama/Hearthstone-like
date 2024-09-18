@@ -35,8 +35,11 @@ public class Projectile : MonoBehaviour
                     Triggered();
                 }
 
-                GameObject impact = Instantiate(impactPrefab, _target.position, Quaternion.identity);
-                impact.transform.localScale = Vector3.one * impactScale;
+                if (impactPrefab != null)
+                {
+                    GameObject impact = Instantiate(impactPrefab, _target.position, Quaternion.identity);
+                    impact.transform.localScale = Vector3.one * impactScale;
+                }
 
                 Destroy(gameObject);
                 yield break;

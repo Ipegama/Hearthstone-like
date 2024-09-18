@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     {
         InitializePlayers();
     }
-
     private void InitializePlayers()
     {
         foreach (var player in players)
@@ -85,6 +84,9 @@ public class GameManager : MonoBehaviour
         {
             player.UpdateControls();
         }
+        //
+        if (Input.GetKeyDown(KeyCode.Space)) { EndTurn(); }
+        //
     }
     private PlayerController GetCurrentControllerTurn()
     {

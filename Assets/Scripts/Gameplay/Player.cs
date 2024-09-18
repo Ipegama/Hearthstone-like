@@ -44,6 +44,7 @@ namespace Gameplay
             _maxHealth = health;
             _health = _maxHealth;
 
+
             InitializeDeck();
 
             Events.Players.TurnStarted += OnTurnStart;

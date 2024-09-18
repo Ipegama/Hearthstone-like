@@ -121,6 +121,9 @@ namespace Gameplay
             {
                 return IsInHand() && owner == player || IsOnBoard();
             }
+
+            if (this == selectedCard) return false;
+
             var filter = selectedCard.GetTargetFilter();
             return filter.Match(selectedCard, this);
         }
