@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Test Deck
   m_EditorClassIdentifier: 
   cards:
-  - {fileID: 11400000, guid: c446fb01239992a48a743d001258e24c, type: 2}
+  - {fileID: 11400000, guid: 4c0cc85b3fe9df644b6b8b4dc6992669, type: 2}
   - {fileID: 11400000, guid: db9d20717658fc44680995ba79e5b5dc, type: 2}
-  - {fileID: 11400000, guid: 4c0cc85b3fe9df644b6b8b4dc6992669, type: 2}
-  - {fileID: 11400000, guid: 4c0cc85b3fe9df644b6b8b4dc6992669, type: 2}
-  - {fileID: 11400000, guid: 4c0cc85b3fe9df644b6b8b4dc6992669, type: 2}
+  - {fileID: 11400000, guid: db9d20717658fc44680995ba79e5b5dc, type: 2}
+  - {fileID: 11400000, guid: c446fb01239992a48a743d001258e24c, type: 2}
+  - {fileID: 11400000, guid: c446fb01239992a48a743d001258e24c, type: 2}

@@ -2,6 +2,7 @@ using Data;
 using DG.Tweening;
 using Extensions;
 using GameAnimations;
+using Gameplay.Data;
 using Gameplay.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace Gameplay
 
         private int _health;
         private int _maxHealth;
-
+        
         public void Initialize(int startingMana, int health)
         {
             deck.Initialize(this);
@@ -44,10 +45,10 @@ namespace Gameplay
             _maxHealth = health;
             _health = _maxHealth;
 
-
             InitializeDeck();
 
             Events.Players.TurnStarted += OnTurnStart;
+
         }
 
         private void OnTurnStart(Player player)
@@ -108,6 +109,11 @@ namespace Gameplay
                 hand.AddCard(card);
                 Events.Cards.Drawn?.Invoke(card);
             }
+        }
+
+        public void UseHeroPower()
+        {
+
         }
 
         public void PlayCard(Card card, ITargetable target = null)

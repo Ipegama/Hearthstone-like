@@ -18,6 +18,8 @@ namespace TriggerSystem
             if (target == null) return false;
             if (source == null) return false;
 
+            if (source == target) return false;
+
             if (!creature && target.IsCreature()) return false;
             if (!spell && target.IsSpell()) return false;
             if (!player && target.IsPlayer()) return false;

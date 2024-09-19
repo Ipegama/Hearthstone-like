@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private void StopTargetSelection()
     {
         Select(null);
-        ArcManager.Instance.ShowArc(false); // Użyj ShowArc(false) zamiast HideArc()
+        ArcManager.Instance.ShowArc(false); 
         if (_coroutine != null)
         {
             StopCoroutine(_coroutine);
@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
         var filter = card.GetTargetFilter();
         var hasTarget = filter.HasTarget();
 
-        // Aktywuj łuk
         ArcManager.Instance.ShowArc(true);
         ArcManager.Instance.SetStartPoint(card.transform.position);
 
