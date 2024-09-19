@@ -23,7 +23,7 @@ namespace TriggerSystem.Data
                 {
                     if (projectileAction)
                     {
-                        Events.Actions.Projectile?.Invoke(projectileAction, context.thisCard, target.GetTransform());
+                        Events.Actions.Projectile?.Invoke(projectileAction, context.thisCard, context.thisCard.transform, target.GetTransform());
                     }
                     target.Heal(intAmount, true);
                 }

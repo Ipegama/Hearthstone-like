@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6dcddbe653f9004590c880bbea8c452, type: 3}
+  m_Name: EarthenRingFarseer
+  m_EditorClassIdentifier: 
+  cardName: Earthen Ring Farseer
+  cardSprite: {fileID: 21300000, guid: fc078891cfa72fc40b9500f67212181e, type: 3}
+  manaCost: 3
+  targetFilter:
+    creature: 0
+    player: 0
+    spell: 0
+    ally: 0
+    enemy: 0
+  playActions:
+  - {fileID: 11400000, guid: 1b9c74bc4388e3d4f8db830059ec7d75, type: 2}
+  attack: 3
+  maxHealth: 3
+  triggers: []

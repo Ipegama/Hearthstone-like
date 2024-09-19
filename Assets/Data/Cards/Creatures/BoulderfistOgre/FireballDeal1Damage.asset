@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileAction: {fileID: 11400000, guid: ade4cb76113a1784fb482cfb38c2ae22, type: 2}
   amount: 1
-  type: 1
+  targetType: 0
   filter:
-    creature: 0
-    player: 0
+    creature: 1
+    player: 1
     spell: 0
-    ally: 0
-    enemy: 0
+    ally: 1
+    enemy: 1

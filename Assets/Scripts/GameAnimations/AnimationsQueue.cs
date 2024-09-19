@@ -96,9 +96,9 @@ namespace GameAnimations
         {
             Enqueue(new HealAnimation(target, healedAmount, health, maxHealth));
         }
-        private void OnProjectile(ProjectileActionData data, Card source, Transform target)
+        private void OnProjectile(ProjectileActionData data, Card source, Transform sourcePos, Transform target)
         {
-            Enqueue(new ProjectileAnimation(data,source,target));
+            Enqueue(new ProjectileAnimation(data,source,sourcePos,target));
         }
         private void OnZoneCardRemoved(Zone zone,  List<Card> cards, Card card)
         {

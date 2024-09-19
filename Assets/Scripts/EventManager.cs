@@ -10,7 +10,9 @@ public class EventManager : MonoBehaviour
     public GameEventData CreatureDamaged;
     public GameEventData CreatureHealed;
     public GameEventData CreatureDeath;
+    public GameEventData TurnStarted;
     public GameEventData TurnEnded;
+    public GameEventData SpellPlayed;
 
     private void Awake()
     {

@@ -7,13 +7,13 @@ namespace TriggerSystem.Data
     {
         public ProjectileActionData projectileAction;
         public int amount;
-        public TargetType type;
+        public TargetType targetType;
         public TargetFilter filter;
 
         public override void Execute(ActionContext context)
         {
             var source = context.Get(TargetType.This);
-            var targets = context.GetAll(type,filter);
+            var targets = context.GetAll(targetType,filter);
 
             foreach ( var target in targets )
             {
@@ -21,7 +21,7 @@ namespace TriggerSystem.Data
                 {
                     if (projectileAction)
                     {
-                        Events.Actions.Projectile?.Invoke(projectileAction,context.thisCard,target.GetTransform());
+                        Events.Actions.Projectile?.Invoke(projectileAction,context.thisCard, context.thisCard.transform,target.GetTransform());
                     }
 
                     target.Damage(amount, true, source);
@@ -31,7 +31,7 @@ namespace TriggerSystem.Data
 
         public override string GetDescription()
         {
-            return $"Damage {amount} damage to {type}";
+            return $"Damage {amount} damage to {targetType}";
         }
     }
 }

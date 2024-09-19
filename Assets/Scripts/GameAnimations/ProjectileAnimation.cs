@@ -10,21 +10,23 @@ namespace GameAnimations
     {
         private ProjectileActionData _data;
         private Card _source;
+        private Transform _sourceTransform;
         private Transform _target;
 
         private bool _projectileTriggered;
 
-        public ProjectileAnimation(ProjectileActionData data, Card source, Transform target)
+        public ProjectileAnimation(ProjectileActionData data, Card source, Transform sourceTransform, Transform target)
         {
             _data = data;
             _source = source;
             _target = target;
+            _sourceTransform = sourceTransform;
         }
 
         public override IEnumerator Execute()
         {
             _projectileTriggered = false;
-            _data.Execute(_source, _target, OnProjectileTriggered);
+            _data.Execute(_source, _sourceTransform, _target, OnProjectileTriggered);
 
             yield return new WaitUntil(() => _projectileTriggered);
         }

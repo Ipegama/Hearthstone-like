@@ -24,6 +24,8 @@ namespace TriggerSystem
                 case TargetType.TriggeringEntity:
                     return TriggerEntity;
                 case TargetType.RandomEnemy:
+                    return GameManager.Instance.GetEnemyOf(thisCard.owner).GetRandomLivingEnemy();
+                case TargetType.RandomEnemyCreature:
                     return GameManager.Instance.GetEnemyOf(thisCard.owner).GetRandomLivingCreature();
                 case TargetType.This:
                     return thisCard;

@@ -6,6 +6,7 @@
         TargetEntity,
         TriggeringEntity,
         RandomEnemy,
+        RandomEnemyCreature,
         This,
         TriggeringOwner,
         DamagingEntity

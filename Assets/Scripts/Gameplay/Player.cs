@@ -111,11 +111,6 @@ namespace Gameplay
             }
         }
 
-        public void UseHeroPower()
-        {
-
-        }
-
         public void PlayCard(Card card, ITargetable target = null)
         {
             if (card == null) return;
@@ -128,6 +123,15 @@ namespace Gameplay
             AnimationsQueue.Instance.StartQueue();
 
             card.Play(target);
+
+            if (card.IsSpell())
+            {
+                EventManager.Instance.SpellPlayed.Raise(new ActionContext
+                {
+                    thisCard = card,
+                    TriggerEntity = this
+                });
+            }
 
             Events.Resolve?.Invoke();
             AnimationsQueue.Instance.EndQueue();
@@ -154,6 +158,19 @@ namespace Gameplay
                 }
             }
             return livingCreature.Random();
+        }
+        public ITargetable GetRandomLivingEnemy()
+        {
+            var livingEnemy = new List<ITargetable>() { this };
+
+            foreach (var card in board.GetCreatures())
+            {
+                if (!card.IsDead())
+                {
+                    livingEnemy.Add(card);
+                }
+            }
+            return livingEnemy.Random();
         }
 
         public void DoAction(Card card,ITargetable target)

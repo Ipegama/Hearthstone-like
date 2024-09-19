@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e2744554e508a4e87452da8a0a8a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMana: 1
+  startingMana: 10
   startingHealth: 20
   players:
   - {fileID: 383441903}
@@ -357,6 +357,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+      propertyPath: startingDeckData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1eeaa01da4e1078408fdfbcda3c07e55, type: 2}
     - target: {fileID: 6005083781117391591, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: 4
@@ -1347,7 +1351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1599322372
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1693,7 +1697,9 @@ MonoBehaviour:
   CreatureDamaged: {fileID: 11400000, guid: a035ebcb7065ca141bf42b6602fb66ae, type: 2}
   CreatureHealed: {fileID: 11400000, guid: d131bd8f46d09564a958f28d7cd5c818, type: 2}
   CreatureDeath: {fileID: 11400000, guid: 1ae970ee13a525d438f22ba5f61f00b3, type: 2}
+  TurnStarted: {fileID: 11400000, guid: f84d236bf2b562643a3adcdfded9e7f6, type: 2}
   TurnEnded: {fileID: 11400000, guid: 696e5f08d210e834d83c4534abb8425d, type: 2}
+  SpellPlayed: {fileID: 11400000, guid: 44e734eb9c252f74192b2b41a8b5c3a4, type: 2}
 --- !u!1001 &1969953104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1750,6 +1756,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+      propertyPath: startingDeckData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1eeaa01da4e1078408fdfbcda3c07e55, type: 2}
     - target: {fileID: 6005083781117391591, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4

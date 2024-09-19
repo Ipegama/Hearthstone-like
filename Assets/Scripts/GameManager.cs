@@ -58,6 +58,12 @@ public class GameManager : MonoBehaviour
 
         Events.Players.TurnStarted?.Invoke(GetCurrentPlayerTurn());
 
+        var player = GetCurrentPlayerTurn();
+        EventManager.Instance.TurnStarted.Raise(new ActionContext
+        {
+            TriggerEntity = player
+        });
+
         Events.Resolve?.Invoke();
         AnimationsQueue.Instance.EndQueue();
     }

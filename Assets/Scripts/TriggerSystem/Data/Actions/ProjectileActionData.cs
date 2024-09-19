@@ -9,11 +9,9 @@ namespace TriggerSystem.Data
     {
         public Projectile projectilePrefab;
 
-        public void Execute(Card card, Transform target, Action callback)
+        public void Execute(Card card, Transform sourceTransform, Transform target, Action callback)
         {
-            var sourcePos = card.transform.position;
-
-            var proj = Instantiate(projectilePrefab,sourcePos,Quaternion.identity);
+            var proj = Instantiate(projectilePrefab,sourceTransform.position,Quaternion.identity);
             proj.LaunchAt(target);
             proj.Triggered += callback;
         }

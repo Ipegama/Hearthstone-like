@@ -12,7 +12,7 @@ namespace TriggerSystem.Data
         private List<GameTrigger> _triggers = new List<GameTrigger>();
 
         public void Raise(ActionContext context)
-        { 
+        {
             foreach (var trigger in _triggers)
             {
                 trigger.Trigger(context);
