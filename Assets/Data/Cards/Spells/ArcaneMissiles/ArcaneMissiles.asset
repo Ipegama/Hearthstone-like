@@ -22,4 +22,4 @@ MonoBehaviour:
     ally: 0
     enemy: 0
   playActions:
-  - {fileID: 11400000, guid: 1fb8cd2cbf5fd8b42ba48b408cb2cb18, type: 2}
+  - {fileID: 11400000, guid: b8430528d252abd48a463ea8583562cb, type: 2}

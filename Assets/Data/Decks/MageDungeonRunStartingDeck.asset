@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: MageDungeonRunStartingDeck
   m_EditorClassIdentifier: 
   cards:
-  - {fileID: 11400000, guid: f207b514507d757499253c6745f604fd, type: 2}
   - {fileID: 11400000, guid: c4607444c8f97314f8230c23f0fa984c, type: 2}
   - {fileID: 11400000, guid: bd1634e93dc0d9147b40bf9c36bec3c7, type: 2}
   - {fileID: 11400000, guid: 5aba54c296880e34bb8c261a82814d9c, type: 2}
   - {fileID: 11400000, guid: 71155f789bf8983458df11aef011f66d, type: 2}
   - {fileID: 11400000, guid: db9d20717658fc44680995ba79e5b5dc, type: 2}
-  - {fileID: 11400000, guid: 69b0886ce955a604fb124bb81631f7be, type: 2}
+  - {fileID: 11400000, guid: f207b514507d757499253c6745f604fd, type: 2}
+  - {fileID: 11400000, guid: f207b514507d757499253c6745f604fd, type: 2}
+  - {fileID: 11400000, guid: f207b514507d757499253c6745f604fd, type: 2}
