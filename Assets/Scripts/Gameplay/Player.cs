@@ -31,7 +31,8 @@ namespace Gameplay
 
         private int _health;
         private int _maxHealth;
-        
+        private bool _isFrozen;
+
         public void Initialize(int startingMana, int health)
         {
             deck.Initialize(this);
@@ -58,6 +59,8 @@ namespace Gameplay
                 board.TurnStarted();
                 SetMana(_maximumMana);
                 DrawCard();
+                if (_isFrozen) _isFrozen = false;
+                playerStats.SetFreeze(_isFrozen);
             }
         }
 
@@ -252,11 +255,18 @@ namespace Gameplay
         public List<ITargetable> GetAllTargets(Card card,TargetFilter filter)
         {
             var result = new List<ITargetable>();
-            if (filter.Match(card, this) && !IsDead()) result.Add(this);
+
+            if (filter.Match(card, this) && !IsDead()) 
+            {
+              //  result.Add(this);
+            }
 
             foreach(var creature in board.GetCreatures())
             {
-                if (filter.Match(card, creature) && !creature.IsDead()) result.Add(creature);
+                if (filter.Match(card, creature) && !creature.IsDead())
+                {
+                    result.Add(creature);
+                }
             }
             return result;
         }
@@ -273,6 +283,14 @@ namespace Gameplay
                 _maximumMana += maximumMana;
                 Events.Players.MaxManaChanged?.Invoke(this,currentMana, _mana,_maximumMana);
             }
+        }
+
+        public void Freeze()
+        {
+            _isFrozen = true;
+            //_canAttack = false;
+            playerStats.SetFreeze(_isFrozen);
+            Events.Players.Frozen?.Invoke();
         }
     }
 }

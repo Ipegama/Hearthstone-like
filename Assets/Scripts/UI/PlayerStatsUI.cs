@@ -12,6 +12,7 @@ namespace UI
 
         public TMP_Text healthText;
 
+        public GameObject freezeObject;
         public void UpdateManaText(int mana, int maxMana)
         {
             manaText.text = $"{mana}/{maxMana}";
@@ -32,5 +33,7 @@ namespace UI
             manaParent.DOComplete();
             manaParent.DOPunchScale(Vector3.one * 1.2f, 0.4f);
         }
+
+        public void SetFreeze(bool value) => freezeObject.SetActive(value);
     }
 }

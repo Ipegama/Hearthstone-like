@@ -13,9 +13,9 @@ namespace TriggerSystem.Data
         public override void Execute(ActionContext context)
         {
             var source = context.Get(TargetType.This);
-            var targets = context.GetAll(targetType,filter);
+            var targets = context.GetAll(targetType, filter);
 
-            foreach ( var target in targets )
+            foreach (var target in targets)
             {
                 if(target != null)
                 {

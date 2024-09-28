@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52defd1749fd2e344ad0b41a2fae6ead, type: 3}
   m_Name: Frostbolt
   m_EditorClassIdentifier: 
-  cardName: 
-  cardSprite: {fileID: 0}
-  manaCost: 0
+  cardName: Frostbolt
+  cardSprite: {fileID: 21300000, guid: fa256bb183db21b4e85d6810a751c199, type: 3}
+  manaCost: 2
   targetFilter:
-    creature: 0
-    player: 0
+    creature: 1
+    player: 1
     spell: 0
-    ally: 0
-    enemy: 0
-  playActions: []
+    ally: 1
+    enemy: 1
+  playActions:
+  - {fileID: 11400000, guid: 90e6be813da3c044f8aaeb5db080b532, type: 2}
+  - {fileID: 11400000, guid: 07fe9ba98a5c88e4ea529b64e00f5846, type: 2}

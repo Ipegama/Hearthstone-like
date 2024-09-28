@@ -14,6 +14,7 @@ namespace Gameplay
 
         private int _attack;
         private bool _canAttack;
+        private bool _isFrozen;
 
         private List<Buff> _buffs = new List<Buff>();
         private List<GameTrigger> _gameTriggers = new List<GameTrigger>();
@@ -28,7 +29,7 @@ namespace Gameplay
             _maxHealth = _creatureData.maxHealth;
             _health = _maxHealth;
             _attack = _creatureData.attack;
-            _canAttack = true;
+            _canAttack = false;
         }
 
         public void Attack(ITargetable target)
@@ -144,6 +145,14 @@ namespace Gameplay
             _buffs.Clear();
         }
 
+        public void Freeze()
+        {
+            _isFrozen = true;
+            _canAttack = false;
+            UI.SetFreeze(_isFrozen);
+            Events.Creatures.Frozen?.Invoke(this);
+        }
+
         public void OnCreatureDeath()
         {
             EventManager.Instance.CreatureDeath.Raise(
@@ -182,7 +191,10 @@ namespace Gameplay
 
         public override void TurnStarted()
         {
-            _canAttack = true;
+            if (_isFrozen) _isFrozen = false;
+            else _canAttack = true;
+
+            UI.SetFreeze(_isFrozen);
         }
     }
 }

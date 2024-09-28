@@ -26,6 +26,8 @@ namespace Gameplay
 
         public TMP_Text description;
 
+        public GameObject freezeObject;
+
         private Canvas _canvas;
         private Color _defaultBackgroundColor;
 
@@ -171,6 +173,8 @@ namespace Gameplay
                 cardBackground.color = _defaultBackgroundColor; 
             }
         }
+
+        public void SetFreeze(bool value)=> freezeObject.SetActive(value);
 
         private void ResetDefaultScale()
         {

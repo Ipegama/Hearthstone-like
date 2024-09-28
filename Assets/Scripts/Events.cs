@@ -34,6 +34,7 @@ public static class Events
         public static Action<Card, int, int, int> MaxHealthChanged;
         public static Action<Card, int, int> AttackChanged;
         public static Action<Card, ITargetable> Attack;
+        public static Action<Card> Frozen;
     }
     public static class Players
     {
@@ -41,5 +42,6 @@ public static class Events
         public static Action<Player, int, int, int> ManaChanged;
         public static Action<Player> TurnStarted;
         public static Action<Player> TurnEnded;
+        public static Action Frozen;
     }
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52defd1749fd2e344ad0b41a2fae6ead, type: 3}
   m_Name: Blizzard
   m_EditorClassIdentifier: 
-  cardName: 
-  cardSprite: {fileID: 0}
+  cardName: Blizzard
+  cardSprite: {fileID: 21300000, guid: 051fd2d17c4710543b94de201fc38851, type: 3}
   manaCost: 0
   targetFilter:
     creature: 0
@@ -21,4 +21,6 @@ MonoBehaviour:
     spell: 0
     ally: 0
     enemy: 0
-  playActions: []
+  playActions:
+  - {fileID: 11400000, guid: d88ea252621e9134e9acc9ea9a738e0d, type: 2}
+  - {fileID: 11400000, guid: f3f6b0a055d23fd44a9a03c3bbbaf9a7, type: 2}
