@@ -18,7 +18,7 @@ namespace Gameplay
         public StartingDeckData startingDeckData;
 
         [SerializeField] private Zone deck;
-        [SerializeField] private Zone hand;
+        [SerializeField] public Zone hand;
         [SerializeField] public Zone graveyard;
         [SerializeField] public Zone board;
 
@@ -111,6 +111,11 @@ namespace Gameplay
             {
                 hand.AddCard(card);
                 Events.Cards.Drawn?.Invoke(card);
+                EventManager.Instance.CardDrawn.Raise(
+                    new ActionContext
+                    {
+                        thisCard = card,
+                    });
             }
         }
 
@@ -118,7 +123,7 @@ namespace Gameplay
         {
             if (card == null) return;
 
-            var cost = card.CardData.manaCost;
+            var cost = card.GetCost();
             if (_mana < cost) return;
             _mana -= cost;
             Events.Players.ManaChanged?.Invoke(this, cost, _mana, _maximumMana);

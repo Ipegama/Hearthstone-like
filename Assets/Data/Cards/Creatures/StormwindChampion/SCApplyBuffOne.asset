@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c5c5c46101f6d45a152ea1fabd5050, type: 3}
   m_Name: SCApplyBuffOne
   m_EditorClassIdentifier: 
-  buffData: {fileID: 11400000, guid: 9728cf160a84fe941a9e41fe5ededacf, type: 2}
+  buffData: {fileID: 11400000, guid: a06d6742accf29b419af627206816941, type: 2}
   targetType: 2
   filter:
     creature: 1

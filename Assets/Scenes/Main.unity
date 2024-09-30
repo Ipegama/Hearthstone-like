@@ -1700,6 +1700,7 @@ MonoBehaviour:
   TurnStarted: {fileID: 11400000, guid: f84d236bf2b562643a3adcdfded9e7f6, type: 2}
   TurnEnded: {fileID: 11400000, guid: 696e5f08d210e834d83c4534abb8425d, type: 2}
   SpellPlayed: {fileID: 11400000, guid: 44e734eb9c252f74192b2b41a8b5c3a4, type: 2}
+  CardDrawn: {fileID: 11400000, guid: ed357b8a9d181ae4589bdfe0de85fc36, type: 2}
 --- !u!1001 &1969953104
 PrefabInstance:
   m_ObjectHideFlags: 0

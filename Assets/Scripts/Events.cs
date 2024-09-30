@@ -26,6 +26,7 @@ public static class Events
         public static Action<Card> Drawn;
         public static Action<Card> Triggered;
         public static Action<Card> Created;
+        public static Action<Card, int> ChangedCost;
     }
     public static class Creatures
     {

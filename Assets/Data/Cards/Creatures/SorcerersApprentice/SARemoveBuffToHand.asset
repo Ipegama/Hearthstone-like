@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a03d6f6e28c8441b74067452cb7780, type: 3}
-  m_Name: SCBuffData
+  m_Script: {fileID: 11500000, guid: a3da0d51d9c6a4c46bbea0a9bf075948, type: 3}
+  m_Name: SARemoveBuffToHand
   m_EditorClassIdentifier: 
-  attack: 1
-  maxHealth: 1
+  buffData: {fileID: 11400000, guid: 3d96e35679447444794a77a946cb582a, type: 2}
+  includeSpells: 1
+  includeCreatures: 0

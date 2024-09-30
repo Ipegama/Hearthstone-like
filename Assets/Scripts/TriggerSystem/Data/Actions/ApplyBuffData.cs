@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TriggerSystem.Data
 {
-    [CreateAssetMenu(fileName ="ApplyBuff",menuName = "Actions/Buff")]
+    [CreateAssetMenu(fileName ="ApplyBuff",menuName = "Actions/ApplyBuff")]
     public class ApplyBuffData : ActionData
     {
         public BuffData buffData;

@@ -54,11 +54,16 @@ namespace GameAnimations
 
             Events.Cards.Triggered += OnCardTriggered;
             Events.Cards.Created += OnCardCreated;
+            Events.Cards.ChangedCost += OnCardChangedCost;
 
             Events.Resolve += OnResolve;
 
             Events.Players.ManaChanged += OnManaChanged;
             Events.Players.MaxManaChanged += OnMaxManaChanged;
+        }
+        private void OnCardChangedCost(Card card,int amount)
+        {
+            Enqueue(new ManaCostChangedAnimation(card,amount));
         }
         private void OnMaxHealthChanged(ITargetable target, int amound, int health, int maxHealth)
         {

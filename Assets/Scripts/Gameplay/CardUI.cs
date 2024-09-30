@@ -78,7 +78,7 @@ namespace Gameplay
             cardNameText.text = _card.CardData.cardName;
             description.text = _card.CardData.GetDescription();
             cardSpriteImage.sprite = _card.CardData.cardSprite;
-            manaCostText.text = $"{_card.CardData.manaCost}";
+            manaCostText.text = $"{_card.GetCost()}";
 
             if(_card.CardData is CreatureData creatureData)
             {
@@ -135,6 +135,14 @@ namespace Gameplay
                 attackText.transform.DOComplete();
                 attackText.transform.DOPunchScale(Vector3.one * 2f,0.2f,5);
             }
+        }
+
+        public void SetManaCost(int amount)
+        {
+            manaCostText.text = $"{amount}";
+
+            manaCostText.transform.DOComplete();
+            manaCostText.transform.DOPunchScale(Vector3.one * 2f, 0.2f, 5);
         }
 
         public void Highlight(bool value)

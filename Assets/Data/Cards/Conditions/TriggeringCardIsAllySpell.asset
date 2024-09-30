@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e3ea232e1a26dc4c8b21e1bc1f8973c, type: 3}
-  m_Name: SCRemoveBuff
+  m_Script: {fileID: 11500000, guid: 4579cd0ddbb77044a8c9be3985ac765d, type: 3}
+  m_Name: TriggeringCardIsAllySpell
   m_EditorClassIdentifier: 
-  buffData: {fileID: 11400000, guid: a06d6742accf29b419af627206816941, type: 2}
-  targetType: 0
-  filter:
-    creature: 1
+  op: 0
+  cardType: 2
+  targetFilter:
+    creature: 0
     player: 0
-    spell: 0
+    spell: 1
     ally: 1
     enemy: 0
     excludeSelf: 0

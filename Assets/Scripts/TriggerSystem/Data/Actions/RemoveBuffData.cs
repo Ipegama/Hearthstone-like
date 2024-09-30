@@ -14,11 +14,13 @@ namespace TriggerSystem.Data
         {
             var source = context.Get(TargetType.This);
             var targets = context.GetAll(targetType, filter);
+            var buff = buffData.Create();
+
             foreach (var target in targets)
             {
                 if (target is Creature creature)
                 {
-                    var buff = buffData.Create();
+
                     creature.RemoveBuff(buff);
                 }
             }
