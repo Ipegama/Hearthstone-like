@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: startingDeckData
       value: 
-      objectReference: {fileID: 11400000, guid: 1eeaa01da4e1078408fdfbcda3c07e55, type: 2}
+      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
     - target: {fileID: 6005083781117391591, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: 4
@@ -1659,7 +1659,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1955678723}
   - component: {fileID: 1955678724}
-  - component: {fileID: 1955678725}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -1701,18 +1700,6 @@ MonoBehaviour:
   TurnStarted: {fileID: 11400000, guid: f84d236bf2b562643a3adcdfded9e7f6, type: 2}
   TurnEnded: {fileID: 11400000, guid: 696e5f08d210e834d83c4534abb8425d, type: 2}
   SpellPlayed: {fileID: 11400000, guid: 44e734eb9c252f74192b2b41a8b5c3a4, type: 2}
---- !u!114 &1955678725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955678722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1277cf79e4c590149b0cb9b231a18c6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1969953104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1772,7 +1759,7 @@ PrefabInstance:
     - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: startingDeckData
       value: 
-      objectReference: {fileID: 11400000, guid: 1eeaa01da4e1078408fdfbcda3c07e55, type: 2}
+      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
     - target: {fileID: 6005083781117391591, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4

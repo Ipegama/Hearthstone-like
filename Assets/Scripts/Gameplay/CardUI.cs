@@ -95,14 +95,29 @@ namespace Gameplay
 
         public void SetHealth(int health,int maxHealth)
         {
-            var color = Color.white;
-            healthText.text = $"{health}";
-
-            if(health < maxHealth)
+            if (_card.CardData is CreatureData creatureData)
             {
-                color = Color.red;
+                var color = Color.white;
+                healthText.text = $"{health}";
+
+                if(maxHealth == creatureData.maxHealth)
+                {
+                    color = Color.white;
+                }
+                else if(maxHealth > creatureData.maxHealth)
+                {
+                    color = Color.green;
+                }
+
+                if (health < maxHealth)
+                {
+                    color = Color.red;
+                }
+                healthText.color = color;
+
+                healthText.transform.DOComplete();
+                healthText.transform.DOPunchScale(Vector3.one * 2f, 0.2f, 5);
             }
-            healthText.color = color;
         }
 
         public void SetAttack(int attack)

@@ -50,6 +50,7 @@ namespace GameAnimations
             Events.Creatures.Healed += OnCreatureHealed;
             Events.Creatures.AttackChanged += OnAttackChanged;
             Events.Creatures.Attack += OnAttack;
+            Events.Creatures.MaxHealthChanged += OnMaxHealthChanged;
 
             Events.Cards.Triggered += OnCardTriggered;
             Events.Cards.Created += OnCardCreated;
@@ -58,8 +59,11 @@ namespace GameAnimations
 
             Events.Players.ManaChanged += OnManaChanged;
             Events.Players.MaxManaChanged += OnMaxManaChanged;
-        }      
-
+        }
+        private void OnMaxHealthChanged(ITargetable target, int amound, int health, int maxHealth)
+        {
+            Enqueue(new MaxHealthChangedAnimation(target, amound, health, maxHealth));
+        }
         private void OnMaxManaChanged(Player player,int amount,int current, int maximum)
         {
             Enqueue(new ManaChangedAnimation(player,amount,current,maximum));
