@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c5c5c46101f6d45a152ea1fabd5050, type: 3}
-  m_Name: StormwindChampionBuffData
+  m_Script: {fileID: 11500000, guid: 6e3ea232e1a26dc4c8b21e1bc1f8973c, type: 3}
+  m_Name: SCRemoveBuff
   m_EditorClassIdentifier: 
-  buffData: {fileID: 11400000, guid: 66f093af317b8bf4eb31dc6305023c3f, type: 2}
-  targetCardType: 2
+  buffData: {fileID: 11400000, guid: 9728cf160a84fe941a9e41fe5ededacf, type: 2}
+  targetType: 0
+  filter:
+    creature: 1
+    player: 0
+    spell: 0
+    ally: 1
+    enemy: 0
+    excludeSelf: 0

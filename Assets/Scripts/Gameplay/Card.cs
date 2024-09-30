@@ -135,6 +135,7 @@ namespace Gameplay
         public Card GetCard() => this;
         public Transform GetTransform() => transform;
         public virtual void AddBuff(Buff buff) { }
+        public virtual void RemoveBuff(Buff buff) { }
         public virtual void Damage(int amount, bool triggerEvent, ITargetable source) { }
         public virtual void Heal(int amount, bool triggerEvent) { }
         public void SetHealth(int health, int maxHealth)=> UI.SetHealth(health, maxHealth);

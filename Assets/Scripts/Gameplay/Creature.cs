@@ -135,6 +135,11 @@ namespace Gameplay
             _buffs.Add(buff);
             buff.OnApply(this);
         }
+        public override void RemoveBuff(Buff buff)
+        {
+            _buffs.Remove(buff);
+            buff.OnRemove(this);
+        }
 
         public void ClearBuffs()
         {

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace TriggerSystem.Data
 {
-    [CreateAssetMenu(fileName ="ApplyBuff",menuName = "Actions/Buff")]
-    public class ApplyBuffData : ActionData
+    [CreateAssetMenu(fileName = "RemoveBuff", menuName = "Actions/RemoveBuff")]
+    public class RemoveBuffData : ActionData
     {
         public BuffData buffData;
         public TargetType targetType;
@@ -19,14 +19,14 @@ namespace TriggerSystem.Data
                 if (target is Creature creature)
                 {
                     var buff = buffData.Create();
-                    creature.AddBuff(buff);
+                    creature.RemoveBuff(buff);
                 }
             }
         }
 
         public override string GetDescription()
         {
-            return $"Apply a buff thats gives {buffData.GetDescription()} to {targetType}";
+            return $"Remove buff";
         }
     }
 }

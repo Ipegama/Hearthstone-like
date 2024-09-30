@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DamagingEntityEqualsThis
   m_EditorClassIdentifier: 
   op: 0
-  cardType1: 6
-  cardType2: 4
+  cardType1: 7
+  cardType2: 5

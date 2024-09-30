@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a88a993b66a06474185d856a5a400abf, type: 3}
-  m_Name: StormwindChampionTrigger1
+  m_Name: SCDeathTrigger
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 887b9dcc71b7bf5489d4deac1ec1c200, type: 2}
+  gameEvent: {fileID: 11400000, guid: 1ae970ee13a525d438f22ba5f61f00b3, type: 2}
   conditions:
-  - {fileID: 11400000, guid: 731f6d9471ebc5742a0fb953acad9907, type: 2}
+  - {fileID: 11400000, guid: ef9ae46b2dca857468be7ebc0effc1d6, type: 2}
   actions:
-  - {fileID: 11400000, guid: 168b5ec0a825150479c63d1510da568d, type: 2}
+  - {fileID: 11400000, guid: 409310309435d224b8ef6048f9cc3c2b, type: 2}

@@ -14,8 +14,10 @@ namespace TriggerSystem
         public bool ally;
         public bool enemy;
 
+        public bool excludeSelf;
         public bool Match(ITargetable source, ITargetable target)
         {
+            if(excludeSelf) return false;
             if (target == null) return false;
             if (source == null) return false;
 

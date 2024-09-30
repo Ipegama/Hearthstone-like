@@ -14,15 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Stormwind Champion
   cardSprite: {fileID: 21300000, guid: 01bb38bc53baabd4680d6e0aae7e64ae, type: 3}
-  manaCost: 1
+  manaCost: 7
   targetFilter:
     creature: 0
     player: 0
     spell: 0
     ally: 0
     enemy: 0
-  playActions: []
+    excludeSelf: 0
+  playActions:
+  - {fileID: 11400000, guid: f8eaf2f2b549e8e498ab79679ba5471e, type: 2}
   attack: 6
   maxHealth: 6
   triggers:
-  - {fileID: 11400000, guid: b8478b92a5880404c91225d6df05bdab, type: 2}
+  - {fileID: 11400000, guid: d429a761705ebca4e9dc4e0ae689c5f6, type: 2}
+  - {fileID: 11400000, guid: 13b72a28887e83744a29c58fd69b8e1b, type: 2}

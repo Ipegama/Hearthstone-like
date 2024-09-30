@@ -13,7 +13,6 @@ public class EventManager : MonoBehaviour
     public GameEventData TurnStarted;
     public GameEventData TurnEnded;
     public GameEventData SpellPlayed;
-
     private void Awake()
     {
         Instance = this;

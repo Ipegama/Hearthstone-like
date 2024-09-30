@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 380b55d6f7016354ea42cfb7b7b26712, type: 3}
-  m_Name: DoomsayerAction
+  m_Script: {fileID: 11500000, guid: 28c5c5c46101f6d45a152ea1fabd5050, type: 3}
+  m_Name: SCApplyBuffAll
   m_EditorClassIdentifier: 
+  buffData: {fileID: 11400000, guid: 9728cf160a84fe941a9e41fe5ededacf, type: 2}
   targetType: 0
   filter:
     creature: 1
     player: 0
     spell: 0
     ally: 1
-    enemy: 1
+    enemy: 0
     excludeSelf: 0
-  self: 1
