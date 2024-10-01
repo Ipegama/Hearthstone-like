@@ -1,3 +1,4 @@
+using Gameplay;
 using UnityEngine;
 
 namespace TriggerSystem.Data
@@ -7,14 +8,16 @@ namespace TriggerSystem.Data
     {
         public int repeatTimes;
         public ActionData actionToRepeat;
+        public bool usesSpellPower;
 
         public override void Execute(ActionContext context)
         {
-            for (int i = 0; i < repeatTimes; i++)
+            for (int i = 0; i < repeatTimes+GetSpellPower(context.Get(TargetPlayerType.Owner)); i++)
             {
                 actionToRepeat.Execute(context);
             }
         }
+        public int GetSpellPower(Player player) => player.GetTotalSpellpower();
 
         public override string GetDescription()
         {

@@ -7,7 +7,6 @@ namespace Gameplay {
     public class Spell : Card
     {
         private SpellData _spellData;
-        private List<Buff> _buffs = new List<Buff>();
         public override void SetData(CardData data)
         {
             base.SetData(data);

@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e2744554e508a4e87452da8a0a8a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMana: 10
+  startingMana: 100
   startingHealth: 20
   players:
   - {fileID: 383441903}
@@ -360,7 +360,7 @@ PrefabInstance:
     - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: startingDeckData
       value: 
-      objectReference: {fileID: 11400000, guid: 1eeaa01da4e1078408fdfbcda3c07e55, type: 2}
+      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
     - target: {fileID: 6005083781117391591, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: 4
@@ -1760,7 +1760,7 @@ PrefabInstance:
     - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: startingDeckData
       value: 
-      objectReference: {fileID: 11400000, guid: 1eeaa01da4e1078408fdfbcda3c07e55, type: 2}
+      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
     - target: {fileID: 6005083781117391591, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4

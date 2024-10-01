@@ -297,5 +297,18 @@ namespace Gameplay
             playerStats.SetFreeze(_isFrozen);
             Events.Players.Frozen?.Invoke();
         }
+        public int GetTotalSpellpower()
+        {
+            int totalSpellpower = 0;
+            foreach (Creature creature in board.GetCreatures())
+            {
+                if (!creature.IsDead())
+                {
+                    totalSpellpower += creature.GetSpellpower();
+                }
+            }
+            Debug.Log(totalSpellpower);
+            return totalSpellpower;
+        }
     }
 }

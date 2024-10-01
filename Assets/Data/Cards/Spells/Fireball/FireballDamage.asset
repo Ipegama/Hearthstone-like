@@ -21,3 +21,5 @@ MonoBehaviour:
     spell: 0
     ally: 0
     enemy: 0
+    excludeSelf: 0
+  usesSpellPower: 0

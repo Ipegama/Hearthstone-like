@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Gameplay.Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Gameplay
 {
@@ -16,6 +16,7 @@ namespace Gameplay
         [HideInInspector] public Player owner;
         [HideInInspector] public Zone zone;
 
+        protected List<Buff> _buffs = new List<Buff>();
         protected bool _isDead;
 
         private void Awake()
@@ -71,7 +72,7 @@ namespace Gameplay
         {
             if (CardType == CardType.Creature)
             {
-                owner.board.AddCard(this);
+                owner.board.AddCard(this);             
             }
 
             Events.Cards.Played?.Invoke(this);
@@ -146,10 +147,20 @@ namespace Gameplay
         public virtual void Kill() { }
         public bool CanBeTargeted()=> IsOnBoard() && !IsDead();
         public virtual void TurnStarted() { }
-        public virtual int GetCost() { return 0; }
-        public virtual void ChangeCost(int amount)
+        public virtual int GetCost() 
         {
             int totalCost = CardData.manaCost;
+
+            foreach(Buff buff in _buffs)
+            {
+             
+            }
+            if (totalCost < 0) totalCost = 0;
+            return totalCost; 
+        }
+        public virtual void ChangeCost(int amount)
+        {
+            //int totalCost = CardData.manaCost;
             //totalCost += modifiers;
             //Events.Cards.ChangedCost?.Invoke(this, manaCost);
         }

@@ -16,7 +16,6 @@ namespace Gameplay
         private bool _canAttack;
         private bool _isFrozen;
 
-        private List<Buff> _buffs = new List<Buff>();
         private List<GameTrigger> _gameTriggers = new List<GameTrigger>();
 
         public override void SetData(CardData data)
@@ -200,6 +199,29 @@ namespace Gameplay
             else _canAttack = true;
 
             UI.SetFreeze(_isFrozen);
+        }
+        public int GetSpellpower()
+        {
+            int totalSpellpower = 0;
+            foreach (var buff in _buffs)
+            {
+                if (buff is SpellpowerBuff spellpowerBuff)
+                {
+                    totalSpellpower += spellpowerBuff.GetSpellpower();
+                }
+            }
+            return totalSpellpower;
+        }
+        public bool HasTaunt()
+        {
+            foreach (var buff in _buffs)
+            {
+                if (buff is TauntBuff)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

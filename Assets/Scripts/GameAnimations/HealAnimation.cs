@@ -31,7 +31,7 @@ namespace GameAnimations
             var healCavnas = Object.Instantiate(prefab);
             healCavnas.SetFakeParent(transform);
             _card.SetHealth(_health,_maxHealth);
-            healCavnas.StartAnimateCoroutine(_amount,"-");
+            healCavnas.StartAnimateCoroutine(_amount,"+");
             transform.DOPunchScale(Vector3.one * 0.01f * 0.5f, 0.4f);
         }
 

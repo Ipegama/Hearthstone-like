@@ -1,3 +1,4 @@
+using Gameplay;
 using UnityEngine;
 
 namespace TriggerSystem.Data
@@ -9,6 +10,8 @@ namespace TriggerSystem.Data
         public int amount;
         public TargetType targetType;
         public TargetFilter filter;
+
+        public bool usesSpellPower;
 
         public override void Execute(ActionContext context)
         {
@@ -24,10 +27,19 @@ namespace TriggerSystem.Data
                         Events.Actions.Projectile?.Invoke(projectileAction,context.thisCard, context.thisCard.transform,target.GetTransform());
                     }
 
-                    target.Damage(amount, true, source);
+                    if (usesSpellPower) 
+                    { 
+                        target.Damage(amount + GetSpellPower(context.Get(TargetPlayerType.Owner)), true, source);
+                    }
+                    else
+                    {
+                        target.Damage(amount, true, source);
+                    }
                 }
             }
         }
+
+        public int GetSpellPower(Player player)=> player.GetTotalSpellpower();
 
         public override string GetDescription()
         {

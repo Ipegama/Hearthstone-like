@@ -8,14 +8,15 @@ namespace TriggerSystem.Data
     public class HealActionData : ActionData
     {
         public ProjectileActionData projectileAction;
-        public string amount;
+        //public string amount;
+        public int amount;
         public TargetType type;
         public TargetFilter filter;
 
         public override void Execute(ActionContext context)
         {
             var targets = context.GetAll(type, filter);
-            var intAmount = GetAmount(context);
+            //var intAmount = GetAmount(context);
 
             foreach(var target in targets)
             {
@@ -25,15 +26,13 @@ namespace TriggerSystem.Data
                     {
                         Events.Actions.Projectile?.Invoke(projectileAction, context.thisCard, context.thisCard.transform, target.GetTransform());
                     }
-                    target.Heal(intAmount, true);
+                    //target.Heal(intAmount, true);
+                    target.Heal(amount, true);
                 }
             }
         }
 
-        private int GetAmount(ActionContext context)
-        {
-            return ExpressionEval.Eval(amount, context.GetAllIntKeys());
-        }
+        //private int GetAmount(ActionContext context)=> ExpressionEval.Eval(amount, context.GetAllIntKeys());
 
         public override string GetDescription()
         {

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a03d6f6e28c8441b74067452cb7780, type: 3}
+  m_Script: {fileID: 11500000, guid: ea744760963f06341aa1ed640391c2ac, type: 3}
   m_Name: ManaWyrmBuff
   m_EditorClassIdentifier: 
   attack: 1

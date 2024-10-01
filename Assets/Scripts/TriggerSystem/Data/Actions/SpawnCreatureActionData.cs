@@ -14,7 +14,7 @@ namespace TriggerSystem.Data
         {
             var creature = creatureData.Create(context.Get(targetPlayer));
             creature.owner.board.AddCard(creature);
-            Events.Cards.Created?.Invoke(creature);
+            creature.transform.position = context.thisCard.GetTransform().position;
         }
 
         public override string GetDescription()

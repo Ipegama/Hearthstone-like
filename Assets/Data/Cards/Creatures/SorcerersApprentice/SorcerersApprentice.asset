@@ -22,10 +22,7 @@ MonoBehaviour:
     ally: 0
     enemy: 0
     excludeSelf: 0
-  playActions:
-  - {fileID: 11400000, guid: a58c84930be47c64faf443ddf3f58909, type: 2}
+  playActions: []
   attack: 3
   maxHealth: 2
-  triggers:
-  - {fileID: 11400000, guid: 02cca1402d1a4ee43b96a31e8332a701, type: 2}
-  - {fileID: 11400000, guid: d195a5970e6161c418aa22312100d5ce, type: 2}
+  triggers: []
