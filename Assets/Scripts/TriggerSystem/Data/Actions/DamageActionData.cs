@@ -27,14 +27,14 @@ namespace TriggerSystem.Data
                         Events.Actions.Projectile?.Invoke(projectileAction,context.thisCard, context.thisCard.transform,target.GetTransform());
                     }
 
+                    int totalDamage = amount;
+
                     if (usesSpellPower) 
                     { 
-                        target.Damage(amount + GetSpellPower(context.Get(TargetPlayerType.Owner)), true, source);
+                        totalDamage += GetSpellPower(context.Get(TargetPlayerType.Owner));
                     }
-                    else
-                    {
-                        target.Damage(amount, true, source);
-                    }
+
+                    target.Damage(totalDamage, true, source);
                 }
             }
         }

@@ -205,7 +205,7 @@ namespace Gameplay
         public bool CanBeTargeted() => false;
         public bool IsCreature()=> false;
         public bool IsSpell()=> false;
-        public bool IsPlayer()=>false;
+        public bool IsPlayer()=>true;
         public Player GetOwner() => this;
         public Transform GetTransform() => playerStats.transform;
         public void AddBuff(Buff buff) { }
@@ -263,7 +263,7 @@ namespace Gameplay
 
             if (filter.Match(card, this) && !IsDead()) 
             {
-              //  result.Add(this);
+                result.Add(this);
             }
 
             foreach(var creature in board.GetCreatures())

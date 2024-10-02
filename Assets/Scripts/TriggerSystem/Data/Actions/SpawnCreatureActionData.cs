@@ -1,6 +1,7 @@
 using Gameplay.Data;
 using TriggerSystem;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace TriggerSystem.Data
 {
@@ -15,6 +16,12 @@ namespace TriggerSystem.Data
             var creature = creatureData.Create(context.Get(targetPlayer));
             creature.owner.board.AddCard(creature);
             creature.transform.position = context.thisCard.GetTransform().position;
+
+            EventManager.Instance.CreaturePlayed.Raise(
+               new ActionContext
+               {
+                   TriggerEntity = creature
+               });
         }
 
         public override string GetDescription()

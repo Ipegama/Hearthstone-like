@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingMana: 100
-  startingHealth: 20
+  startingHealth: 30
   players:
   - {fileID: 383441903}
   - {fileID: 9646846}
