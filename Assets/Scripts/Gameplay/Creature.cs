@@ -3,6 +3,7 @@ using System.Linq;
 using Gameplay.Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
+using TriggerSystem.Data;
 
 namespace Gameplay
 {
@@ -218,5 +219,21 @@ namespace Gameplay
         public int GetSpellpower()=> _buffs.OfType<SpellpowerBuff>().Sum(buff => buff.GetSpellpower());
         public bool HasTaunt()=> _buffs.Any(buff => buff is TauntBuff);
 
+        public void AddTrigger(GameTriggerData gameTriggerData)
+        {
+            var gameTrigger = new GameTrigger(gameTriggerData, this);
+            _gameTriggers.Add(gameTrigger);
+            gameTrigger.gameEvent.AddTrigger(gameTrigger);
+        }
+
+        public void RemoveTrigger(GameTriggerData gameTriggerData)
+        {
+            var triggerToRemove = _gameTriggers.Find(t => t.triggerData == gameTriggerData);
+            if (triggerToRemove != null)
+            {
+                triggerToRemove.gameEvent.RemoveTrigger(triggerToRemove);
+                _gameTriggers.Remove(triggerToRemove);
+            }
+        }
     }
 }

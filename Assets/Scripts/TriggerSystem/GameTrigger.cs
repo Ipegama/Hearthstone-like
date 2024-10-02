@@ -13,6 +13,7 @@ namespace TriggerSystem
         private GameTriggerData _data;
         private Card _card;
 
+        public GameTriggerData triggerData=> _data;
         public GameTrigger(GameTriggerData trigger, Card card)
         {
             _data = trigger;
