@@ -9,17 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77c5669b54f88e8418da02c0e25a7317, type: 3}
-  m_Name: BlizzardActionDamage
+  m_Script: {fileID: 11500000, guid: 28c5c5c46101f6d45a152ea1fabd5050, type: 3}
+  m_Name: VoidwalkerApplyBuff
   m_EditorClassIdentifier: 
-  projectileAction: {fileID: 0}
-  amount: 2
-  targetType: 0
+  buffData: {fileID: 11400000, guid: caef33e04e7054b4b86b6f7b2245d76e, type: 2}
+  targetType: 5
   filter:
-    creature: 1
+    creature: 0
     player: 0
     spell: 0
     ally: 0
-    enemy: 1
+    enemy: 0
     excludeSelf: 0
-  usesSpellPower: 1

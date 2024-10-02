@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         var card = SelectionManager.GetObjectAtCursor<IHighlightable>();
         if (card != null)
         {
-            if (card.CanBeTargeted(controlledPlayer, _selectedCard))
+            if (card.CanBeHighlight(controlledPlayer, _selectedCard))
             {
                 Highlight(card);
             }

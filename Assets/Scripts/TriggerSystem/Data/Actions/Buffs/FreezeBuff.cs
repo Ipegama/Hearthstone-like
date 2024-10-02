@@ -1,10 +1,10 @@
-﻿using Gameplay;
+using Gameplay;
 using TriggerSystem.Data;
 namespace TriggerSystem
 {
-    public class TauntBuff : Buff
+    public class FreezeBuff : Buff
     {
-        public TauntBuff(TauntBuffData buffData)
+        public FreezeBuff(FreezeBuffData buffData)
         {
 
         }
@@ -12,7 +12,7 @@ namespace TriggerSystem
         {
             if (entity is Creature creature)
             {
-                creature.SetTaunt();
+                
             }
         }
 
@@ -20,7 +20,7 @@ namespace TriggerSystem
         {
             if (entity is Creature creature)
             {
-                creature.SetTaunt();
+                
             }
         }
     }
