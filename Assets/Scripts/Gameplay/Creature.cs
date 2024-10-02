@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Gameplay.Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
@@ -158,20 +157,6 @@ namespace Gameplay
             Events.Creatures.Frozen?.Invoke(this);
         }
 
-
-        public void SetTaunt()
-        {
-            foreach (var buff in _buffs)
-            {
-                if (buff is TauntBuff taunt)
-                {
-                    UI.SetTaunt(true);
-                    return;
-                }
-            }
-            UI.SetTaunt(false);
-        }
-
         public void OnCreatureDeath()
         {
             EventManager.Instance.CreatureDeath.Raise(
@@ -215,8 +200,28 @@ namespace Gameplay
 
             UI.SetFreeze(_isFrozen);
         }
-        public int GetSpellpower()=> _buffs.OfType<SpellpowerBuff>().Sum(buff => buff.GetSpellpower());
-        public bool HasTaunt()=> _buffs.Any(buff => buff is TauntBuff);
-
+        public int GetSpellpower()
+        {
+            int totalSpellpower = 0;
+            foreach (var buff in _buffs)
+            {
+                if (buff is SpellpowerBuff spellpowerBuff)
+                {
+                    totalSpellpower += spellpowerBuff.GetSpellpower();
+                }
+            }
+            return totalSpellpower;
+        }
+        public bool HasTaunt()
+        {
+            foreach (var buff in _buffs)
+            {
+                if (buff is TauntBuff)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -27,7 +27,6 @@ namespace Gameplay
         public TMP_Text description;
 
         public GameObject freezeObject;
-        public GameObject tauntObject;
 
         private Canvas _canvas;
         private Color _defaultBackgroundColor;
@@ -199,7 +198,7 @@ namespace Gameplay
         }
 
         public void SetFreeze(bool value)=> freezeObject.SetActive(value);
-        public void SetTaunt(bool value) => tauntObject.SetActive(value);
+
         private void ResetDefaultScale()
         {
             _scaleTween?.Kill();
@@ -223,11 +222,5 @@ namespace Gameplay
             _punchScaleTween?.Kill();
             _punchScaleTween = transform.DOPunchScale(scale, duration);
         }
-        private void OnDestroy()
-        {
-            _scaleTween?.Kill();
-            _punchScaleTween?.Kill();
-        }
-
     }
 }

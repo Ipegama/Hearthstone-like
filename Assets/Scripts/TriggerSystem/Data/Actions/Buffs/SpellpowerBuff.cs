@@ -11,11 +11,11 @@ namespace TriggerSystem
             _buffData = buffData;
         }
 
-        public override void OnApply(IBuffable entity)
+        public override void OnApply(Card card)
         {
         }
 
-        public override void OnRemove(IBuffable entity)
+        public override void OnRemove(Card card)
         {
         }
 

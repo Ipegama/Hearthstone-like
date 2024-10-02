@@ -8,20 +8,15 @@ namespace TriggerSystem
         {
 
         }
-        public override void OnApply(IBuffable entity)
+
+        public override void OnApply(Card card)
         {
-            if (entity is Creature creature)
-            {
-                creature.SetTaunt();
-            }
+
         }
 
-        public override void OnRemove(IBuffable entity)
+        public override void OnRemove(Card card)
         {
-            if (entity is Creature creature)
-            {
-                creature.SetTaunt();
-            }
+
         }
     }
 }

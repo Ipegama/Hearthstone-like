@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public class Card : MonoBehaviour, IHighlightable, ITargetable, IBuffable
+    public class Card : MonoBehaviour, IHighlightable, ITargetable
     {
         public CardData CardData { get; protected set; }
         public CardType CardType { get; protected set; }
@@ -117,7 +117,7 @@ namespace Gameplay
         }
         public virtual bool IsDead()=> _isDead;
         public bool CanBeSelectedBy(Player player)=> owner == player && (IsInHand() || IsOnBoard());
-        public bool CanBeHighlight(Player player, Card selectedCard)
+        public bool CanBeTargeted(Player player, Card selectedCard)
         {
             if(selectedCard == null)
             {
@@ -138,7 +138,6 @@ namespace Gameplay
         public Transform GetTransform() => transform;
         public virtual void AddBuff(Buff buff) { }
         public virtual void RemoveBuff(Buff buff) { }
-        public virtual List<Buff> GetBuffs() { return _buffs; }
         public virtual void Damage(int amount, bool triggerEvent, ITargetable source) { }
         public virtual void Heal(int amount, bool triggerEvent) { }
         public void SetHealth(int health, int maxHealth)=> UI.SetHealth(health, maxHealth);
@@ -165,6 +164,5 @@ namespace Gameplay
             //totalCost += modifiers;
             //Events.Cards.ChangedCost?.Invoke(this, manaCost);
         }
-
     }
 }

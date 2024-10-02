@@ -13,6 +13,8 @@ public class ArcManager : MonoBehaviour
     public float arcHeight = 2f;
     public float maxSideOffset = 1f;
 
+    private Camera mainCamera;
+
     private bool isArcVisible = false;
     private Vector3 startPoint;
     private Vector3 endPoint;
@@ -20,6 +22,7 @@ public class ArcManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        mainCamera = Camera.main;
     }
 
     private void Start()
@@ -98,19 +101,25 @@ public class ArcManager : MonoBehaviour
     {
         Vector3 midPoint = (startPos + endPos) / 2f;
 
+        // Dodaj wysokoœæ ³uku
         midPoint.y += arcHeight;
 
+        // Oblicz kierunek miêdzy startPos a endPos
         Vector3 direction = endPos - startPos;
 
+        // Oblicz k¹t miêdzy wektorem kierunku a osi¹ pionow¹ (Y)
         float angle = Vector3.Angle(direction, Vector3.up);
 
+        // Normalizuj k¹t do zakresu [0, 90]
         float normalizedAngle = Mathf.Clamp(angle, 0f, 90f) / 90f;
 
+        // Oblicz dynamiczne pochylenie na bok na podstawie normalizowanego k¹ta
         float dynamicSideOffset = maxSideOffset * normalizedAngle;
 
-
+        // Oblicz kierunek boczny (prostopad³y do kierunku i osi Y)
         Vector3 sideDirection = Vector3.Cross(direction, Vector3.up).normalized;
 
+        // Dodaj przesuniêcie na bok
         midPoint += sideDirection * dynamicSideOffset;
 
         return midPoint;

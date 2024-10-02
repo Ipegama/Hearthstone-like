@@ -4,7 +4,7 @@ namespace TriggerSystem
 {
     public abstract class Buff
     {
-        public abstract void OnApply(IBuffable entity);
-        public abstract void OnRemove(IBuffable entity);
+        public abstract void OnApply(Card card);
+        public abstract void OnRemove(Card card);
     }
 }
