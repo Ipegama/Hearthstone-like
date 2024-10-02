@@ -16,7 +16,7 @@ namespace Gameplay
         {
             _defaultBackgroundColor = playerBackground.color;
         }
-        public bool CanBeTargeted(Player controllerPlayer, Card selectedCard) => true;
+        public bool CanBeHighlight(Player controllerPlayer, Card selectedCard) => true;
         public void Highlight(bool value)
         {
             if (value)

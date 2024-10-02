@@ -4,6 +4,6 @@
     {
         void Highlight(bool value);
         Card GetCard();
-        bool CanBeTargeted(Player controllerPlayer, Card selectedCard);
+        bool CanBeHighlight(Player controllerPlayer, Card selectedCard);
     }
 }

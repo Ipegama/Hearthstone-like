@@ -9,17 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77c5669b54f88e8418da02c0e25a7317, type: 3}
-  m_Name: BlizzardActionDamage
+  m_Script: {fileID: 11500000, guid: eb995b195d65b704cbb472e722ba4ea0, type: 3}
+  m_Name: VoidwalkerTauntBuff
   m_EditorClassIdentifier: 
-  projectileAction: {fileID: 0}
-  amount: 2
-  targetType: 0
-  filter:
-    creature: 1
-    player: 0
-    spell: 0
-    ally: 0
-    enemy: 1
-    excludeSelf: 0
-  usesSpellPower: 1

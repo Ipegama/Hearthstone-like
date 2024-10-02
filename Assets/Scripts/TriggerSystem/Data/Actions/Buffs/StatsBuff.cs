@@ -14,18 +14,18 @@ namespace TriggerSystem
             _buffData = buffData;
         }
 
-        public override void OnApply(Card card)
+        public override void OnApply(IBuffable entity)
         {
-            if (card is Creature creature)
+            if (entity is Creature creature)
             {
                 if (_buffData.attack > 0) creature.ChangedAttack(_buffData.attack);
                 if (_buffData.maxHealth > 0) creature.ChangedMaxHealth(_buffData.maxHealth);
             }
         }
 
-        public override void OnRemove(Card card)
+        public override void OnRemove(IBuffable entity)
         {
-            if (card is Creature creature)
+            if (entity is Creature creature)
             {
                 if (_buffData.attack > 0) creature.ChangedAttack(-_buffData.attack);
                 if (_buffData.maxHealth > 0) creature.ChangedMaxHealth(-_buffData.maxHealth);

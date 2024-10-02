@@ -6,14 +6,16 @@ using Gameplay.Data;
 using Gameplay.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TriggerSystem;
 using UI;
 using UnityEngine;
+using static Events;
 
 namespace Gameplay
 {
     [Serializable]
-    public class Player : MonoBehaviour, ITargetable
+    public class Player : MonoBehaviour, ITargetable, IBuffable
     {
         public StartingDeckData startingDeckData;
 
@@ -32,6 +34,8 @@ namespace Gameplay
         private int _health;
         private int _maxHealth;
         private bool _isFrozen;
+
+        private List<Buff> _buffs = new List<Buff>();
 
         public void Initialize(int startingMana, int health)
         {
@@ -181,15 +185,15 @@ namespace Gameplay
             return livingEnemy.Random();
         }
 
-        public void DoAction(Card card,ITargetable target)
+        public void DoAction(Card card, ITargetable target)
         {
-            if(card.IsInHand())
+            if (card.IsInHand())
             {
                 PlayCard(card, target);
             }
             else if (card.IsOnBoard())
             {
-                if(card is Creature creature)
+                if (card is Creature creature)
                 {
                     StartAttack(creature, target);
                 }
@@ -201,14 +205,13 @@ namespace Gameplay
             {
                 PlayCard(card);
             }
-        }
+        }       
         public bool CanBeTargeted() => false;
         public bool IsCreature()=> false;
         public bool IsSpell()=> false;
         public bool IsPlayer()=>true;
         public Player GetOwner() => this;
         public Transform GetTransform() => playerStats.transform;
-        public void AddBuff(Buff buff) { }
         public void Damage(int amount,bool triggerEvent, ITargetable source)
         {
             _health-=amount;
@@ -307,8 +310,19 @@ namespace Gameplay
                     totalSpellpower += creature.GetSpellpower();
                 }
             }
-            Debug.Log(totalSpellpower);
             return totalSpellpower;
         }
+        public  void AddBuff(Buff buff)
+        {
+            _buffs.Add(buff);
+            buff.OnApply(this);
+        }
+        public  void RemoveBuff(Buff buff)
+        {
+            _buffs.Remove(buff);
+            buff.OnRemove(this);
+        }
+
+        public List<Buff> GetBuffs() => _buffs;
     }
 }
