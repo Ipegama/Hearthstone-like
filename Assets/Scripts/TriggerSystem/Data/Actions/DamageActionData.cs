@@ -39,7 +39,7 @@ namespace TriggerSystem.Data
             }
         }
 
-        public int GetSpellPower(Player player)=> player.GetTotalSpellpower();
+        public int GetSpellPower(Player player)=> player.GetSpellpower();
 
         public override string GetDescription()
         {

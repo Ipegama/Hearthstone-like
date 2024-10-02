@@ -17,7 +17,7 @@ namespace TriggerSystem.Data
                 actionToRepeat.Execute(context);
             }
         }
-        public int GetSpellPower(Player player) => player.GetTotalSpellpower();
+        public int GetSpellPower(Player player) => player.GetSpellpower();
 
         public override string GetDescription()
         {

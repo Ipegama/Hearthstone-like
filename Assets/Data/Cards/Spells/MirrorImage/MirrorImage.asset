@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52defd1749fd2e344ad0b41a2fae6ead, type: 3}
+  m_Name: MirrorImage
+  m_EditorClassIdentifier: 
+  cardName: Mirror Image
+  cardSprite: {fileID: 21300000, guid: 1941a3906d74a694dbed3e2bace3cc16, type: 3}
+  manaCost: 1
+  targetFilter:
+    creature: 0
+    player: 0
+    spell: 0
+    ally: 0
+    enemy: 0
+    excludeSelf: 0
+  playActions:
+  - {fileID: 11400000, guid: 4967986abdae54a4da123156b9f94bd6, type: 2}
+  - {fileID: 11400000, guid: 4967986abdae54a4da123156b9f94bd6, type: 2}

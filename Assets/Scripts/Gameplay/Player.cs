@@ -123,6 +123,16 @@ namespace Gameplay
             }
         }
 
+        public void AddCardToHand(CardData cardData)
+        {
+            var card = cardData.Create(this);
+
+            if (card != null)
+            {
+                hand.AddCard(card);
+            }
+        }
+
         public void PlayCard(Card card, ITargetable target = null)
         {
             if (card == null) return;
@@ -300,18 +310,15 @@ namespace Gameplay
             playerStats.SetFreeze(_isFrozen);
             Events.Players.Frozen?.Invoke();
         }
-        public int GetTotalSpellpower()
+        public int GetSpellpower()
         {
-            int totalSpellpower = 0;
-            foreach (Creature creature in board.GetCreatures())
-            {
-                if (!creature.IsDead())
-                {
-                    totalSpellpower += creature.GetSpellpower();
-                }
-            }
-            return totalSpellpower;
+            return board.GetCreatures()
+                .Where(c => !c.IsDead())
+                .Sum(c => c.GetSpellpower());
         }
+
+        public bool HasTaunt() => _buffs.Any(buff => buff is TauntBuff);
+
         public  void AddBuff(Buff buff)
         {
             _buffs.Add(buff);
