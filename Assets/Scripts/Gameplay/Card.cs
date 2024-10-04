@@ -117,7 +117,7 @@ namespace Gameplay
         }
         public virtual bool IsDead()=> _isDead;
         public bool CanBeSelectedBy(Player player)=> owner == player && (IsInHand() || IsOnBoard());
-        public bool CanBeHighlight(Player player, Card selectedCard)
+        public bool CanBeHighlighted(Player player, Card selectedCard)
         {
             if(selectedCard == null)
             {

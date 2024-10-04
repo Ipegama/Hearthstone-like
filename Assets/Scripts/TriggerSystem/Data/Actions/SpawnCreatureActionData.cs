@@ -1,7 +1,6 @@
 using Gameplay.Data;
 using TriggerSystem;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace TriggerSystem.Data
 {

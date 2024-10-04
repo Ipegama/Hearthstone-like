@@ -4,7 +4,6 @@ using TriggerSystem;
 
 namespace Gameplay.Data
 {
-    [CreateAssetMenu()]
     public class CardData : ScriptableObject
     {
         public string cardName;

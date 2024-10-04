@@ -18,7 +18,9 @@ namespace Gameplay
     public class Player : MonoBehaviour, ITargetable, IBuffable
     {
         public StartingDeckData startingDeckData;
+        public HeroPowerData startingHeroPowerData;
 
+        [SerializeField] public HeroPower heroPower;
         [SerializeField] private Zone deck;
         [SerializeField] public Zone hand;
         [SerializeField] public Zone graveyard;
@@ -51,6 +53,7 @@ namespace Gameplay
             _health = _maxHealth;
 
             InitializeDeck();
+            InitializeHeroPower();
 
             Events.Players.TurnStarted += OnTurnStart;
 
@@ -84,6 +87,10 @@ namespace Gameplay
             deck.Shuffle();
         }
 
+        private void InitializeHeroPower()
+        {
+            heroPower.SetData(startingHeroPowerData);
+        }
         private void OnEnable()
         {
             Events.Resolve += OnResolve;
@@ -215,7 +222,26 @@ namespace Gameplay
             {
                 PlayCard(card);
             }
-        }       
+        }
+
+        public void DoAction(HeroPower heroPower, ITargetable target)
+        {
+            if (heroPower == null) return;
+
+            var cost = heroPower.Data.manaCost;
+            if (_mana < cost) return;
+            _mana -= cost;
+            Events.Players.ManaChanged?.Invoke(this, cost, _mana, _maximumMana);
+            playerStats.UpdateManaText(_mana, _maximumMana);
+            playerStats.AnimateManaChange();
+
+            AnimationsQueue.Instance.StartQueue();
+
+            heroPower.ExecuteOnPlayAction(target);
+
+            Events.Resolve?.Invoke();
+            AnimationsQueue.Instance.EndQueue();
+        }
         public bool CanBeTargeted() => false;
         public bool IsCreature()=> false;
         public bool IsSpell()=> false;
