@@ -22,17 +22,17 @@ namespace TriggerSystem
                 case TargetType.TargetEntity:
                     return TargetEntity;
                 case TargetType.TriggeringEntity:
-                    return TriggerEntity;
-                case TargetType.RandomEnemy:
-                    return GameManager.Instance.GetEnemyOf(thisCard.owner).GetRandomLivingEnemy();
-                case TargetType.RandomEnemyCreature:
-                    return GameManager.Instance.GetEnemyOf(thisCard.owner).GetRandomLivingCreature();
+                    return TriggerEntity;        
                 case TargetType.This:
                     return thisCard;
                 case TargetType.TriggeringOwner:
                     return TriggerEntity.GetOwner();
                 case TargetType.DamagingEntity:
                     return DamagingEntity;
+                case TargetType.RandomEnemy:
+                    return GameManager.Instance.GetEnemyOf(thisCard.owner).GetRandomLivingEnemy();
+                case TargetType.RandomEnemyCreature:
+                    return GameManager.Instance.GetEnemyOf(thisCard.owner).GetRandomLivingCreature();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type),type,null);
             }

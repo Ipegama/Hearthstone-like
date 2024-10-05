@@ -16,11 +16,11 @@ MonoBehaviour:
   powerIcon: {fileID: 21300000, guid: 42ef7ac2899ede642ae60ebf1311fc55, type: 3}
   manaCost: 2
   targetFilter:
-    creature: 0
-    player: 0
+    creature: 1
+    player: 1
     spell: 0
-    ally: 0
-    enemy: 0
+    ally: 1
+    enemy: 1
     excludeSelf: 0
   playActions:
   - {fileID: 11400000, guid: d46533294cf4108409ebbd8745681bd8, type: 2}

@@ -5,42 +5,35 @@ using TriggerSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroPower : MonoBehaviour, IHighlightable
+public class HeroPower : MonoBehaviour, IHighlightable 
 {
     public HeroPowerData Data { get; protected set; }
 
     public Player owner;
+
+    [HideInInspector]public HeroPowerUI UI;
 
     public Image heroPowerBackground;
     private Color _defaultBackgroundColor;
 
     private void Awake()
     {
+        UI = GetComponent<HeroPowerUI>();
+        UI.SetHeroPower(this);
+
         _defaultBackgroundColor = heroPowerBackground.color;
     }
 
-    public virtual void SetData(HeroPowerData data)
-    {
-        Data = data;
-    }
-
+    public virtual void SetData(HeroPowerData data)=> Data = data;
     public void ExecuteOnPlayAction(ITargetable target)
     {
-        if (target == null)
-        {
-            if (Data.targetFilter.HasTarget())
-            {
-                throw new System.Exception("Target needed");
-            }
-        }
-
         foreach (var action in Data.playActions)
         {
             action.Execute(new ActionContext
             {
                 TargetEntity = target,
-                TriggerEntity = owner
-            });
+                TriggerEntity = owner,
+            }); ;
         }
     }
 

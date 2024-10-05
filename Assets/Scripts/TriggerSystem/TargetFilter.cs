@@ -17,21 +17,28 @@ namespace TriggerSystem
         public bool excludeSelf;
         public bool Match(ITargetable source, ITargetable target)
         {
-            if (target == null) return false;
             if (source == null) return false;
-
+            if (target == null) return false;
+ 
             if (excludeSelf && source == target) return false;
 
-            if (!creature && target.IsCreature()) return false;
-            if (!spell && target.IsSpell()) return false;
-            if (!player && target.IsPlayer()) return false;
+            bool isCreature = target.IsCreature();
+            bool isSpell = target.IsSpell();
+            bool isPlayer = target.IsPlayer();
 
-            if (!ally && source.GetOwner() == target.GetOwner()) return false;
-            if (!enemy && source.GetOwner() != target.GetOwner()) return false;
+            bool matchesType = (creature && isCreature) || (spell && isSpell) || (player && isPlayer);
+            if (!matchesType) return false;
+
+            bool isAlly = source.GetOwner() == target.GetOwner();
+            bool isEnemy = source.GetOwner() != target.GetOwner();
+
+            bool matchesAlly = ally && isAlly;
+            bool matchesEnemy = enemy && isEnemy;
+
+            if (!matchesAlly && !matchesEnemy) return false;
 
             return true;
         }
-
 
         public bool HasTarget()
         {

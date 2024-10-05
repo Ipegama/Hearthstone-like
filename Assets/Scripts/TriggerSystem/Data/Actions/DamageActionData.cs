@@ -1,5 +1,6 @@
 using Gameplay;
 using UnityEngine;
+using static Events;
 
 namespace TriggerSystem.Data
 {
@@ -20,11 +21,11 @@ namespace TriggerSystem.Data
 
             foreach (var target in targets)
             {
-                if(target != null)
+                if (target != null)
                 {
                     if (projectileAction)
                     {
-                        Events.Actions.Projectile?.Invoke(projectileAction,context.thisCard, context.thisCard.transform,target.GetTransform());
+                        Events.Actions.Projectile?.Invoke(projectileAction, context.thisCard, context.TriggerEntity.GetTransform(),target.GetTransform());
                     }
 
                     int totalDamage = amount;

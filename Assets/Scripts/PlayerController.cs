@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     public Player controlledPlayer;
 
     private Coroutine _coroutine;
-
     private IHighlightable _highlightedEntity;
     private Card _selectedCard;
     private HeroPower _selectedHeroPower;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
         UpdateHighlightedEntity();
         UpdateControls();
     }
-
     public void UpdateControls()
     {
         if (Input.GetMouseButtonDown(0))
@@ -31,7 +29,6 @@ public class PlayerController : MonoBehaviour
             UpdateArc();
         }
     }
-
     private void UpdateHighlightedEntity()
     {
         var entity = SelectionManager.GetObjectAtCursor<IHighlightable>();
@@ -47,19 +44,6 @@ public class PlayerController : MonoBehaviour
             Highlight(null);
         }
     }
-
-    private void StopTargetSelection()
-    {
-        SelectCard(null);
-        SelectHeroPower(null);
-        ArcManager.Instance.ShowArc(false);
-        if (_coroutine != null)
-        {
-            StopCoroutine(_coroutine);
-            _coroutine = null;
-        }
-    }
-
     private void StartTargetSelection()
     {
         if (_coroutine != null) return;
@@ -85,7 +69,17 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    private void StopTargetSelection()
+    {
+        SelectCard(null);
+        SelectHeroPower(null);
+        ArcManager.Instance.ShowArc(false);
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
+    }
     private IEnumerator TargetSelection(Card card)
     {
         SelectCard(card);
@@ -94,6 +88,8 @@ public class PlayerController : MonoBehaviour
 
         ArcManager.Instance.ShowArc(true);
         ArcManager.Instance.SetStartPoint(card.transform.position);
+
+        yield return new WaitUntil(() => !Input.GetMouseButton(0));
 
         while (true)
         {
@@ -129,7 +125,6 @@ public class PlayerController : MonoBehaviour
         }
         StopTargetSelection();
     }
-
     private IEnumerator TargetSelection(HeroPower heroPower)
     {
         SelectHeroPower(heroPower);
@@ -149,11 +144,12 @@ public class PlayerController : MonoBehaviour
                 {
                     var target = SelectionManager.GetObjectAtCursor<ITargetable>();
 
-                    if (target != null && target.CanBeTargeted() && filter.Match(null, target))
+                    if (target != null && target.CanBeTargeted() && filter.Match(heroPower.owner, target))
                     {
                         controlledPlayer.DoAction(heroPower, target);
                         break;
                     }
+
                 }
                 else
                 {
@@ -171,7 +167,6 @@ public class PlayerController : MonoBehaviour
         }
         StopTargetSelection();
     }
-
     private void UpdateArc()
     {
         if ((_selectedCard != null || _selectedHeroPower != null) && ArcManager.Instance.IsArcVisible())
@@ -182,7 +177,6 @@ public class PlayerController : MonoBehaviour
             ArcManager.Instance.UpdateArcPositions(startPos, endPos);
         }
     }
-
     private void Highlight(IHighlightable entity)
     {
         if (_highlightedEntity == entity) return;
@@ -191,7 +185,6 @@ public class PlayerController : MonoBehaviour
         _highlightedEntity = entity;
         _highlightedEntity?.Highlight(true);
     }
-
     private void SelectCard(Card card)
     {
         if (card == _selectedCard) return;
@@ -205,7 +198,6 @@ public class PlayerController : MonoBehaviour
             _highlightedEntity.Highlight(true);
         }
     }
-
     private void SelectHeroPower(HeroPower heroPower)
     {
         if (heroPower == _selectedHeroPower) return;
@@ -219,7 +211,6 @@ public class PlayerController : MonoBehaviour
             _highlightedEntity.Highlight(true);
         }
     }
-
     private Vector3 GetMouseWorldPosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

@@ -14,7 +14,11 @@ namespace TriggerSystem.Data
         {
             var creature = creatureData.Create(context.Get(targetPlayer));
             creature.owner.board.AddCard(creature);
-            creature.transform.position = context.thisCard.GetTransform().position;
+
+            if (context.thisCard != null)
+            {
+                creature.transform.position = context.thisCard.GetTransform().position;
+            }
 
             EventManager.Instance.CreaturePlayed.Raise(
                new ActionContext

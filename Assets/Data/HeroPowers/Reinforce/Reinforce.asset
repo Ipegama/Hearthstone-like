@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f060d63ecb653048b8603d5715b934b, type: 3}
   m_Name: Reinforce
   m_EditorClassIdentifier: 
+  powerName: Reinforce
+  powerIcon: {fileID: 21300000, guid: e8b56e35ec5e9494fbd79d1860d716cb, type: 3}
+  manaCost: 2
   targetFilter:
     creature: 0
     player: 0

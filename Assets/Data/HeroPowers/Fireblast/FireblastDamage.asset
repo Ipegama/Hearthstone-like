@@ -16,10 +16,10 @@ MonoBehaviour:
   amount: 1
   targetType: 1
   filter:
-    creature: 1
-    player: 1
+    creature: 0
+    player: 0
     spell: 0
-    ally: 1
-    enemy: 1
+    ally: 0
+    enemy: 0
     excludeSelf: 0
   usesSpellPower: 0
