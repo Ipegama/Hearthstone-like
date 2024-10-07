@@ -11,7 +11,7 @@ public class HeroPower : MonoBehaviour, IHighlightable
 
     public Player owner;
 
-    [HideInInspector]public HeroPowerUI UI;
+    [HideInInspector] public HeroPowerUI UI;
 
     public Image heroPowerBackground;
     private Color _defaultBackgroundColor;
@@ -19,11 +19,15 @@ public class HeroPower : MonoBehaviour, IHighlightable
     private void Awake()
     {
         UI = GetComponent<HeroPowerUI>();
+        
+    }
+
+    private void Start()
+    {
         UI.SetHeroPower(this);
 
         _defaultBackgroundColor = heroPowerBackground.color;
     }
-
     public virtual void SetData(HeroPowerData data)=> Data = data;
     public void ExecuteOnPlayAction(ITargetable target)
     {

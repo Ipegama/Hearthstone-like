@@ -16,6 +16,11 @@ public class HeroPowerUI : MonoBehaviour
     {
         _heroPower = heroPower;
     }
+
+    private void Update()
+    {
+        UpdateUI();
+    }
     private void UpdateUI()
     {
         heroPowerSpriteImage.sprite = _heroPower.Data.powerIcon;
