@@ -17,6 +17,9 @@ namespace GameAnimations
 
         public DamageCanvas damageCanvasPrefab;
         public DamageCanvas healCanvasPrefab;
+
+        public GameObject yourTurnObj;
+
         private Coroutine _coroutine;
 
         public void StartQueue()
@@ -57,10 +60,16 @@ namespace GameAnimations
 
             Events.Resolve += OnResolve;
 
+            Events.Players.TurnStarted += OnYourTurnStarted;
+
             Events.Players.ManaChanged += OnManaChanged;
             Events.Players.MaxManaChanged += OnMaxManaChanged;
         }
 
+        private void OnYourTurnStarted(Player player)
+        {
+            Enqueue(new TurnStartedAnimation(player));
+        }
         private void OnMaxHealthChanged(ITargetable target, int amound, int health, int maxHealth)
         {
             Enqueue(new MaxHealthChangedAnimation(target, amound, health, maxHealth));
