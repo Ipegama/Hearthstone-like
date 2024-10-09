@@ -23,7 +23,7 @@ public static class Events
     public static class Cards
     {
         public static Action<Card> Played;
-        public static Action<Card> Drawn;
+        public static Action<Player,Card> Drawn;
         public static Action<Card> Triggered;
         public static Action<Card> Created;
     }

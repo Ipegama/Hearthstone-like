@@ -57,6 +57,7 @@ namespace GameAnimations
 
             Events.Cards.Triggered += OnCardTriggered;
             Events.Cards.Created += OnCardCreated;
+            Events.Cards.Drawn += OnCardDrawn;
 
             Events.Resolve += OnResolve;
 
@@ -66,6 +67,10 @@ namespace GameAnimations
             Events.Players.MaxManaChanged += OnMaxManaChanged;
         }
 
+        private void OnCardDrawn(Player player, Card card)
+        {
+            Enqueue(new DrawCardAnimation(player, card));
+        }
         private void OnYourTurnStarted(Player player)
         {
             Enqueue(new TurnStartedAnimation(player));

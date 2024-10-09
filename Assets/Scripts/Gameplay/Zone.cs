@@ -2,6 +2,7 @@
 using Extensions;
 using System.Collections.Generic;
 using UnityEngine;
+using static Events;
 
 namespace Gameplay
 {
@@ -51,26 +52,56 @@ namespace Gameplay
 
         public void UpdateCardsPosition(List<Card> cards, bool animate)
         {
-            foreach(var card in cards)
+            for (int i = 0; i < cards.Count; i++)
             {
-                UpdateCardPosition(card,this,GetPosition(cards,card),animate);
+                bool isNewCard = (i == cards.Count - 1); 
+                UpdateCardPosition(cards[i], this, GetPosition(cards, cards[i]), animate, isNewCard);
             }
         }
 
-        private void UpdateCardPosition(Card card, Zone zone, Vector3 position, bool animate)
+
+        private void UpdateCardPosition(Card card, Zone zone, Vector3 position, bool animate, bool applySpecialAnimation)
         {
             var tf = card.transform;
-            tf.SetParent(zone.GetTransform(),true);
+            var defaultScale = tf.localScale;
+
+            tf.SetParent(zone.GetTransform(), true);
             if (animate)
             {
                 tf.DOKill();
-                tf.DOLocalMove(position,0.4f);
+
+                if (applySpecialAnimation)
+                {
+                    PlaySpecialAnimation(tf, defaultScale, position);
+                }
+                else
+                {
+                    PlayStandardAnimation(tf, position);
+                }
             }
             else
             {
                 tf.localPosition = position;
             }
         }
+
+        private void PlayStandardAnimation(Transform tf, Vector3 position)
+        {
+            tf.DOLocalMove(position, 0.4f);
+        }
+
+        private void PlaySpecialAnimation(Transform tf, Vector3 defaultScale, Vector3 position)
+        {
+            Vector3 displayPosition = tf.localPosition + new Vector3(-2, 0, 0);
+
+            Sequence seq = DOTween.Sequence();
+            seq.Append(tf.DOLocalMove(displayPosition, 0.2f));
+            seq.Append(tf.DOScale(defaultScale * 3, 0.3f));
+            seq.AppendInterval(1f);
+            seq.Append(tf.DOScale(defaultScale, 0.3f));
+            seq.Append(tf.DOLocalMove(position, 0.2f));
+        }
+
 
         private Vector3 GetPosition(List<Card> cards, Card card)
         {

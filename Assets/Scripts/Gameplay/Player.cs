@@ -21,7 +21,7 @@ namespace Gameplay
         public HeroPowerData startingHeroPowerData;
 
         [SerializeField] public HeroPower heroPower;
-        [SerializeField] private Zone deck;
+        [SerializeField] public Zone deck;
         [SerializeField] public Zone hand;
         [SerializeField] public Zone graveyard;
         [SerializeField] public Zone board;
@@ -118,10 +118,13 @@ namespace Gameplay
         public void DrawCard()
         {
             var card = deck.GetFirstCard();
+
             if(card != null)
             {
                 hand.AddCard(card);
-                Events.Cards.Drawn?.Invoke(card);
+
+                Events.Cards.Drawn?.Invoke(this,card);
+
                 EventManager.Instance.CardDrawn.Raise(
                     new ActionContext
                     {
