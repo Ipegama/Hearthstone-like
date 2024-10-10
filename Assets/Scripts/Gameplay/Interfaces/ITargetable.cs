@@ -8,6 +8,7 @@ namespace Gameplay.Interfaces
         bool CanBeTargeted();
         bool IsCreature();
         bool IsSpell();
+        bool IsWeapon();
         bool IsPlayer();
         Player GetOwner();
         Transform GetTransform();

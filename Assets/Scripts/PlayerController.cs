@@ -2,6 +2,7 @@
 using Gameplay;
 using Gameplay.Interfaces;
 using UnityEngine;
+using static Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private IHighlightable _highlightedEntity;
     private Card _selectedCard;
     private HeroPower _selectedHeroPower;
+    private Player _selectedPlayer;
 
     private void Update()
     {
@@ -167,6 +169,51 @@ public class PlayerController : MonoBehaviour
         }
         StopTargetSelection();
     }
+    private IEnumerator TargetSelection(Player player)
+    {
+        SelectPlayer(player);
+        var filter = player.GetTargetFilter();
+        var hasTarget = filter.HasTarget();
+
+        ArcManager.Instance.ShowArc(true);
+        ArcManager.Instance.SetStartPoint(player.transform.position);
+
+        yield return new WaitUntil(() => !Input.GetMouseButton(0));
+
+        while (true)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (hasTarget)
+                {
+                    var target = SelectionManager.GetObjectAtCursor<ITargetable>();
+
+                    if (target != null && target.CanBeTargeted() && filter.Match(player, target))
+                    {
+                        controlledPlayer.DoAction(player, target);
+                        break;
+                    }
+                }
+                else
+                {
+                    var zone = SelectionManager.GetObjectAtCursor<Zone>();
+                    if (zone != null)
+                    {
+                        controlledPlayer.DoAction(player, null);
+                        break;
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+            {
+                break;
+            }
+
+            yield return null;
+        }
+        StopTargetSelection();
+    }
     private void UpdateArc()
     {
         if ((_selectedCard != null || _selectedHeroPower != null) && ArcManager.Instance.IsArcVisible())
@@ -210,6 +257,12 @@ public class PlayerController : MonoBehaviour
         {
             _highlightedEntity.Highlight(true);
         }
+    }
+    private void SelectPlayer(Player player)
+    {
+        if (player == _selectedPlayer) return;
+
+        _selectedPlayer = player;
     }
     private Vector3 GetMouseWorldPosition()
     {

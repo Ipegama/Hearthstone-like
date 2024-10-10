@@ -40,6 +40,6 @@ namespace Gameplay.Data
 
     public enum CardType
     {
-        Creature, Spell
+        Creature, Spell, Weapon
     }
 }

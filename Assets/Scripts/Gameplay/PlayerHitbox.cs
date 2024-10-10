@@ -42,6 +42,7 @@ namespace Gameplay
         public bool CanBeTargeted() => true;
         public bool IsCreature() => false;
         public bool IsSpell() => false;
+        public bool IsWeapon()=> false;
         public bool IsPlayer() => true;
     }
 }

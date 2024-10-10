@@ -14,6 +14,8 @@ public class EventManager : MonoBehaviour
     public GameEventData TurnEnded;
     public GameEventData SpellPlayed;
     public GameEventData CardDrawn;
+    public GameEventData WeaponPlayed;
+
     private void Awake()
     {
         Instance = this;

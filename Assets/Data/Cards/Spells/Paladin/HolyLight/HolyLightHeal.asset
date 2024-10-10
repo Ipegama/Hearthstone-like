@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0572606cc4432614f9162e758093eefe, type: 3}
+  m_Name: HolyLightHeal
+  m_EditorClassIdentifier: 
+  projectileAction: {fileID: 11400000, guid: 3401e61ec48a1634391762629d0b52c0, type: 2}
+  amount: 6
+  type: 1
+  filter:
+    creature: 1
+    player: 1
+    spell: 0
+    ally: 1
+    enemy: 1
+    excludeSelf: 0

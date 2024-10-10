@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173cac201fc7c4542a12aef919b0c490, type: 3}
+  m_Name: PaladinDungeonRunStartingDeck
+  m_EditorClassIdentifier: 
+  cards:
+  - {fileID: 11400000, guid: f047b287d0cd8b2459de5114790bca0b, type: 2}
+  - {fileID: 11400000, guid: 8f6aa737bb9060c49b0e1237746a10ba, type: 2}
+  - {fileID: 11400000, guid: 822adb4e635e44e4a8e87a566b7d600b, type: 2}
+  - {fileID: 11400000, guid: be5c845574ecc914d8dce8f26b54ac8d, type: 2}
+  - {fileID: 11400000, guid: 7a56ebe15d2445c4eb1100853c5fa9e7, type: 2}
+  - {fileID: 11400000, guid: cbd28ca8a87608448be09f741aeffa2b, type: 2}

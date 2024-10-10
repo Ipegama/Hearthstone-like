@@ -19,7 +19,7 @@ namespace Gameplay
     {
         public StartingDeckData startingDeckData;
         public HeroPowerData startingHeroPowerData;
-
+      
         [SerializeField] public HeroPower heroPower;
         [SerializeField] public Zone deck;
         [SerializeField] public Zone hand;
@@ -28,8 +28,11 @@ namespace Gameplay
 
         public PlayerStatsUI playerStats;
 
+        private Weapon _weapon;
+
         public event Action<int, int> ManaChanged;
 
+        private bool _canAttack;
         private int _mana;
         private int _maximumMana;
 
@@ -164,7 +167,15 @@ namespace Gameplay
                     TriggerEntity = this
                 });
             }
-
+            if (card.IsWeapon())
+            {
+                Debug.Log("Weapon");
+                EventManager.Instance.WeaponPlayed.Raise(new ActionContext
+                {
+                    thisCard = card,
+                    TriggerEntity = this
+                });
+            }
             Events.Resolve?.Invoke();
             AnimationsQueue.Instance.EndQueue();
         }
@@ -203,6 +214,11 @@ namespace Gameplay
                 }
             }
             return livingEnemy.Random();
+        }
+
+        public void DoAction(Player player, ITargetable target)
+        {
+            Attack(target);
         }
 
         public void DoAction(Card card, ITargetable target)
@@ -248,6 +264,7 @@ namespace Gameplay
         public bool CanBeTargeted() => false;
         public bool IsCreature()=> false;
         public bool IsSpell()=> false;
+        public bool IsWeapon()=> false;
         public bool IsPlayer()=>true;
         public Player GetOwner() => this;
         public Transform GetTransform() => playerStats.transform;
@@ -360,5 +377,50 @@ namespace Gameplay
         }
 
         public List<Buff> GetBuffs() => _buffs;
+
+        public void Attack(ITargetable target)
+        {
+            if (!_canAttack) return;
+            if (_weapon.GetWeaponAttack() <= 0) return;
+
+            _canAttack = false;
+            Events.Players.Attack?.Invoke(this, target);
+
+            target.Damage(_weapon.GetWeaponAttack(), false, this);
+            Damage(target.GetAttack(), false, target);
+
+            EventManager.Instance.CreatureDamaged.Raise(
+                new ActionContext
+                {
+                    TriggerEntity = target,
+                    DamagingEntity = this,
+                    EventAmount = _weapon.GetWeaponAttack(),
+                });
+
+            EventManager.Instance.CreatureDamaged.Raise(
+                new ActionContext
+                {
+                    TriggerEntity = this,
+                    DamagingEntity = target,
+                    EventAmount = target.GetAttack(),
+                });
+        }
+
+        public void SetWeapon(Weapon weapon)
+        {
+            //_weapon.OnDestroy();
+            _weapon = null;
+            _weapon = weapon;
+        }
+
+        public TargetFilter GetTargetFilter()
+        {
+                return new TargetFilter
+                {
+                    enemy = true,
+                    creature = true,
+                    player = true
+                };
+        }
     }
 }

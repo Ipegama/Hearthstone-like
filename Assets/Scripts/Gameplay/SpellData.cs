@@ -1,4 +1,3 @@
-using Gameplay.Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Data

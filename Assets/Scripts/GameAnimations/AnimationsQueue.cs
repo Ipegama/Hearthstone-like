@@ -65,8 +65,12 @@ namespace GameAnimations
 
             Events.Players.ManaChanged += OnManaChanged;
             Events.Players.MaxManaChanged += OnMaxManaChanged;
+            Events.Players.Attack += OnPlayerAttack;
         }
-
+        private void OnPlayerAttack(Player player, ITargetable target)
+        {
+            Enqueue(new PlayerAttackAnimation(player,target));
+        }
         private void OnCardDrawn(Player player, Card card)
         {
             Enqueue(new DrawCardAnimation(player, card));

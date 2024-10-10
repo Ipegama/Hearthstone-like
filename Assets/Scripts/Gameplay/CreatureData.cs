@@ -1,5 +1,4 @@
-﻿using Data;
-using TriggerSystem.Data;
+﻿using TriggerSystem.Data;
 using UnityEngine;
 
 namespace Gameplay.Data

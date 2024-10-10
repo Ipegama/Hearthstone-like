@@ -82,6 +82,13 @@ namespace Gameplay
                 owner.graveyard.AddCard(this);
             }
 
+            if(CardType == CardType.Weapon)
+            {
+                owner.SetWeapon(this as Weapon);
+                transform.position = owner.GetTransform().position + new Vector3(-2, 0, 0);
+               //owner.graveyard.AddCard(this);
+            }
+
             OnPlay();
 
             EventManager.Instance.CreaturePlayed.Raise(
@@ -132,6 +139,7 @@ namespace Gameplay
         public void Highlight(bool value)=> UI.Highlight(value);
         public bool IsCreature()=> CardType== CardType.Creature;
         public bool IsSpell()=> CardType == CardType.Spell;
+        public bool IsWeapon() => CardType == CardType.Weapon;
         public bool IsPlayer() => false;
         public Player GetOwner() => owner;
         public Card GetCard() => this;

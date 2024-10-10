@@ -43,5 +43,6 @@ public static class Events
         public static Action<Player> TurnStarted;
         public static Action<Player> TurnEnded;
         public static Action Frozen;
+        public static Action<Player, ITargetable> Attack;
     }
 }

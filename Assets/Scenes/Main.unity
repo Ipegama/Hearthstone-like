@@ -706,6 +706,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 2.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6753451792702424840, guid: d81d0686c0757144e8688744187d83e0, type: 3}
+      propertyPath: startingDeckData
+      value: 
+      objectReference: {fileID: 11400000, guid: a73226b3d3cd80c4ca980cfa7610d4c7, type: 2}
     - target: {fileID: 7068347432378343842, guid: d81d0686c0757144e8688744187d83e0, type: 3}
       propertyPath: cardInterval
       value: -0.1
@@ -1986,6 +1990,7 @@ MonoBehaviour:
   TurnEnded: {fileID: 11400000, guid: 696e5f08d210e834d83c4534abb8425d, type: 2}
   SpellPlayed: {fileID: 11400000, guid: 44e734eb9c252f74192b2b41a8b5c3a4, type: 2}
   CardDrawn: {fileID: 11400000, guid: ed357b8a9d181ae4589bdfe0de85fc36, type: 2}
+  WeaponPlayed: {fileID: 11400000, guid: 8f71d5bb35e54524fa6dbfbc20072572, type: 2}
 --- !u!1 &2015746225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2043,6 +2048,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 778944805699493689, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: startingDeckData
+      value: 
+      objectReference: {fileID: 11400000, guid: a73226b3d3cd80c4ca980cfa7610d4c7, type: 2}
     - target: {fileID: 3846525128560015763, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: cardInterval
       value: -0.1
