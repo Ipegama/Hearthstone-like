@@ -70,7 +70,18 @@ public class PlayerController : MonoBehaviour
                 return;
             }
         }
+
+        var playerHitbox = SelectionManager.GetObjectAtCursor<Player>();
+        if (playerHitbox != null && playerHitbox == controlledPlayer)
+        {
+            if (controlledPlayer.CanAttack())
+            {
+                _coroutine = StartCoroutine(TargetSelection(controlledPlayer));
+                return;
+            }
+        }
     }
+
     private void StopTargetSelection()
     {
         SelectCard(null);
@@ -173,7 +184,6 @@ public class PlayerController : MonoBehaviour
     {
         SelectPlayer(player);
         var filter = player.GetTargetFilter();
-        var hasTarget = filter.HasTarget();
 
         ArcManager.Instance.ShowArc(true);
         ArcManager.Instance.SetStartPoint(player.transform.position);
@@ -184,24 +194,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (hasTarget)
-                {
-                    var target = SelectionManager.GetObjectAtCursor<ITargetable>();
+                var target = SelectionManager.GetObjectAtCursor<ITargetable>();
 
-                    if (target != null && target.CanBeTargeted() && filter.Match(player, target))
-                    {
-                        controlledPlayer.DoAction(player, target);
-                        break;
-                    }
-                }
-                else
+                if (target != null && target.CanBeTargeted() && filter.Match(player, target))
                 {
-                    var zone = SelectionManager.GetObjectAtCursor<Zone>();
-                    if (zone != null)
-                    {
-                        controlledPlayer.DoAction(player, null);
-                        break;
-                    }
+                    controlledPlayer.DoAction(player, target);
+                    break;
                 }
             }
 
@@ -214,16 +212,29 @@ public class PlayerController : MonoBehaviour
         }
         StopTargetSelection();
     }
+
     private void UpdateArc()
     {
-        if ((_selectedCard != null || _selectedHeroPower != null) && ArcManager.Instance.IsArcVisible())
+        if ((_selectedCard != null || _selectedHeroPower != null || _selectedPlayer != null) && ArcManager.Instance.IsArcVisible())
         {
-            Vector3 startPos = _selectedCard != null ? _selectedCard.transform.position : _selectedHeroPower.transform.position;
+            Vector3 startPos;
+
+            if (_selectedCard != null)
+                startPos = _selectedCard.transform.position;
+            else if (_selectedHeroPower != null)
+                startPos = _selectedHeroPower.transform.position;
+            else if (_selectedPlayer != null)
+                startPos = _selectedPlayer.transform.position;
+            else
+                return;
+
             Vector3 endPos = GetMouseWorldPosition();
 
             ArcManager.Instance.UpdateArcPositions(startPos, endPos);
         }
     }
+
+
     private void Highlight(IHighlightable entity)
     {
         if (_highlightedEntity == entity) return;

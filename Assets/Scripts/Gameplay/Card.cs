@@ -11,7 +11,8 @@ namespace Gameplay
     {
         public CardData CardData { get; protected set; }
         public CardType CardType { get; protected set; }
-        
+        public Zone PreviousZone { get; private set; }
+
         [HideInInspector] public CardUI UI;
         [HideInInspector] public Player owner;
         [HideInInspector] public Zone zone;
@@ -65,6 +66,7 @@ namespace Gameplay
             {
                 zone.RemoveCard(this);
             }
+            PreviousZone = zone;
             zone = newZone;
         }
 

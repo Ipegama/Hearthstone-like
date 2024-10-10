@@ -64,12 +64,17 @@ namespace Gameplay
 
         private void OnTurnStart(Player player)
         {
-            if(player == this)
+            if (player == this)
             {
                 board.TurnStarted();
                 SetMana(_maximumMana);
                 DrawCard();
-                if (_isFrozen) _isFrozen = false;
+
+                if (_isFrozen)
+                    _isFrozen = false;
+                else if (_weapon != null && _weapon.GetWeaponAttack() > 0)
+                    _canAttack = true;
+
                 playerStats.SetFreeze(_isFrozen);
             }
         }
@@ -261,7 +266,7 @@ namespace Gameplay
             Events.Resolve?.Invoke();
             AnimationsQueue.Instance.EndQueue();
         }
-        public bool CanBeTargeted() => false;
+        public bool CanBeTargeted() => true;
         public bool IsCreature()=> false;
         public bool IsSpell()=> false;
         public bool IsWeapon()=> false;
@@ -380,14 +385,17 @@ namespace Gameplay
 
         public void Attack(ITargetable target)
         {
-            if (!_canAttack) return;
-            if (_weapon.GetWeaponAttack() <= 0) return;
+            if (!CanAttack()) return;
 
             _canAttack = false;
             Events.Players.Attack?.Invoke(this, target);
 
             target.Damage(_weapon.GetWeaponAttack(), false, this);
-            Damage(target.GetAttack(), false, target);
+
+            if (target.IsCreature() || target.IsPlayer())
+            {
+                Damage(target.GetAttack(), false, target);
+            }
 
             EventManager.Instance.CreatureDamaged.Raise(
                 new ActionContext
@@ -408,18 +416,26 @@ namespace Gameplay
 
         public void SetWeapon(Weapon weapon)
         {
-            //_weapon.OnDestroy();
-            _weapon = null;
-            _weapon = weapon;
-        }
+            if (_weapon != null)
+            {
+              //  _weapon.OnDestroy();
+            }
 
+            _weapon = weapon;
+            _canAttack = true; 
+        }
+        public bool CanAttack()
+        {
+            return _canAttack && _weapon != null && _weapon.GetWeaponAttack() > 0;
+        }
         public TargetFilter GetTargetFilter()
         {
                 return new TargetFilter
                 {
                     enemy = true,
                     creature = true,
-                    player = true
+                    player = true,
+                    excludeSelf = true,
                 };
         }
     }

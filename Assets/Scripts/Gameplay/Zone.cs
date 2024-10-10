@@ -32,11 +32,11 @@ namespace Gameplay
             _owner = owner;
         }
 
-        public void AddCard(Card card) 
+        public void AddCard(Card card)
         {
             _cards.Add(card);
             card.SetZone(this);
-            Events.Zones.CardAdded?.Invoke(this, _cards.GetCopy(),card);
+            Events.Zones.CardAdded?.Invoke(this, _cards.GetCopy(), card);
         }
 
         public void RemoveCard(Card card)
@@ -54,10 +54,18 @@ namespace Gameplay
         {
             for (int i = 0; i < cards.Count; i++)
             {
-                bool isNewCard = (i == cards.Count - 1); 
-                UpdateCardPosition(cards[i], this, GetPosition(cards, cards[i]), animate, isNewCard);
+                var card = cards[i];
+                bool applySpecialAnimation = false;
+
+                if (card.PreviousZone != null && card.PreviousZone.IsDeck() && this.zoneType == ZoneType.Hand)
+                {
+                    applySpecialAnimation = true;
+                }
+
+                UpdateCardPosition(card, this, GetPosition(cards, card), animate, applySpecialAnimation);
             }
         }
+
 
 
         private void UpdateCardPosition(Card card, Zone zone, Vector3 position, bool animate, bool applySpecialAnimation)
@@ -84,6 +92,7 @@ namespace Gameplay
                 tf.localPosition = position;
             }
         }
+
 
         private void PlayStandardAnimation(Transform tf, Vector3 position)
         {
