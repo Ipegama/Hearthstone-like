@@ -11,7 +11,8 @@ namespace Gameplay
         Deck,
         Hand,
         Board,
-        Graveyard
+        Graveyard,
+        WeaponSlot
     }
 
     public class Zone : MonoBehaviour 
@@ -26,30 +27,28 @@ namespace Gameplay
 
         private Player _owner;
         public Player Owner => _owner;
+        public bool IsHand() => zoneType == ZoneType.Hand;
 
         public void Initialize(Player owner)
         {
             _owner = owner;
         }
-
         public void AddCard(Card card)
         {
             _cards.Add(card);
             card.SetZone(this);
             Events.Zones.CardAdded?.Invoke(this, _cards.GetCopy(), card);
         }
-
         public void RemoveCard(Card card)
         {
             _cards.Remove(card);
+            card.HasPlayedSpecialAnimation = false;
             Events.Zones.CardRemoved?.Invoke(this, _cards.GetCopy(), card);
         }
-
         public void Shuffle()
         {
             _cards.Shuffle();
         }
-
         public void UpdateCardsPosition(List<Card> cards, bool animate)
         {
             for (int i = 0; i < cards.Count; i++)
@@ -57,16 +56,15 @@ namespace Gameplay
                 var card = cards[i];
                 bool applySpecialAnimation = false;
 
-                if (card.PreviousZone != null && card.PreviousZone.IsDeck() && this.zoneType == ZoneType.Hand)
+                if (card.PreviousZone != null && card.PreviousZone.IsDeck() && this.IsHand() && !card.HasPlayedSpecialAnimation)
                 {
                     applySpecialAnimation = true;
+                    card.HasPlayedSpecialAnimation = true; 
                 }
 
                 UpdateCardPosition(card, this, GetPosition(cards, card), animate, applySpecialAnimation);
             }
         }
-
-
 
         private void UpdateCardPosition(Card card, Zone zone, Vector3 position, bool animate, bool applySpecialAnimation)
         {
@@ -92,13 +90,10 @@ namespace Gameplay
                 tf.localPosition = position;
             }
         }
-
-
         private void PlayStandardAnimation(Transform tf, Vector3 position)
         {
             tf.DOLocalMove(position, 0.4f);
         }
-
         private void PlaySpecialAnimation(Transform tf, Vector3 defaultScale, Vector3 position)
         {
             Vector3 displayPosition = tf.localPosition + new Vector3(-2, 0, 0);
@@ -110,8 +105,6 @@ namespace Gameplay
             seq.Append(tf.DOScale(defaultScale, 0.3f));
             seq.Append(tf.DOLocalMove(position, 0.2f));
         }
-
-
         private Vector3 GetPosition(List<Card> cards, Card card)
         {
             var count = cards.Count;
@@ -134,7 +127,6 @@ namespace Gameplay
             }
             return creatures;
         }
-
         public Transform GetTransform() => transform;
         public Card GetFirstCard() => _cards.Count > 0 ? _cards[0] : null;
         public bool Contains(Card card)=> Cards.Contains(card);
@@ -148,6 +140,17 @@ namespace Gameplay
             {
                 card.TurnStarted();
             }
+        }
+        public Card GetAndRemoveFirst()
+        {
+            if (_cards.Count > 0)
+            {
+                Card cardToRemove = _cards[0];
+                //cardToRemove.
+                _cards.Remove(cardToRemove);
+                return cardToRemove;
+            }
+            return null;
         }
     }
 }

@@ -25,10 +25,8 @@ namespace Gameplay
         [SerializeField] public Zone hand;
         [SerializeField] public Zone graveyard;
         [SerializeField] public Zone board;
-
+        [SerializeField] public Zone weaponSlot; 
         public PlayerStatsUI playerStats;
-
-        private Weapon _weapon;
 
         public event Action<int, int> ManaChanged;
 
@@ -48,6 +46,7 @@ namespace Gameplay
             hand.Initialize(this);
             graveyard.Initialize(this);
             board.Initialize(this);
+            weaponSlot.Initialize(this);
 
             _maximumMana = startingMana;
             SetMana(_maximumMana);
@@ -61,7 +60,6 @@ namespace Gameplay
             Events.Players.TurnStarted += OnTurnStart;
 
         }
-
         private void OnTurnStart(Player player)
         {
             if (player == this)
@@ -71,20 +69,19 @@ namespace Gameplay
                 DrawCard();
 
                 if (_isFrozen)
+                {
                     _isFrozen = false;
-                else if (_weapon != null && _weapon.GetWeaponAttack() > 0)
-                    _canAttack = true;
+                }
+                _canAttack = true;
 
                 playerStats.SetFreeze(_isFrozen);
             }
         }
-
         private void SetMana(int mana)
         {
             _mana = mana;
             Events.Players.ManaChanged?.Invoke(this, mana, _mana, _maximumMana);
         }
-
         private void InitializeDeck()
         {
             foreach(var cardData in startingDeckData.GetCards())
@@ -94,7 +91,6 @@ namespace Gameplay
             }
             deck.Shuffle();
         }
-
         private void InitializeHeroPower()
         {
             heroPower.SetData(startingHeroPowerData);
@@ -103,7 +99,6 @@ namespace Gameplay
         {
             Events.Resolve += OnResolve;
         }
-
         private void OnResolve()
         {
             foreach(Creature creature in board.GetCreatures())
@@ -122,7 +117,6 @@ namespace Gameplay
                 graveyard.AddCard(creature);
             }
         }
-
         public void DrawCard()
         {
             var card = deck.GetFirstCard();
@@ -140,7 +134,6 @@ namespace Gameplay
                     });
             }
         }
-
         public void AddCardToHand(CardData cardData)
         {
             var card = cardData.Create(this);
@@ -150,7 +143,6 @@ namespace Gameplay
                 hand.AddCard(card);
             }
         }
-
         public void PlayCard(Card card, ITargetable target = null)
         {
             if (card == null) return;
@@ -174,7 +166,7 @@ namespace Gameplay
             }
             if (card.IsWeapon())
             {
-                Debug.Log("Weapon");
+                SetWeapon(card as Weapon);
                 EventManager.Instance.WeaponPlayed.Raise(new ActionContext
                 {
                     thisCard = card,
@@ -184,7 +176,6 @@ namespace Gameplay
             Events.Resolve?.Invoke();
             AnimationsQueue.Instance.EndQueue();
         }
-
         public void StartAttack(Creature card, ITargetable target)
         {
             AnimationsQueue.Instance.StartQueue();
@@ -194,7 +185,6 @@ namespace Gameplay
             Events.Resolve?.Invoke();
             AnimationsQueue.Instance.EndQueue();
         }
-
         public Card GetRandomLivingCreature()
         {
             var livingCreature = new List<Creature>();
@@ -220,12 +210,10 @@ namespace Gameplay
             }
             return livingEnemy.Random();
         }
-
         public void DoAction(Player player, ITargetable target)
         {
             Attack(target);
         }
-
         public void DoAction(Card card, ITargetable target)
         {
             if (card.IsInHand())
@@ -247,7 +235,6 @@ namespace Gameplay
                 PlayCard(card);
             }
         }
-
         public void DoAction(HeroPower heroPower, ITargetable target)
         {
             if (heroPower == null) return;
@@ -308,7 +295,6 @@ namespace Gameplay
             }
         }
         public void SetHealth(int health,int maxHealth)=> playerStats.SetHealth(health, maxHealth);
-        
         public int GetAttack() => 0;
         public Player GetPlayer() => this;
         public void AnimateDamage(Vector3 scale, float duration)
@@ -318,9 +304,7 @@ namespace Gameplay
             tf.DOPunchScale(scale,duration);
         }
         public void Kill() { }
-
         public bool IsDead() => _health <= 0;
-
         public List<ITargetable> GetAllTargets(Card card,TargetFilter filter)
         {
             var result = new List<ITargetable>();
@@ -353,7 +337,6 @@ namespace Gameplay
                 Events.Players.MaxManaChanged?.Invoke(this,currentMana, _mana,_maximumMana);
             }
         }
-
         public void Freeze()
         {
             _isFrozen = true;
@@ -367,9 +350,7 @@ namespace Gameplay
                 .Where(c => !c.IsDead())
                 .Sum(c => c.GetSpellpower());
         }
-
         public bool HasTaunt() => _buffs.Any(buff => buff is TauntBuff);
-
         public  void AddBuff(Buff buff)
         {
             _buffs.Add(buff);
@@ -380,17 +361,19 @@ namespace Gameplay
             _buffs.Remove(buff);
             buff.OnRemove(this);
         }
-
         public List<Buff> GetBuffs() => _buffs;
-
         public void Attack(ITargetable target)
         {
             if (!CanAttack()) return;
 
+            AnimationsQueue.Instance.StartQueue();
+
             _canAttack = false;
             Events.Players.Attack?.Invoke(this, target);
 
-            target.Damage(_weapon.GetWeaponAttack(), false, this);
+            Weapon weapon = weaponSlot.GetFirstCard() as Weapon;
+            int damageAmount = weapon != null ? weapon.GetWeaponAttack() : 0;
+            target.Damage(damageAmount, false, this);
 
             if (target.IsCreature() || target.IsPlayer())
             {
@@ -402,7 +385,7 @@ namespace Gameplay
                 {
                     TriggerEntity = target,
                     DamagingEntity = this,
-                    EventAmount = _weapon.GetWeaponAttack(),
+                    EventAmount = damageAmount,
                 });
 
             EventManager.Instance.CreatureDamaged.Raise(
@@ -412,21 +395,31 @@ namespace Gameplay
                     DamagingEntity = target,
                     EventAmount = target.GetAttack(),
                 });
-        }
 
+
+            Events.Resolve?.Invoke();
+
+            AnimationsQueue.Instance.EndQueue();
+        }
         public void SetWeapon(Weapon weapon)
         {
-            if (_weapon != null)
+            if (weaponSlot.Cards.Count > 0)
             {
-              //  _weapon.OnDestroy();
+                var oldWeapon = weaponSlot.GetAndRemoveFirst();
+                Events.Zones.CardRemoved?.Invoke(graveyard, weaponSlot.Cards, oldWeapon);
+                graveyard.AddCard(oldWeapon);
             }
 
-            _weapon = weapon;
-            _canAttack = true; 
+            weaponSlot.AddCard(weapon);
+            Events.Zones.CardAdded?.Invoke(weaponSlot, weaponSlot.Cards, weapon);
         }
         public bool CanAttack()
         {
-            return _canAttack && _weapon != null && _weapon.GetWeaponAttack() > 0;
+            if (weaponSlot.Cards.Count == 0) return false;
+
+            Weapon weapon = weaponSlot.Cards[0] as Weapon;
+            bool weaponHasAttack = weapon != null && weapon.GetAttack() > 0;
+            return _canAttack && weaponHasAttack;
         }
         public TargetFilter GetTargetFilter()
         {

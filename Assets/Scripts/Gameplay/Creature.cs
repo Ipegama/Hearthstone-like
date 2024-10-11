@@ -5,6 +5,7 @@ using Gameplay.Interfaces;
 using TriggerSystem;
 using TriggerSystem.Data;
 
+
 namespace Gameplay
 {
     public class Creature : Card
@@ -60,7 +61,6 @@ namespace Gameplay
                     EventAmount = target.GetAttack(),
                 });
         }
-
         public override void Damage(int amount, bool triggerEvent, ITargetable source)
         {
             _health -= amount;
@@ -77,7 +77,6 @@ namespace Gameplay
                     });
             }
         }
-
         public override void Heal(int amount, bool triggerEvent)
         {
             if (_health + amount > _maxHealth)
@@ -98,7 +97,6 @@ namespace Gameplay
                     });
             }
         }
-
         public override void Kill()
         {
             _isDead = true;
@@ -107,30 +105,25 @@ namespace Gameplay
         {
             return _attack;
         }
-
         public void ChangedAttack(int amount)
         {
             _attack += amount;
             Events.Creatures.AttackChanged?.Invoke(this, amount, _attack);
         }
-
         public void ChangedMaxHealth(int amount)
         {
             _maxHealth += amount;
             _health += amount;
             Events.Creatures.MaxHealthChanged?.Invoke(this, amount, _health, _maxHealth);
         }
-
         protected override void OnPlay()
         {
             RegisterTriggers();
         }
-
         protected override void OnCardDestroyed()
         {
             UnregisterTriggers();
         }
-
         public override void AddBuff(Buff buff)
         {
             _buffs.Add(buff);
@@ -141,7 +134,6 @@ namespace Gameplay
             _buffs.Remove(buff);
             buff.OnRemove(this);
         }
-
         public void ClearBuffs()
         {
             foreach (var buff in _buffs)
@@ -150,7 +142,6 @@ namespace Gameplay
             }
             _buffs.Clear();
         }
-
         public void Freeze()
         {
             _isFrozen = true;
@@ -158,8 +149,6 @@ namespace Gameplay
             UI.SetFreeze(_isFrozen);
             Events.Creatures.Frozen?.Invoke(this);
         }
-
-
         public void SetTaunt()
         {
             foreach (var buff in _buffs)
@@ -172,7 +161,6 @@ namespace Gameplay
             }
             UI.SetTaunt(false);
         }
-
         public void OnCreatureDeath()
         {
             EventManager.Instance.CreatureDeath.Raise(
@@ -183,7 +171,6 @@ namespace Gameplay
                 });
             UnregisterTriggers();
         }
-
         private void RegisterTriggers()
         {
             foreach (var trigger in _creatureData.triggers)
@@ -196,7 +183,6 @@ namespace Gameplay
                 trigger.gameEvent.AddTrigger(trigger);
             }
         }
-
         private void UnregisterTriggers()
         {
             foreach (var trigger in _gameTriggers)
@@ -208,7 +194,6 @@ namespace Gameplay
         {
             return base.IsDead() || _health <= 0;
         }
-
         public override void TurnStarted()
         {
             if (_isFrozen) _isFrozen = false;
@@ -218,14 +203,12 @@ namespace Gameplay
         }
         public int GetSpellpower()=> _buffs.OfType<SpellpowerBuff>().Sum(buff => buff.GetSpellpower());
         public bool HasTaunt()=> _buffs.Any(buff => buff is TauntBuff);
-
         public void AddTrigger(GameTriggerData gameTriggerData)
         {
             var gameTrigger = new GameTrigger(gameTriggerData, this);
             _gameTriggers.Add(gameTrigger);
             gameTrigger.gameEvent.AddTrigger(gameTrigger);
         }
-
         public void RemoveTrigger(GameTriggerData gameTriggerData)
         {
             var triggerToRemove = _gameTriggers.Find(t => t.triggerData == gameTriggerData);

@@ -19,20 +19,19 @@ namespace Gameplay
 
         protected List<Buff> _buffs = new List<Buff>();
         protected bool _isDead;
+        public bool HasPlayedSpecialAnimation { get; set; } = false;
 
         private void Awake()
         {
             UI = GetComponent<CardUI>();
             UI.SetCard(this);
         }
-
         private void OnDestroy()
         {
             _isDead = true;
             OnCardDestroyed();
         }
         public virtual void SetData(CardData data)=> CardData = data;
- 
         private void ExecuteOnPlayAction(ITargetable target)
         {
             if (target == null)
@@ -53,13 +52,11 @@ namespace Gameplay
                 });
             }
         }
-
         public void SetOwner(Player player)
         {
             owner = player;
             transform.SetParent(owner.transform, true);
         }
-
         public void SetZone(Zone newZone)
         {
             if (zone != null)
@@ -69,7 +66,6 @@ namespace Gameplay
             PreviousZone = zone;
             zone = newZone;
         }
-
         public void Play(ITargetable target)
         {
             if (CardType == CardType.Creature)
@@ -84,13 +80,6 @@ namespace Gameplay
                 owner.graveyard.AddCard(this);
             }
 
-            if(CardType == CardType.Weapon)
-            {
-                owner.SetWeapon(this as Weapon);
-                transform.position = owner.GetTransform().position + new Vector3(-2, 0, 0);
-               //owner.graveyard.AddCard(this);
-            }
-
             OnPlay();
 
             EventManager.Instance.CreaturePlayed.Raise(
@@ -101,7 +90,6 @@ namespace Gameplay
                 });
             ExecuteOnPlayAction(target);
         }
-
         protected virtual void OnPlay() { }
         protected virtual void OnCardDestroyed() { }
         public bool IsInHand()=> zone.zoneType == ZoneType.Hand;

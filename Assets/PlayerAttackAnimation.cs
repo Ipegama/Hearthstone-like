@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+﻿ using DG.Tweening;
 using Gameplay;
 using Gameplay.Interfaces;
 using System.Collections;
@@ -19,7 +19,8 @@ namespace GameAnimations
 
         public override IEnumerator Execute()
         {
-            var tf = _source.transform;
+
+            var tf = _source.playerStats.heroPortrait.transform;
 
             tf.DOComplete();
             var defaultPosition = tf.position;

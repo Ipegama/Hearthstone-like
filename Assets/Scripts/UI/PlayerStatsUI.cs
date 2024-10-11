@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ namespace UI
     {
         public TMP_Text manaText;
         public Transform manaParent;
-
+        public GameObject heroPortrait;
         public TMP_Text healthText;
 
         public GameObject freezeObject;
@@ -35,5 +36,7 @@ namespace UI
         }
 
         public void SetFreeze(bool value) => freezeObject.SetActive(value);
+
+        
     }
 }

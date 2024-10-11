@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8318853429356714702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7176452241127376742}
+  - component: {fileID: 1470709464398705822}
+  m_Layer: 0
+  m_Name: WeaponSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7176452241127376742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318853429356714702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6789010153834752444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470709464398705822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318853429356714702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f31856a0c1845146a2dcca18e287332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardSize: 0
+  cardInterval: 0
+  zoneType: 4
 --- !u!1001 &5269890746411146299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 1222379197097563053, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+      propertyPath: heroPortrait
+      value: 
+      objectReference: {fileID: 4573033320116675999}
     - target: {fileID: 1663237242008860039, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -54,12 +105,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4255122953476533988, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.25
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4841474255038350893, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+      propertyPath: weaponSlot
+      value: 
+      objectReference: {fileID: 1470709464398705822}
+    - target: {fileID: 4894629504647873282, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+      propertyPath: startingDeckData
+      value: 
+      objectReference: {fileID: 11400000, guid: a73226b3d3cd80c4ca980cfa7610d4c7, type: 2}
     - target: {fileID: 5384816228127601326, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2
@@ -80,8 +139,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.4
       objectReference: {fileID: 0}
+    - target: {fileID: 8954268283869767080, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+      propertyPath: cardInterval
+      value: -0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1663237242008860039, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 7176452241127376742}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+--- !u!1 &4573033320116675999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8526655658372643236, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+  m_PrefabInstance: {fileID: 5269890746411146299}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6789010153834752444 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1663237242008860039, guid: e38a764ea3b633e4e8a6602357055bef, type: 3}
+  m_PrefabInstance: {fileID: 5269890746411146299}
+  m_PrefabAsset: {fileID: 0}

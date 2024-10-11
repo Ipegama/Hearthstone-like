@@ -694,26 +694,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Real
       objectReference: {fileID: 0}
-    - target: {fileID: 2691209524600793838, guid: d81d0686c0757144e8688744187d83e0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6119994770688571044, guid: d81d0686c0757144e8688744187d83e0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6729640266462691879, guid: d81d0686c0757144e8688744187d83e0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6753451792702424840, guid: d81d0686c0757144e8688744187d83e0, type: 3}
-      propertyPath: startingDeckData
-      value: 
-      objectReference: {fileID: 11400000, guid: a73226b3d3cd80c4ca980cfa7610d4c7, type: 2}
-    - target: {fileID: 7068347432378343842, guid: d81d0686c0757144e8688744187d83e0, type: 3}
-      propertyPath: cardInterval
-      value: -0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2048,14 +2028,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 778944805699493689, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
-      propertyPath: startingDeckData
-      value: 
-      objectReference: {fileID: 11400000, guid: a73226b3d3cd80c4ca980cfa7610d4c7, type: 2}
-    - target: {fileID: 3846525128560015763, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
-      propertyPath: cardInterval
-      value: -0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 5190783435073610673, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: m_Name
       value: Player Bot
@@ -2099,10 +2071,6 @@ PrefabInstance:
     - target: {fileID: 6789010153834752444, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8227885747183563487, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
