@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a88a993b66a06474185d856a5a400abf, type: 3}
-  m_Name: KJTrigger
+  m_Name: APTrigger
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 887b9dcc71b7bf5489d4deac1ec1c200, type: 2}
   conditions:
-  - {fileID: 11400000, guid: e4aefe40da4a8174d93583efa696d43c, type: 2}
+  - {fileID: 11400000, guid: ef9ae46b2dca857468be7ebc0effc1d6, type: 2}
   actions:
-  - {fileID: 11400000, guid: 94d648698b583434e852bd905166bf30, type: 2}
+  - {fileID: 11400000, guid: 791fe4b19f1ddf24db04534a65059ed4, type: 2}

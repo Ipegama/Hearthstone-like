@@ -20,4 +20,4 @@ MonoBehaviour:
     spell: 0
     ally: 1
     enemy: 0
-    excludeSelf: 0
+    excludeSelf: 1

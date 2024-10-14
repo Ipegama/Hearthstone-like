@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     private void StopTargetSelection()
     {
         SelectCard(null);
@@ -212,7 +211,6 @@ public class PlayerController : MonoBehaviour
         }
         StopTargetSelection();
     }
-
     private void UpdateArc()
     {
         if ((_selectedCard != null || _selectedHeroPower != null || _selectedPlayer != null) && ArcManager.Instance.IsArcVisible())
@@ -233,8 +231,6 @@ public class PlayerController : MonoBehaviour
             ArcManager.Instance.UpdateArcPositions(startPos, endPos);
         }
     }
-
-
     private void Highlight(IHighlightable entity)
     {
         if (_highlightedEntity == entity) return;

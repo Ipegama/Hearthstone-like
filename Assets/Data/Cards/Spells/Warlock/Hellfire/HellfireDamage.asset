@@ -22,3 +22,4 @@ MonoBehaviour:
     ally: 1
     enemy: 1
     excludeSelf: 0
+  usesSpellPower: 1

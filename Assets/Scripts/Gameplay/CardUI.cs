@@ -28,6 +28,7 @@ namespace Gameplay
 
         public GameObject freezeObject;
         public GameObject tauntObject;
+        public GameObject divineShieldObject;
 
         private Canvas _canvas;
         private Color _defaultBackgroundColor;
@@ -200,6 +201,7 @@ namespace Gameplay
 
         public void SetFreeze(bool value)=> freezeObject.SetActive(value);
         public void SetTaunt(bool value) => tauntObject.SetActive(value);
+        public void SetDivineShield(bool value) => divineShieldObject.SetActive(value);
         private void ResetDefaultScale()
         {
             _scaleTween?.Kill();

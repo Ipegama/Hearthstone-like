@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public int startingMana;
     public int startingHealth;
+    public int startingCards;
 
     public Player[] players;
     public PlayerController[] playerControllers;
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var player in players)
         {
-            for(var i = 0; i < 5; i++)
+            for(var i = 0; i < startingCards; i++)
             {
                 player.DrawCard();
             }

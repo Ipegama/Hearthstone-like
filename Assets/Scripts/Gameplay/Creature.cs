@@ -33,7 +33,6 @@ namespace Gameplay
             _attack = _creatureData.attack;
             _canAttack = false;
         }
-
         public void Attack(ITargetable target)
         {
             if (!_canAttack) return;
@@ -63,6 +62,14 @@ namespace Gameplay
         }
         public override void Damage(int amount, bool triggerEvent, ITargetable source)
         {
+            if (HasDivineShield())
+            {
+                var divineShieldBuff = _buffs.OfType<DivineShieldBuff>().FirstOrDefault();
+                RemoveBuff(divineShieldBuff);
+                SetDivineShield();
+                return;
+            }
+
             _health -= amount;
             Events.Creatures.Damaged?.Invoke(this, amount, _health, _maxHealth);
 
@@ -161,6 +168,18 @@ namespace Gameplay
             }
             UI.SetTaunt(false);
         }
+        public void SetDivineShield()
+        {
+            foreach (var buff in _buffs)
+            {
+                if (buff is DivineShieldBuff divineShield)
+                {
+                    UI.SetDivineShield(true);
+                    return;
+                }
+            }
+            UI.SetDivineShield(false);
+        }
         public void OnCreatureDeath()
         {
             EventManager.Instance.CreatureDeath.Raise(
@@ -203,6 +222,7 @@ namespace Gameplay
         }
         public int GetSpellpower()=> _buffs.OfType<SpellpowerBuff>().Sum(buff => buff.GetSpellpower());
         public bool HasTaunt()=> _buffs.Any(buff => buff is TauntBuff);
+        public bool HasDivineShield() => _buffs.Any(buff => buff is DivineShieldBuff);
         public void AddTrigger(GameTriggerData gameTriggerData)
         {
             var gameTrigger = new GameTrigger(gameTriggerData, this);

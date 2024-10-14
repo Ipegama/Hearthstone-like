@@ -418,9 +418,12 @@ namespace Gameplay
             if (weaponSlot.Cards.Count == 0) return false;
 
             Weapon weapon = weaponSlot.Cards[0] as Weapon;
-            bool weaponHasAttack = weapon != null && weapon.GetAttack() > 0;
-            return _canAttack && weaponHasAttack;
+            if (weapon == null) return false;
+            if (weapon.GetWeaponAttack() == 0) return false;
+            Debug.Log(_canAttack);
+            return _canAttack;
         }
+
         public TargetFilter GetTargetFilter()
         {
                 return new TargetFilter

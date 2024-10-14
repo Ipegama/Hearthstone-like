@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0572606cc4432614f9162e758093eefe, type: 3}
-  m_Name: EarthenRingFarseerAction
+  m_Script: {fileID: 11500000, guid: 4579cd0ddbb77044a8c9be3985ac765d, type: 3}
+  m_Name: TriggeringIsAllyCreatureExcludeSelf
   m_EditorClassIdentifier: 
-  projectileAction: {fileID: 11400000, guid: ade4cb76113a1784fb482cfb38c2ae22, type: 2}
-  amount: EventAmount * 1
-  type: 0
-  filter:
+  op: 0
+  cardType: 2
+  targetFilter:
     creature: 1
-    player: 1
+    player: 0
     spell: 0
     ally: 1
-    enemy: 1
+    enemy: 0
+    excludeSelf: 1

@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingMana: 100
   startingHealth: 30
+  startingCards: 10
   players:
   - {fileID: 869028145}
   - {fileID: 284206213}
@@ -694,6 +695,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Real
       objectReference: {fileID: 0}
+    - target: {fileID: 6753451792702424840, guid: d81d0686c0757144e8688744187d83e0, type: 3}
+      propertyPath: startingDeckData
+      value: 
+      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
+    - target: {fileID: 6753451792702424840, guid: d81d0686c0757144e8688744187d83e0, type: 3}
+      propertyPath: startingHeroPowerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 49934bff4b999bf459670acdbaf69338, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2028,6 +2037,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 778944805699493689, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: startingDeckData
+      value: 
+      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
+    - target: {fileID: 778944805699493689, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: startingHeroPowerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 49934bff4b999bf459670acdbaf69338, type: 2}
     - target: {fileID: 5190783435073610673, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: m_Name
       value: Player Bot

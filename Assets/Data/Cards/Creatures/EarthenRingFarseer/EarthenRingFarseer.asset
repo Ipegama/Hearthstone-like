@@ -21,8 +21,8 @@ MonoBehaviour:
     spell: 0
     ally: 0
     enemy: 0
-  playActions:
-  - {fileID: 11400000, guid: 1b9c74bc4388e3d4f8db830059ec7d75, type: 2}
+    excludeSelf: 0
+  playActions: []
   attack: 3
   maxHealth: 3
   triggers: []
