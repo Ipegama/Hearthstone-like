@@ -45,4 +45,9 @@ namespace TriggerSystem
             return creature || player || spell || ally || enemy;
         }
     }
+
+    public class TargetFilter2
+    {
+
+    }
 }
