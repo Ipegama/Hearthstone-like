@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TriggerSystem.Data.Conditions
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Card Condition/Card Team")]
     public class CardTeamConditionData : ConditionData
     {
         public TargetType cardType;

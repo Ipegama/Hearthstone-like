@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TriggerSystem.Data.Conditions
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName ="Card Condition/Card")]
     public class CardConditionData : ConditionData
     {
         public TargetType cardType1;

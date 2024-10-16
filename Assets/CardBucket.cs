@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Card Bucket",menuName = "New Card Bucket")]
+[CreateAssetMenu(menuName = "Bucket/Card Bucket")]
 public class CardBucket : ScriptableObject
 {
     public string BucketName;

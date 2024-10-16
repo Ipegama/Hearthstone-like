@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Data
 {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(menuName ="Bucket/Starting Deck")]
     public class StartingDeckData : ScriptableObject
     {
         public List<CardData> cards;

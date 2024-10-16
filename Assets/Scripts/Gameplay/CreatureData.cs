@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Data
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName ="CardData/Creature")]
     public class CreatureData : CardData
     {
         public int attack;

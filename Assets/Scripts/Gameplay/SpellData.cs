@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Gameplay.Data
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "CardData/Spell")]
     public class SpellData : CardData
     {
         public override Card Create(Player owner)
