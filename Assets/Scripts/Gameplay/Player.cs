@@ -15,7 +15,7 @@ using static Events;
 namespace Gameplay
 {
     [Serializable]
-    public class Player : MonoBehaviour, ITargetable, IBuffable
+    public class Player : MonoBehaviour, ITargetable, IBuffable, IPlayable
     {
         public StartingDeckData startingDeckData;
         public HeroPowerData startingHeroPowerData;
@@ -420,19 +420,24 @@ namespace Gameplay
             Weapon weapon = weaponSlot.Cards[0] as Weapon;
             if (weapon == null) return false;
             if (weapon.GetWeaponAttack() == 0) return false;
-            Debug.Log(_canAttack);
+
             return _canAttack;
         }
+        public void Select(bool value)
+        {
 
+        }
         public TargetFilter GetTargetFilter()
         {
-                return new TargetFilter
-                {
-                    enemy = true,
-                    creature = true,
-                    player = true,
-                    excludeSelf = true,
-                };
+            return new TargetFilter
+            {
+                enemy = true,
+                creature = true,
+                player = true,
+                excludeSelf = true,
+            };
         }
+        public bool CanBeUsed(Player player)=> this == player && CanAttack();
+        public void ExecuteAction(Player player, ITargetable target)=> player.DoAction(this, target);
     }
 }

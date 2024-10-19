@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public class Card : MonoBehaviour, IHighlightable, ITargetable, IBuffable
+    public class Card : MonoBehaviour, IHighlightable, ITargetable, IBuffable, IPlayable
     {
         public CardData CardData { get; protected set; }
         public CardType CardType { get; protected set; }
@@ -163,6 +163,8 @@ namespace Gameplay
             //totalCost += modifiers;
             //Events.Cards.ChangedCost?.Invoke(this, manaCost);
         }
-
+        public virtual void Select(bool value)=> UI.Select(value);
+        public virtual bool CanBeUsed(Player player)=> IsInHand() && owner == player;
+        public virtual void ExecuteAction(Player player, ITargetable target) => player.DoAction(this, target);
     }
 }

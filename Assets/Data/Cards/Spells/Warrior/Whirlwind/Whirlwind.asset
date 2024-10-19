@@ -9,15 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c5c5c46101f6d45a152ea1fabd5050, type: 3}
-  m_Name: SKApplyBuff
+  m_Script: {fileID: 11500000, guid: 52defd1749fd2e344ad0b41a2fae6ead, type: 3}
+  m_Name: Whirlwind
   m_EditorClassIdentifier: 
-  buffData: {fileID: 11400000, guid: 7d3ea414821dd094fa1dcaf12503414b, type: 2}
-  targetType: 5
-  filter:
+  cardName: Whirlwind
+  cardSprite: {fileID: 21300000, guid: 2749b4e9cbf5f5b4fb81a868e1933185, type: 3}
+  manaCost: 1
+  targetFilter:
     creature: 0
     player: 0
     spell: 0
     ally: 0
     enemy: 0
     excludeSelf: 0
+  playActions:
+  - {fileID: 11400000, guid: 77d31e0078b76874193a46e433cc37f6, type: 2}

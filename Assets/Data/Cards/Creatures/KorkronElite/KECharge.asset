@@ -9,15 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c5c5c46101f6d45a152ea1fabd5050, type: 3}
-  m_Name: SKApplyBuff
+  m_Script: {fileID: 11500000, guid: 673cca04549c71247a98f6526e35ef03, type: 3}
+  m_Name: KECharge
   m_EditorClassIdentifier: 
-  buffData: {fileID: 11400000, guid: 7d3ea414821dd094fa1dcaf12503414b, type: 2}
-  targetType: 5
-  filter:
-    creature: 0
-    player: 0
-    spell: 0
-    ally: 0
-    enemy: 0
-    excludeSelf: 0

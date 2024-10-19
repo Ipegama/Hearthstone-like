@@ -25,6 +25,8 @@ namespace GameAnimations
             tf.DOComplete();
             var defaultPosition = tf.position;
 
+            tf.DOMoveY(2f,.5f); 
+            yield return new WaitForSeconds(.5f);
             tf.DOMove(_target.GetTransform().position, .4f).SetEase(Ease.InBack);
             yield return new WaitForSeconds(0.4f);
             tf.DOMove(defaultPosition, .4f).SetEase(Ease.OutBack);

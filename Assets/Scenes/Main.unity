@@ -213,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingMana: 100
   startingHealth: 30
-  startingCards: 10
+  startingCards: 3
   players:
   - {fileID: 869028145}
   - {fileID: 284206213}
@@ -698,11 +698,7 @@ PrefabInstance:
     - target: {fileID: 6753451792702424840, guid: d81d0686c0757144e8688744187d83e0, type: 3}
       propertyPath: startingDeckData
       value: 
-      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
-    - target: {fileID: 6753451792702424840, guid: d81d0686c0757144e8688744187d83e0, type: 3}
-      propertyPath: startingHeroPowerData
-      value: 
-      objectReference: {fileID: 11400000, guid: 49934bff4b999bf459670acdbaf69338, type: 2}
+      objectReference: {fileID: 11400000, guid: 7593c50ad22247d41a27d4e656895b3c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2040,7 +2036,7 @@ PrefabInstance:
     - target: {fileID: 778944805699493689, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: startingDeckData
       value: 
-      objectReference: {fileID: 11400000, guid: a1c19861873f42844a380cd946a1676a, type: 2}
+      objectReference: {fileID: 11400000, guid: 7593c50ad22247d41a27d4e656895b3c, type: 2}
     - target: {fileID: 778944805699493689, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: startingHeroPowerData
       value: 
@@ -2048,6 +2044,58 @@ PrefabInstance:
     - target: {fileID: 5190783435073610673, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: m_Name
       value: Player Bot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492814125209236351, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492814125209236351, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492814125209236351, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492814125209236351, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492814125209236351, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492814125209236351, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492814125209236351, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620332708905054902, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620332708905054902, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620332708905054902, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620332708905054902, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620332708905054902, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5620332708905054902, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6789010153834752444, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2211,7 +2259,7 @@ SceneRoots:
   - {fileID: 1955678723}
   - {fileID: 375261764}
   - {fileID: 2044514305}
+  - {fileID: 201160082}
   - {fileID: 51180926}
   - {fileID: 2015746227}
   - {fileID: 1324535148}
-  - {fileID: 201160082}

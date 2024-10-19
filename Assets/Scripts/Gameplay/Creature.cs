@@ -18,6 +18,8 @@ namespace Gameplay
         private int _attack;
         private bool _canAttack;
         private bool _isFrozen;
+        public bool HasAttackedThisTurn => _hasAttackedThisTurn;
+        private bool _hasAttackedThisTurn;
 
         private List<GameTrigger> _gameTriggers = new List<GameTrigger>();
 
@@ -39,6 +41,8 @@ namespace Gameplay
             if (_attack <= 0) return;
 
             _canAttack = false;
+            _hasAttackedThisTurn = true;
+
             Events.Creatures.Attack?.Invoke(this, target);
 
             target.Damage(_attack, false, this);
@@ -215,6 +219,7 @@ namespace Gameplay
         }
         public override void TurnStarted()
         {
+            _hasAttackedThisTurn = false;
             if (_isFrozen) _isFrozen = false;
             else _canAttack = true;
 
@@ -237,6 +242,10 @@ namespace Gameplay
                 triggerToRemove.gameEvent.RemoveTrigger(triggerToRemove);
                 _gameTriggers.Remove(triggerToRemove);
             }
+        }
+        public void SetCanAttack(bool value)
+        {
+            _canAttack = value;
         }
     }
 }

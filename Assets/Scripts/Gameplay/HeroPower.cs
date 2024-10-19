@@ -5,7 +5,7 @@ using TriggerSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroPower : MonoBehaviour, IHighlightable 
+public class HeroPower : MonoBehaviour, IHighlightable, IPlayable
 {
     public HeroPowerData Data { get; protected set; }
 
@@ -41,11 +41,7 @@ public class HeroPower : MonoBehaviour, IHighlightable
         }
     }
 
-    public bool CanBeUsed()
-    {
-        return true; 
-    }
-
+    public bool CanBeUsed() => true;
     public void Highlight(bool value)
     {
         if (value)
@@ -58,10 +54,15 @@ public class HeroPower : MonoBehaviour, IHighlightable
         }
     }
 
-    public bool CanBeHighlighted(Player controllerPlayer, Card selectedCard)
-    {
-        return owner == controllerPlayer && CanBeUsed();
-    }
-
+    public bool CanBeHighlighted(Player controllerPlayer, Card selectedCard)=> owner == controllerPlayer && CanBeUsed();
     public Card GetCard() => null;
+    public TargetFilter GetTargetFilter()=> Data.targetFilter;
+    public Transform GetTransform() => transform;
+
+    public bool CanBeUsed(Player player)=> owner == player && CanBeUsed();
+    public void ExecuteAction(Player player, ITargetable target)=> player.DoAction(this, target);
+
+    public void Select(bool value)
+    {
+    }
 }

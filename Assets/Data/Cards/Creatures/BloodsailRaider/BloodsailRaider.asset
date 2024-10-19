@@ -9,15 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c5c5c46101f6d45a152ea1fabd5050, type: 3}
-  m_Name: SKApplyBuff
+  m_Script: {fileID: 11500000, guid: a6dcddbe653f9004590c880bbea8c452, type: 3}
+  m_Name: BloodsailRaider
   m_EditorClassIdentifier: 
-  buffData: {fileID: 11400000, guid: 7d3ea414821dd094fa1dcaf12503414b, type: 2}
-  targetType: 5
-  filter:
+  cardName: Bloodsail Raider
+  cardSprite: {fileID: 21300000, guid: 2ff140178c0ffb0418463e1fae9d76c2, type: 3}
+  manaCost: 2
+  targetFilter:
     creature: 0
     player: 0
     spell: 0
     ally: 0
     enemy: 0
     excludeSelf: 0
+  playActions:
+  - {fileID: 11400000, guid: 47f9dd7747537d8439970bb7c2532c1e, type: 2}
+  attack: 2
+  maxHealth: 3
+  triggers: []
