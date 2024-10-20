@@ -2,19 +2,9 @@ using UnityEngine;
 
 public static class SelectionManager
 {
-    private static Camera _camera;
-    public static Camera Camera
-    {
-        get
-        {
-            if (_camera == null) _camera = Camera.main;
-            return _camera;
-        }
-    }
-
     public static T GetObjectAtCursor<T>()
     {
-        var ray = Camera.ScreenPointToRay(Input.mousePosition);
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         var hits = Physics.RaycastAll(ray);
         foreach (var hit in hits)
         {

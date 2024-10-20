@@ -4,7 +4,8 @@ using Gameplay.Data;
 using Gameplay.Interfaces;
 using TriggerSystem;
 using TriggerSystem.Data;
-
+using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Gameplay
 {
@@ -20,6 +21,7 @@ namespace Gameplay
         private bool _isFrozen;
         public bool HasAttackedThisTurn => _hasAttackedThisTurn;
         private bool _hasAttackedThisTurn;
+
 
         private List<GameTrigger> _gameTriggers = new List<GameTrigger>();
 
@@ -247,5 +249,18 @@ namespace Gameplay
         {
             _canAttack = value;
         }
-    }
+        public override void Select(bool value) { }
+        public override TargetFilter GetTargetFilter()
+        {
+            return new TargetFilter
+            {
+                enemy = true,
+                creature = true,
+                player = true,
+                excludeSelf = true,
+            };
+        }
+        public override bool CanBeUsed(Player player) => true;
+        public override void ExecuteAction(Player player, ITargetable target)=> player.DoAction(this, target);
+        }
 }

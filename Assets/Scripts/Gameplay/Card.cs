@@ -94,7 +94,7 @@ namespace Gameplay
         protected virtual void OnCardDestroyed() { }
         public bool IsInHand()=> zone.zoneType == ZoneType.Hand;
         public bool IsOnBoard()=> zone.zoneType == ZoneType.Board;
-        public TargetFilter GetTargetFilter()
+        public virtual TargetFilter GetTargetFilter()
         {
             if (IsCreature() && IsOnBoard())
             {

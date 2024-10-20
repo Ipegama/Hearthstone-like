@@ -9,13 +9,13 @@ namespace TriggerSystem
 
         public override void OnApply(IBuffable entity)
         {
-            if(entity is Creature creature)
+            /*if(entity is Creature creature)
             {
                 if (!creature.HasAttackedThisTurn)
                 {
                     creature.SetCanAttack(true);
                 }
-            }
+            }*/
         }
 
         public override void OnRemove(IBuffable entity)
