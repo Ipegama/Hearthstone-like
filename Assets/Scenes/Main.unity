@@ -2040,7 +2040,7 @@ PrefabInstance:
     - target: {fileID: 778944805699493689, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: startingHeroPowerData
       value: 
-      objectReference: {fileID: 11400000, guid: 49934bff4b999bf459670acdbaf69338, type: 2}
+      objectReference: {fileID: 11400000, guid: 13f5252e94f255644875b79c92a4037e, type: 2}
     - target: {fileID: 5190783435073610673, guid: 56b045bb635cde645a07d6177ccb5b75, type: 3}
       propertyPath: m_Name
       value: Player Bot

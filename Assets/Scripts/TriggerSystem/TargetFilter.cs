@@ -46,8 +46,4 @@ namespace TriggerSystem
         }
     }
 
-    public class TargetFilter2
-    {
-
-    }
 }

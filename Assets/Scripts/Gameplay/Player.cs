@@ -10,22 +10,21 @@ using System.Linq;
 using TriggerSystem;
 using UI;
 using UnityEngine;
-using static Events;
 
 namespace Gameplay
 {
     [Serializable]
-    public class Player : MonoBehaviour, ITargetable, IBuffable, IPlayable
+    public class Player : MonoBehaviour, ITargetable, IBuffable
     {
         public StartingDeckData startingDeckData;
         public HeroPowerData startingHeroPowerData;
-      
+
         [SerializeField] public HeroPower heroPower;
         [SerializeField] public Zone deck;
         [SerializeField] public Zone hand;
         [SerializeField] public Zone graveyard;
         [SerializeField] public Zone board;
-        [SerializeField] public Zone weaponSlot; 
+        [SerializeField] public Zone weaponSlot;
         public PlayerStatsUI playerStats;
 
         public event Action<int, int> ManaChanged;
@@ -84,7 +83,7 @@ namespace Gameplay
         }
         private void InitializeDeck()
         {
-            foreach(var cardData in startingDeckData.GetCards())
+            foreach (var cardData in startingDeckData.GetCards())
             {
                 var card = cardData.Create(this);
                 deck.AddCard(card);
@@ -101,7 +100,7 @@ namespace Gameplay
         }
         private void OnResolve()
         {
-            foreach(Creature creature in board.GetCreatures())
+            foreach (Creature creature in board.GetCreatures())
             {
                 if (creature.IsDead())
                 {
@@ -111,7 +110,7 @@ namespace Gameplay
         }
         private void OnCreatureDeath(Creature creature)
         {
-            if(creature.owner == this)
+            if (creature.owner == this)
             {
                 creature.OnCreatureDeath();
                 graveyard.AddCard(creature);
@@ -121,11 +120,11 @@ namespace Gameplay
         {
             var card = deck.GetFirstCard();
 
-            if(card != null)
+            if (card != null)
             {
                 hand.AddCard(card);
 
-                Events.Cards.Drawn?.Invoke(this,card);
+                Events.Cards.Drawn?.Invoke(this, card);
 
                 EventManager.Instance.CardDrawn.Raise(
                     new ActionContext
@@ -188,7 +187,7 @@ namespace Gameplay
         public Card GetRandomLivingCreature()
         {
             var livingCreature = new List<Creature>();
-            foreach(var card in board.GetCreatures())
+            foreach (var card in board.GetCreatures())
             {
                 if (!card.IsDead())
                 {
@@ -230,7 +229,7 @@ namespace Gameplay
         }
         public void DoAction(Card card, Zone zone)
         {
-            if(card.IsInHand() && zone.zoneType == ZoneType.Board)
+            if (card.IsInHand() && zone.zoneType == ZoneType.Board)
             {
                 PlayCard(card);
             }
@@ -242,7 +241,9 @@ namespace Gameplay
             var cost = heroPower.Data.manaCost;
             if (_mana < cost) return;
             _mana -= cost;
+
             Events.Players.ManaChanged?.Invoke(this, cost, _mana, _maximumMana);
+
             playerStats.UpdateManaText(_mana, _maximumMana);
             playerStats.AnimateManaChange();
 
@@ -254,15 +255,15 @@ namespace Gameplay
             AnimationsQueue.Instance.EndQueue();
         }
         public bool CanBeTargeted() => true;
-        public bool IsCreature()=> false;
-        public bool IsSpell()=> false;
-        public bool IsWeapon()=> false;
-        public bool IsPlayer()=>true;
+        public bool IsCreature() => false;
+        public bool IsSpell() => false;
+        public bool IsWeapon() => false;
+        public bool IsPlayer() => true;
         public Player GetOwner() => this;
         public Transform GetTransform() => playerStats.transform;
-        public void Damage(int amount,bool triggerEvent, ITargetable source)
+        public void Damage(int amount, bool triggerEvent, ITargetable source)
         {
-            _health-=amount;
+            _health -= amount;
             Events.Creatures.Damaged?.Invoke(this, amount, _health, _maxHealth);
 
             if (triggerEvent)
@@ -276,14 +277,14 @@ namespace Gameplay
                 });
             }
         }
-        public void Heal(int amount,bool triggerEvent)
+        public void Heal(int amount, bool triggerEvent)
         {
             if (_health + amount > _maxHealth)
             {
-                amount= _maxHealth-_health;
+                amount = _maxHealth - _health;
             }
-            _health+=amount;
-            Events.Creatures.Healed?.Invoke(this,amount, _health, _maxHealth);
+            _health += amount;
+            Events.Creatures.Healed?.Invoke(this, amount, _health, _maxHealth);
 
             if (triggerEvent)
             {
@@ -294,27 +295,27 @@ namespace Gameplay
               });
             }
         }
-        public void SetHealth(int health,int maxHealth)=> playerStats.SetHealth(health, maxHealth);
+        public void SetHealth(int health, int maxHealth) => playerStats.SetHealth(health, maxHealth);
         public int GetAttack() => 0;
         public Player GetPlayer() => this;
         public void AnimateDamage(Vector3 scale, float duration)
         {
             var tf = GetTransform();
             tf.DOComplete();
-            tf.DOPunchScale(scale,duration);
+            tf.DOPunchScale(scale, duration);
         }
         public void Kill() { }
         public bool IsDead() => _health <= 0;
-        public List<ITargetable> GetAllTargets(Card card,TargetFilter filter)
+        public List<ITargetable> GetAllTargets(Card card, TargetFilter filter)
         {
             var result = new List<ITargetable>();
 
-            if (filter.Match(card, this) && !IsDead()) 
+            if (filter.Match(card, this) && !IsDead())
             {
                 result.Add(this);
             }
 
-            foreach(var creature in board.GetCreatures())
+            foreach (var creature in board.GetCreatures())
             {
                 if (filter.Match(card, creature) && !creature.IsDead())
                 {
@@ -328,13 +329,13 @@ namespace Gameplay
             if (currentMana > 0)
             {
                 _mana += currentMana;
-                Events.Players.ManaChanged?.Invoke(this,currentMana,_mana,_maximumMana);
+                Events.Players.ManaChanged?.Invoke(this, currentMana, _mana, _maximumMana);
             }
 
-            if(maximumMana > 0)
+            if (maximumMana > 0)
             {
                 _maximumMana += maximumMana;
-                Events.Players.MaxManaChanged?.Invoke(this,currentMana, _mana,_maximumMana);
+                Events.Players.MaxManaChanged?.Invoke(this, currentMana, _mana, _maximumMana);
             }
         }
         public void Freeze()
@@ -351,12 +352,12 @@ namespace Gameplay
                 .Sum(c => c.GetSpellpower());
         }
         public bool HasTaunt() => _buffs.Any(buff => buff is TauntBuff);
-        public  void AddBuff(Buff buff)
+        public void AddBuff(Buff buff)
         {
             _buffs.Add(buff);
             buff.OnApply(this);
         }
-        public  void RemoveBuff(Buff buff)
+        public void RemoveBuff(Buff buff)
         {
             _buffs.Remove(buff);
             buff.OnRemove(this);
@@ -423,10 +424,6 @@ namespace Gameplay
 
             return _canAttack;
         }
-        public void Select(bool value)
-        {
-
-        }
         public TargetFilter GetTargetFilter()
         {
             return new TargetFilter
@@ -437,7 +434,5 @@ namespace Gameplay
                 excludeSelf = true,
             };
         }
-        public bool CanBeUsed(Player player)=> this == player && CanAttack();
-        public void ExecuteAction(Player player, ITargetable target)=> player.DoAction(this, target);
     }
 }

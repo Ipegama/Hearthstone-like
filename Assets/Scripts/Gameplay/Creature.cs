@@ -5,7 +5,6 @@ using Gameplay.Interfaces;
 using TriggerSystem;
 using TriggerSystem.Data;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Gameplay
 {
@@ -19,9 +18,6 @@ namespace Gameplay
         private int _attack;
         private bool _canAttack;
         private bool _isFrozen;
-        public bool HasAttackedThisTurn => _hasAttackedThisTurn;
-        private bool _hasAttackedThisTurn;
-
 
         private List<GameTrigger> _gameTriggers = new List<GameTrigger>();
 
@@ -43,7 +39,6 @@ namespace Gameplay
             if (_attack <= 0) return;
 
             _canAttack = false;
-            _hasAttackedThisTurn = true;
 
             Events.Creatures.Attack?.Invoke(this, target);
 
@@ -221,7 +216,6 @@ namespace Gameplay
         }
         public override void TurnStarted()
         {
-            _hasAttackedThisTurn = false;
             if (_isFrozen) _isFrozen = false;
             else _canAttack = true;
 
@@ -249,7 +243,6 @@ namespace Gameplay
         {
             _canAttack = value;
         }
-        public override void Select(bool value) { }
         public override TargetFilter GetTargetFilter()
         {
             return new TargetFilter
@@ -260,7 +253,5 @@ namespace Gameplay
                 excludeSelf = true,
             };
         }
-        public override bool CanBeUsed(Player player) => true;
-        public override void ExecuteAction(Player player, ITargetable target)=> player.DoAction(this, target);
-        }
+    }
 }
