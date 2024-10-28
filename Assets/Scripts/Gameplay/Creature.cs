@@ -40,6 +40,12 @@ namespace Gameplay
 
             _canAttack = false;
 
+            if (_creatureData.cardSounds.Count > 0)
+            {
+                SoundManager.instance.PlaySoundClip(_creatureData.cardSounds[1]);
+            }
+
+
             Events.Creatures.Attack?.Invoke(this, target);
 
             target.Damage(_attack, false, this);
@@ -126,6 +132,10 @@ namespace Gameplay
         }
         protected override void OnPlay()
         {
+            if (_creatureData.cardSounds.Count > 0)
+            {
+                SoundManager.instance.PlaySoundClip(_creatureData.cardSounds[0]);
+            }
             RegisterTriggers();
         }
         protected override void OnCardDestroyed()
@@ -183,6 +193,11 @@ namespace Gameplay
         }
         public void OnCreatureDeath()
         {
+            if (_creatureData.cardSounds.Count > 0)
+            {
+                SoundManager.instance.PlaySoundClip(_creatureData.cardSounds[2]);
+            }
+
             EventManager.Instance.CreatureDeath.Raise(
                 new ActionContext
                 {

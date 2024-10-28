@@ -24,6 +24,10 @@ MonoBehaviour:
     excludeSelf: 0
   playActions:
   - {fileID: 11400000, guid: 47f9dd7747537d8439970bb7c2532c1e, type: 2}
+  cardSounds:
+  - {fileID: 8300000, guid: 68aa2040b6eed0d4bbbc5156376cf246, type: 3}
+  - {fileID: 8300000, guid: fcc7e5fe32e160b478d4becc89907722, type: 3}
+  - {fileID: 8300000, guid: 6733fa0471a30a0428073e304d3c5895, type: 3}
   attack: 2
   maxHealth: 3
   triggers: []

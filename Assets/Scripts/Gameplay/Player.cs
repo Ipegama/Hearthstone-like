@@ -39,6 +39,8 @@ namespace Gameplay
 
         private List<Buff> _buffs = new List<Buff>();
 
+        public AudioClip attackSound;
+
         public void Initialize(int startingMana, int health)
         {
             deck.Initialize(this);

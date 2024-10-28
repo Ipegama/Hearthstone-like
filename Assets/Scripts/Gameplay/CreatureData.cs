@@ -1,4 +1,5 @@
-﻿using TriggerSystem.Data;
+﻿using System.Collections.Generic;
+using TriggerSystem.Data;
 using UnityEngine;
 
 namespace Gameplay.Data
@@ -10,7 +11,6 @@ namespace Gameplay.Data
         public int maxHealth;
 
         public GameTriggerData[] triggers;
-
         public override Card Create(Player owner)
         {
             var card = Instantiate(CardPrefab);

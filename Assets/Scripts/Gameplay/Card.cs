@@ -17,7 +17,7 @@ namespace Gameplay
         [HideInInspector] public Player owner;
         [HideInInspector] public Zone zone;
 
-        protected List<Buff> _buffs = new List<Buff>();
+        protected List<Buff> _buffs = new();
         protected bool _isDead;
         public bool HasPlayedSpecialAnimation { get; set; } = false;
 

@@ -1,0 +1,20 @@
+#ToDo
+--------------------------------------------------------------
+Sound
+Card drawn show animation
+Dragging animation shows legal targets
+Dragging animation turns off for targetless hero power
+Time based animations, instead of distance base
+Card description
+Card trigger icon works only with selected triggers
+Playing card drag card, instead of creating arc
+Creature dying animation
+End turn button
+Creature portrait on board
+Right shape of hero portrait
+--------------------------------------------------------------
+
+#Done
+--------------------------------------------------------------
+
+--------------------------------------------------------------

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TriggerSystem.Data;
 using TriggerSystem;
+using System.Collections.Generic;
 
 namespace Gameplay.Data
 {
@@ -14,6 +15,8 @@ namespace Gameplay.Data
         public TargetFilter targetFilter;
 
         public ActionData[] playActions;
+
+        public List<AudioClip> cardSounds;
 
         private CardUI _cardPrefab;
         public CardUI CardPrefab
